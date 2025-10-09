@@ -18,7 +18,8 @@
     "lint:lint-staged": "lint-staged",
     "format": "prettier --write src/",
     "commit": "git-cz",
-    "prepare": "husky"
+    "prepare": "husky",
+    "g": "git add . && pnpm run commit"
   },
   "config": {
     "commitizen": {
