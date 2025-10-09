@@ -17,7 +17,7 @@
     "lint": "run-s lint:*",
     "format": "prettier --write src/",
     "prepare": "husky",
-    "cz": "git-cz"
+    "commit": "git-cz"
   },
   "config": {
     "commitizen": {

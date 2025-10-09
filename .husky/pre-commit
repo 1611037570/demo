@@ -1,1 +1,1 @@
-pnpm test
+npx husky add .husky/pre-commit 'echo "❌ 禁止手动提交，请使用 npm run commit 代替" && exit 1'
