@@ -15,9 +15,10 @@
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
+    "lint:lint-staged": "lint-staged",
     "format": "prettier --write src/",
-    "prepare": "husky",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "prepare": "husky"
   },
   "config": {
     "commitizen": {

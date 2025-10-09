@@ -1,8 +1,1 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-# 核心逻辑：拦截所有直接执行的 `git commit` 命令
-if [ -z "$HUSKY_BYPASS" ] && ! [[ "$*" =~ cz ]]; then
-  echo "❌ 禁止手动提交，请使用 npm run commit 代替"
-  exit 1
-fi
+npm run lint:lint-staged

@@ -1,4 +1,4 @@
 export default {
-  '**/*.{html,vue,ts,cjs,json,md}': ['prettier --write'],
-  '**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}': ['oxlint --fix && eslint --fix'],
+  '**/*.{cjs,json,md}': ['prettier --write'],
+  '**/*.{html,vue,ts,js,jsx,tsx}': ['oxlint --fix', 'eslint --fix', 'prettier --write'],
 }
