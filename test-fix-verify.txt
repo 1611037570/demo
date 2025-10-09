@@ -1,1 +1,0 @@
-This file is used to verify that git commit works properly after fixing the husky and lint-staged configurations in Windows environment.

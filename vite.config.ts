@@ -21,6 +21,8 @@ import vconsole from 'vite-plugin-vconsole'
 import ViteRestart from 'vite-plugin-restart'
 // 自定义组件解析器
 import { CustomComponentResolver } from './src/components/components-resolver'
+// Tailwind CSS插件
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) =>
@@ -31,6 +33,8 @@ export default ({ mode }: { mode: string }) =>
       vue(),
       // Vue DevTools调试
       vueDevTools(),
+      // Tailwind CSS插件配置
+      tailwindcss(),
       // 自动导入配置
       AutoImport({
         // Element Plus解析器
@@ -47,7 +51,7 @@ export default ({ mode }: { mode: string }) =>
         // 类型声明文件路径
         dts: 'src/types/components.d.ts',
         // 要搜索组件的目录
-          dirs: ['src/components'],
+        dirs: ['src/components'],
         // 要处理的组件文件扩展名
         extensions: ['vue'],
         // 是否深度搜索子目录
