@@ -18,8 +18,8 @@
 
 <script setup>
 import { inject, onMounted } from 'vue'
-import FormItem from './form-item.vue'
 import { getComponent } from '../components'
+import FormItem from './formItem.vue'
 
 const { config } = defineProps({
   index: {
@@ -32,9 +32,15 @@ const { config } = defineProps({
 const dataProxy = inject('dataProxy')
 
 const component = getComponent(config.component)
-const moveUp = (index) => {}
-const moveDown = (index) => {}
-const remove = (index) => {}
+const moveUp = (index) => {
+  console.log('moveUp', index)
+}
+const moveDown = (index) => {
+  console.log('moveDown', index)
+}
+const remove = (index) => {
+  console.log('remove', index)
+}
 onMounted(() => {})
 </script>
 

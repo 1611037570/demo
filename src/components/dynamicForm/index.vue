@@ -19,12 +19,12 @@
 </template>
 <script setup>
 import { ref, provide, onMounted } from 'vue'
-import ContainerObject from './base/container-object.vue'
-import ContainerArray from './base/container-array.vue'
+import ContainerObject from './base/containerObject.vue'
+import ContainerArray from './base/containerArray.vue'
 import Sortable from './base/sortable.vue'
 
-import DataProxy from './code/data-proxy'
-import useConfigProxy from './code/use-config-proxy'
+import DataProxy from './code/dataProxy'
+import useConfigProxy from './code/useConfigProxy'
 import { DEFAULT_CONFIG, DEFAULT_DATA } from './config'
 // const instance = getCurrentInstance
 // console.log('instance', getCurrentInstance)

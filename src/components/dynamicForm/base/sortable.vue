@@ -1,6 +1,6 @@
 <script setup>
 // import Sortable from 'sortablejs'
-import { ref, onMounted, nextTick, useTemplateRef } from 'vue'
+import { nextTick, onMounted, useTemplateRef } from 'vue'
 
 const props = defineProps({
   handle: {
@@ -41,7 +41,7 @@ const initSortable = () => {
 // 组件挂载后初始化拖拽实例
 onMounted(async () => {
   await nextTick(() => {})
-  props.sortable && initSortable()
+  initSortable()
 })
 </script>
 

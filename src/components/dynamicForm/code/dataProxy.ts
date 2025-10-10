@@ -50,7 +50,7 @@ class DataProxy<T> {
     const keysLength = keys.length
     let current: any = this.data
     for (let i = 0; i < keysLength; i++) {
-      const key = keys[i]
+      const key: any = keys[i]
 
       // 最后一个键
       if (i === keysLength - 1) {

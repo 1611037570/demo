@@ -3,6 +3,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 // Vue 3 插件
 import vue from '@vitejs/plugin-vue'
+// HTML处理插件（用于动态标题等）
+import { createHtmlPlugin } from 'vite-plugin-html'
 // Vue DevTools 调试工具
 import vueDevTools from 'vite-plugin-vue-devtools'
 // 自动导入工具
@@ -20,7 +22,7 @@ import vconsole from 'vite-plugin-vconsole'
 // 开发服务器自动重启工具
 import ViteRestart from 'vite-plugin-restart'
 // 自定义组件解析器
-import { CustomComponentResolver } from './src/components/components-resolver'
+import { CustomComponentResolver } from './src/components/componentsResolver'
 // Tailwind CSS插件
 import tailwindcss from '@tailwindcss/vite'
 
@@ -35,6 +37,16 @@ export default ({ mode }: { mode: string }) =>
       vueDevTools(),
       // Tailwind CSS插件配置
       tailwindcss(),
+      // HTML插件配置
+      createHtmlPlugin({
+        minify: true,
+        // inject: {
+        //   data: {
+        //     // 从环境变量中读取标题配置
+        //     title: process.env.VITE_APP_TITLE,
+        //   },
+        // },
+      }),
       // 自动导入配置
       AutoImport({
         // Element Plus解析器
@@ -42,7 +54,7 @@ export default ({ mode }: { mode: string }) =>
         // 自动导入模块
         imports: ['vue', 'vue-router', '@vueuse/core'],
         // 类型声明文件路径
-        dts: 'src/types/auto-imports.d.ts',
+        dts: 'src/types/autoImports.d.ts',
       }),
       // 组件自动注册配置
       Components({
@@ -61,7 +73,7 @@ export default ({ mode }: { mode: string }) =>
       vconsole({
         // 入口文件
         entry: 'src/main.ts',
-        enabled: process.env.NODE_ENV === 'development',
+        enabled: mode === 'development',
       }),
       ViteRestart({
         // 监听这些文件的变化，触发服务器重启
@@ -73,6 +85,8 @@ export default ({ mode }: { mode: string }) =>
       alias: {
         // @别名指向src目录
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        // 组件目录别名
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       },
     },
     // 开发服务器配置

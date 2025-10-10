@@ -10,7 +10,7 @@
 
 <script setup>
 import { inject, onMounted } from 'vue'
-import FormItem from './form-item.vue'
+import FormItem from './formItem.vue'
 import { getComponent } from '../components'
 
 const { config } = defineProps({
