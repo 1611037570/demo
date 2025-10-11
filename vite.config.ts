@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 // Vue 3 插件
 import vue from '@vitejs/plugin-vue'
-// HTML处理插件（用于动态标题等）
+// HTML处理插件
 import { createHtmlPlugin } from 'vite-plugin-html'
 // Vue DevTools 调试工具
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -87,6 +87,8 @@ export default ({ mode }: { mode: string }) =>
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         // 组件目录别名
         '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+        // 视图目录别名
+        '@views': fileURLToPath(new URL('./src/views', import.meta.url)),
       },
     },
     // 开发服务器配置
@@ -129,10 +131,38 @@ export default ({ mode }: { mode: string }) =>
         output: {
           experimentalMinChunkSize: 10 * 1024,
           manualChunks: (id: string) => {
-            // 让每个插件都打包成独立的文件
+            // 优化打包分割策略
             if (id.includes('node_modules')) {
-              // 让每个插件都打包成独立的文件
-              return id.toString().split('node_modules/')[1].split('/')[0].toString()
+              // 基础库单独打包
+              if (
+                id.includes('vue') ||
+                id.includes('@vue') ||
+                id.includes('pinia') ||
+                id.includes('vue-router')
+              ) {
+                return 'vendor.vue'
+              }
+              // Element Plus 组件库单独打包
+              else if (id.includes('element-plus')) {
+                return 'vendor.element-plus'
+              }
+              // VueUse 工具库单独打包
+              else if (id.includes('@vueuse')) {
+                return 'vendor.vueuse'
+              }
+              // 图标相关库单独打包
+              else if (id.includes('@iconify')) {
+                return 'vendor.iconify'
+              }
+              // 其他第三方库按照类别分组
+              const chunk = id.toString().split('node_modules/')[1].split('/')[0].toString()
+              // 对于大型第三方库，仍然保持独立打包
+              const largePackages = ['echarts', 'xlsx', 'pdfmake', 'marked']
+              if (largePackages.includes(chunk)) {
+                return `vendor.${chunk}`
+              }
+              // 对于小型库，可以考虑合并打包以减少HTTP请求
+              return 'vendor.commons'
             }
           },
         },

@@ -4,7 +4,6 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 <template>
   <ElConfigProvider :locale="zhCn">
-    <!-- <router-view /> -->
-    <sf-dynamic-form />
+    <router-view />
   </ElConfigProvider>
 </template>
