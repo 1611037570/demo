@@ -20,7 +20,7 @@
             >我是超级链接</a
           >
         </div>
-        <sf-dynamic-form />
+        <dynamic-form />
       </div>
     </div>
   </div>

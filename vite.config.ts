@@ -24,7 +24,7 @@ import ViteRestart from 'vite-plugin-restart'
 // 自定义组件解析器
 // Tailwind CSS插件
 import tailwindcss from '@tailwindcss/vite'
-
+import { SnowFlakeComponentResolver } from './src/components/componentsResolver'
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) =>
   defineConfig({
@@ -57,29 +57,13 @@ export default ({ mode }: { mode: string }) =>
       }),
       // 组件自动注册配置
       Components({
-        // Element Plus解析器
-        resolvers: [
-          ElementPlusResolver(),
-          (componentName: string) => {
-            if (componentName && componentName.startsWith('Sf')) {
-              // 移除sf前缀获取实际组件名
-              const name = componentName.slice(2).toLowerCase()
-              const path = `@components/${name}/index.vue`
-              return {
-                name,
-                path,
-                // from: '@components',
-              }
-            }
-          },
-        ],
-
+        resolvers: [ElementPlusResolver(), SnowFlakeComponentResolver()],
         // 类型声明文件路径
         dts: 'src/types/components.d.ts',
         // 要搜索组件的目录
         dirs: ['src/components'],
         // 要处理的组件文件扩展名
-        extensions: ['vue'],
+        extensions: ['.vue'],
         // 是否深度搜索子目录
         deep: false,
       }),

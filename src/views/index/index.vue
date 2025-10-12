@@ -1,6 +1,6 @@
 <template>
   <background></background>
-  <div class="flex flex-col w-full h-full">
+  <div class="flex flex-col w-full h-full fixed">
     <div class="flex-1">
       <search></search>
       <box></box>

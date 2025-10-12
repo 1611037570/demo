@@ -1,21 +1,16 @@
 // 自定义组件解析器
 import type { ComponentResolver } from 'unplugin-vue-components'
-/**
- * 自定义组件解析器
- * 用于解析带有sf前缀的组件
- * @returns ComponentResolver 符合unplugin-vue-components要求的解析器函数
- */
+
 export const SnowFlakeComponentResolver = (): ComponentResolver => {
   return (componentName: string) => {
-    // 支持sf前缀的组件名称，如sf
     if (componentName.startsWith('Sf')) {
-      // 移除sf前缀获取实际组件名
-      const actualComponentName = componentName.slice(2).toLowerCase()
-      console.log('actualComponentName', actualComponentName)
+      const name = componentName
+      const path = `@components/${name.slice(2).toLowerCase()}/index.vue`
       return {
-        importName: 'default',
-        path: `@components/${actualComponentName}/index.vue`,
-        from: 'snowflake',
+        // importName: name,
+        path,
+        name,
+        from: path,
       }
     }
   }

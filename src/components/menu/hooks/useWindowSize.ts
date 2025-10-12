@@ -1,6 +1,6 @@
 import { onUnmounted, ref } from 'vue'
 
-const useWindowSize = (cb: any) => {
+const useWindowSize = (cb?: any) => {
   const windowWidth = ref(0)
   const windowHeight = ref(0)
 

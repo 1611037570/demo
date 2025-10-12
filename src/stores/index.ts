@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { default_data, list } from './index.data'
 type OpenMode = '_blank' | '_self'
-console.log('generateUUID', generateUUID())
 
 export const useIndexStore = defineStore(
   'index',

@@ -4,11 +4,11 @@
       class="relative p-6 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-gray-700 hover:text-blue-400"
     >
       <!-- 引言引号图标 -->
-      <div class="absolute top-2 left-2 opacity-20 text-4xl text-blue-400">
-        <sf-icon icon="fluent:quote-left" />
-      </div>
+      <!-- <div class="absolute top-2 left-2 opacity-20 text-4xl text-blue-400">
+        <icon icon="fluent:quote-left" />
+      </div> -->
 
-      <p class="relative z-10 text-center text-lg transition-all duration-300">
+      <p class="relative z-10 text-center text-lg">
         {{ quote }}
       </p>
     </div>
