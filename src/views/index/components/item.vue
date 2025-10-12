@@ -11,13 +11,11 @@ defineProps({
 </script>
 
 <template>
-  <a
-    :href="item.url"
-    target="_blank"
-    class="p-3 pb-2 flex flex-col justify-center items-center cursor-pointer rounded-sm hover:bg-amber-100"
+  <div
+    class="p-3 px-1 flex flex-col justify-center items-center cursor-pointer rounded-sm hover:bg-amber-100"
   >
-    <dvi class="w-[50px] h-[50px] bg-amber-200"></dvi>
-    <dvi class="mt-1 h-[20px] text-center truncate">{{ item.name }}</dvi>
-  </a>
+    <div class="w-[80px] h-[80px] bg-amber-200"></div>
+    <div class="mt-1 h-[20px] text-center truncate">{{ item.name }}</div>
+  </div>
 </template>
 <style scoped></style>

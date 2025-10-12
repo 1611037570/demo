@@ -9,9 +9,16 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <div class="flex">
-    <el-input v-model="searchText" placeholder="请输入搜索内容" clearable></el-input>
-    <el-button type="primary" @click="handleSearch">搜索</el-button>
+  <div class="h-12 flex justify-center my-12">
+    <div class="w-[680px] flex">
+      <el-input v-model="searchText" placeholder="请输入搜索内容" clearable></el-input>
+    </div>
+    <div
+      class="h-12 w-24 flex items-center justify-center bg-[#409eff] text-white cursor-pointer rounded-r-lg"
+      @click="handleSearch"
+    >
+      搜索
+    </div>
   </div>
 </template>
 <style scoped></style>

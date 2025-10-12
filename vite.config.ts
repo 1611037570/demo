@@ -22,7 +22,6 @@ import vconsole from 'vite-plugin-vconsole'
 // 开发服务器自动重启工具
 import ViteRestart from 'vite-plugin-restart'
 // 自定义组件解析器
-import { CustomComponentResolver } from './src/components/componentsResolver'
 // Tailwind CSS插件
 import tailwindcss from '@tailwindcss/vite'
 
@@ -59,7 +58,22 @@ export default ({ mode }: { mode: string }) =>
       // 组件自动注册配置
       Components({
         // Element Plus解析器
-        resolvers: [ElementPlusResolver(), CustomComponentResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          (componentName: string) => {
+            if (componentName && componentName.startsWith('Sf')) {
+              // 移除sf前缀获取实际组件名
+              const name = componentName.slice(2).toLowerCase()
+              const path = `@components/${name}/index.vue`
+              return {
+                name,
+                path,
+                // from: '@components',
+              }
+            }
+          },
+        ],
+
         // 类型声明文件路径
         dts: 'src/types/components.d.ts',
         // 要搜索组件的目录
