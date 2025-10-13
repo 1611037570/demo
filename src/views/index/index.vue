@@ -1,6 +1,8 @@
 <template>
+  <wooden-fish></wooden-fish>
+
   <background></background>
-  <div class="flex flex-col w-full h-full fixed">
+  <div class="flex flex-col w-full h-full fixed z-10">
     <div class="flex-1">
       <search></search>
       <box></box>
@@ -8,6 +10,7 @@
     <quote></quote>
     <about></about>
     <copyright></copyright>
+    <!-- <games></games> -->
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import box from './components/box.vue'
 import copyright from './components/copyright.vue'
 import quote from './components/quote.vue'
 import search from './components/search.vue'
+import woodenFish from './games/woodenFish.vue'
 </script>
 
 <style scoped></style>
