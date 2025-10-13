@@ -1,6 +1,9 @@
 <template>
+  <!-- 木鱼组件 -->
   <wooden-fish></wooden-fish>
-
+  <!-- 提示组件 -->
+  <tip></tip>
+  <!-- 背景组件 -->
   <background></background>
   <div class="flex flex-col w-full h-full fixed z-10">
     <div class="flex-1">
@@ -21,6 +24,7 @@ import box from './components/box.vue'
 import copyright from './components/copyright.vue'
 import quote from './components/quote.vue'
 import search from './components/search.vue'
+import tip from './components/tip.vue'
 import woodenFish from './games/woodenFish.vue'
 </script>
 

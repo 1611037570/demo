@@ -1,23 +1,33 @@
 <template>
-  <!-- 木鱼图标 -->
-  <div
-    @click="knockWoodenFish"
-    class="fixed bottom-12 left-12 z-20 transform -translate-y-1/2 w-12 h-12 bg-amber-700 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ease-out"
-    :class="isKnocking ? 'scale-95 bg-amber-600' : ''"
-  >
-    <Icon
-      icon="mdi:fish"
-      class="w-10 h-10 text-amber-100"
-      :class="isKnocking ? 'animate-pulse' : ''"
-    />
+  <!-- 木鱼容器 -->
+  <div class="fixed bottom-12 left-12 z-20" @mousedown="knockWoodenFish" @mouseup="resetKnocking">
+    <!-- 木鱼图标 -->
+    <div
+      class="transform -translate-y-1/2 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ease-out"
+      :class="isKnocking ? 'scale-95 bg-amber-600' : 'bg-amber-700'"
+    >
+      <Icon
+        icon="mdi:fish"
+        class="w-10 h-10 text-amber-100"
+        :class="isKnocking ? 'animate-pulse' : ''"
+      />
+    </div>
+
     <!-- 木鱼棒 -->
     <div
-      class="absolute top-1/2 left-8 transform -translate-y-1/2 w-20 h-6 bg-amber-800 rounded-full flex items-center justify-center"
-      :style="{ rotate: isKnocking ? '20deg' : '0deg' }"
+      class="absolute -top-2 left-8 w-15 h-4 bg-amber-800 rounded-full flex items-center justify-center transition-all duration-100"
+      :style="{ rotate: isKnocking ? '0deg' : '40deg' }"
     >
-      <div class="w-14 h-2 bg-amber-600 rounded-full"></div>
+      <div class="w-12 h-1 bg-amber-600 rounded-full"></div>
+      <div
+        class="rounded-full w-6 h-6 bg-amber-900 absolute top-1/2 -translate-y-1/2 -left-2"
+      ></div>
     </div>
-    <div class="absolute left-1/2 -translate-x-1/2 -bottom-6">{{ fish.count }}</div>
+
+    <!-- 计数器 -->
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-0 w-auto whitespace-nowrap">
+      功德：{{ fish.count }}
+    </div>
   </div>
 </template>
 
@@ -41,11 +51,11 @@ function knockWoodenFish() {
 
   // 设置敲击状态为true
   isKnocking.value = true
+}
 
-  // 短暂延迟后恢复状态
-  setTimeout(() => {
-    isKnocking.value = false
-  }, 150)
+// 重置敲击状态函数
+function resetKnocking() {
+  isKnocking.value = false
 }
 </script>
 

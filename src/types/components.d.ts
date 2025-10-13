@@ -12,6 +12,7 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SfInput: typeof import('@components/input/index.vue')['default']
     SfMenu: typeof import('@components/menu/index.vue')['default']
   }
 }

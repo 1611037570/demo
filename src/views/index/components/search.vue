@@ -11,7 +11,12 @@ const handleSearch = () => {
 <template>
   <div class="h-12 flex justify-center my-12">
     <div class="w-[680px] flex">
-      <el-input v-model="searchText" placeholder="请输入搜索内容" clearable></el-input>
+      <sf-input
+        v-model="searchText"
+        placeholder="请输入搜索内容"
+        clearable
+        @keyup.enter="handleSearch"
+      ></sf-input>
     </div>
     <div
       class="h-12 w-24 flex items-center justify-center bg-[#409eff] text-white cursor-pointer rounded-r-lg"
