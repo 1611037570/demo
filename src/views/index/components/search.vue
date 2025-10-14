@@ -26,7 +26,7 @@ const handleSearch = () => {
         搜索
       </div>
     </div>
-    <div class="w-full bg-amber-200">12321321</div>
+    <!-- <div class="w-full bg-amber-200">12321321</div> -->
   </div>
 </template>
 <style scoped></style>
