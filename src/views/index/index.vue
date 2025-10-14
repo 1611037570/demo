@@ -9,6 +9,8 @@
   <background></background>
   <div class="flex flex-col w-full h-full fixed z-10">
     <div class="flex-1 flex flex-col">
+      <!-- 幸运转盘组件 -->
+      <lucky-wheel></lucky-wheel>
       <!-- 时间组件 -->
       <currentTime></currentTime>
       <!-- 倒计时组件 -->
@@ -36,7 +38,9 @@ import search from './components/search.vue'
 import setting from './components/set.vue'
 import currentTime from './components/time.vue'
 import tip from './components/tip.vue'
+import luckyWheel from './games/luckyWheel.vue'
 import woodenFish from './games/woodenFish.vue'
+
 const indexStore = useIndexStore()
 const { searchFocus } = storeToRefs(indexStore)
 </script>
