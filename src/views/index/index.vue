@@ -6,6 +6,8 @@
   <!-- 背景组件 -->
   <background></background>
   <div class="flex flex-col w-full h-full fixed z-10">
+    <!-- 时间组件 -->
+    <times></times>
     <div class="flex-1">
       <search></search>
       <box></box>
@@ -24,6 +26,7 @@ import box from './components/box.vue'
 import copyright from './components/copyright.vue'
 import quote from './components/quote.vue'
 import search from './components/search.vue'
+import times from './components/time.vue'
 import tip from './components/tip.vue'
 import woodenFish from './games/woodenFish.vue'
 </script>
