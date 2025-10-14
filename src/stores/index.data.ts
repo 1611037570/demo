@@ -63,4 +63,12 @@ export const list = [
     name: '腾讯视频',
     url: 'https://v.qq.com/',
   },
+  {
+    name: '百度AI图片助手',
+    url: 'https://image.baidu.com/search/index?word=bdaitpzs%E7%99%BE%E5%BA%A6AI%E5%9B%BE%E7%89%87%E5%8A%A9%E6%89%8Bbdaitpzs',
+  },
+  {
+    name: 'element-plus',
+    url: 'https://element-plus.org/zh-CN/component/overview.html',
+  },
 ]

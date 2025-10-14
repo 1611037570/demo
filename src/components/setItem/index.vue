@@ -9,7 +9,7 @@
       <div class="text-xs text-gray-400" v-if="info">{{ info }}</div>
     </div>
     <el-switch v-if="type === 'switch'" v-model="modeValue" @change="handleChange" />
-    <el-button v-else-if="type === 'button'" @click="handleChange" type="danger">{{
+    <el-button v-else-if="type === 'button'" @click="handleClick" type="danger">{{
       modeValue
     }}</el-button>
     <el-select
@@ -20,7 +20,7 @@
       :style="{ width: config?.width || '200px' }"
     >
       <el-option
-        v-for="item in config?.options || []"
+        v-for="item in config?.list || []"
         :key="item.value"
         :label="item.label"
         :value="item.value"
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-const emits = defineEmits(['change'])
+const emits = defineEmits(['onChange', 'onClick'])
 const props = defineProps({
   title: {
     type: String,
@@ -57,6 +57,12 @@ const props = defineProps({
 const modeValue = defineModel()
 
 const handleChange = (val) => {
-  emits('change', val, props.type)
+  console.log('val', val)
+
+  emits('onChange', val, props.type)
+}
+const handleClick = (val) => {
+  console.log('val', val)
+  emits('onClick', val, props.type)
 }
 </script>

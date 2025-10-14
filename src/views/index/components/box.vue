@@ -5,7 +5,7 @@ import { VueDraggable } from 'vue-draggable-plus'
 import Item from './item.vue'
 
 const indexStore = useIndexStore()
-const { navList, openMode } = storeToRefs(indexStore)
+const { dataList, openMode } = storeToRefs(indexStore)
 
 const isDrag = ref(false)
 const onStart = (e) => {
@@ -24,7 +24,7 @@ const onUpdate = () => {
 const isInit = ref(false)
 onMounted(async () => {
   await nextTick()
-  indexStore.initNavList()
+  indexStore.initDataList()
   isInit.value = true
 })
 
@@ -36,14 +36,14 @@ const handleClick = (item) => {
 <template>
   <VueDraggable
     v-if="isInit"
-    v-model="navList"
+    v-model="dataList"
     class="w-[680px] mx-auto grid grid-cols-5 gap-10"
     ghostClass="bg-amber-500"
     @start="onStart"
     @update="onUpdate"
     @end="onEnd"
   >
-    <SfMenu v-for="item in navList" :key="item.id">
+    <SfMenu v-for="item in dataList" :key="item.id">
       <Item :item="item" :class="{ 'shake-element': isDrag }" @click="handleClick(item)"></Item>
     </SfMenu>
   </VueDraggable>

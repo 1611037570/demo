@@ -7,23 +7,24 @@ type OpenMode = '_blank' | '_self'
 export const useIndexStore = defineStore(
   'index',
   () => {
-    const navList = ref(list)
-
+    // 数据列表
+    const dataList = ref(list)
+    // 打开方式
     const openMode = ref<OpenMode>('_blank')
 
-    const initNavList = () => {
-      navList.value = navList.value.map((item: any) => ({
+    const initDataList = () => {
+      dataList.value = dataList.value.map((item: any) => ({
         ...default_data,
         ...item,
         id: item.id || generateUUID(),
       }))
     }
 
-    return { navList, openMode, initNavList }
+    return { dataList, openMode, initDataList }
   },
   {
     // persist: {
-    //   pick: ['navList'],
+    //   pick: ['dataList'],
     // },
     persist: true,
   },

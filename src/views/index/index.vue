@@ -3,6 +3,8 @@
   <wooden-fish></wooden-fish>
   <!-- 提示组件 -->
   <tip></tip>
+  <!-- 设置组件 -->
+  <setting></setting>
   <!-- 背景组件 -->
   <background></background>
   <div class="flex flex-col w-full h-full fixed z-10">
@@ -29,6 +31,7 @@ import copyright from './components/copyright.vue'
 import countdown from './components/countdown.vue'
 import quote from './components/quote.vue'
 import search from './components/search.vue'
+import setting from './components/set.vue'
 import currentTime from './components/time.vue'
 import tip from './components/tip.vue'
 import woodenFish from './games/woodenFish.vue'
