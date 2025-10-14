@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center justify-center">
     <Icon :icon="icon" :size="size" />
     <span v-if="text">{{ text }}</span>
   </div>

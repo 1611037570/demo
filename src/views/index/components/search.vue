@@ -1,6 +1,9 @@
 <script setup>
+import { useIndexStore } from '@/stores/index'
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-
+const indexStore = useIndexStore()
+const { searchFocus } = storeToRefs(indexStore)
 function translate(text) {
   // 参考url
   // https://fanyi.baidu.com/mtpe-individual/transText?query=I%20don%27t%20know&lang=en2zh#/
@@ -19,18 +22,16 @@ const searchText = ref('')
 const handleSearch = () => {
   window.open('https://www.baidu.com/s?ie=utf-8&wd=' + searchText.value)
 }
-const selectedTime = ref('')
+const handleFocus = () => {
+  searchFocus.value = true
+}
+const handleBlur = () => {
+  searchFocus.value = false
+}
 </script>
 
 <template>
   <div class="h-12 w-[680px] my-12 flex flex-col mx-auto">
-    <el-time-picker
-      style="width: 120px"
-      v-model="selectedTime"
-      format="HH:mm"
-      value-format="HH:mm"
-      placeholder="选择时间"
-    ></el-time-picker>
     <div class="flex w-full">
       <div class="flex flex-1">
         <sf-input
@@ -38,6 +39,8 @@ const selectedTime = ref('')
           placeholder="请输入搜索内容"
           clearable
           @keyup.enter="handleSearch"
+          @focus="handleFocus"
+          @blur="handleBlur"
         ></sf-input>
       </div>
       <div

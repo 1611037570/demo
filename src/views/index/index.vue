@@ -14,9 +14,9 @@
       <!-- 倒计时组件 -->
       <countdown></countdown>
       <search></search>
-      <box></box>
+      <box v-if="!searchFocus"></box>
     </div>
-    <quote></quote>
+    <quote v-if="!searchFocus"></quote>
     <about></about>
     <copyright></copyright>
     <!-- <games></games> -->
@@ -24,6 +24,8 @@
 </template>
 
 <script setup>
+import { useIndexStore } from '@/stores/index'
+import { storeToRefs } from 'pinia'
 import about from './components/about.vue'
 import background from './components/background.vue'
 import box from './components/box.vue'
@@ -35,6 +37,8 @@ import setting from './components/set.vue'
 import currentTime from './components/time.vue'
 import tip from './components/tip.vue'
 import woodenFish from './games/woodenFish.vue'
+const indexStore = useIndexStore()
+const { searchFocus } = storeToRefs(indexStore)
 </script>
 
 <style scoped></style>

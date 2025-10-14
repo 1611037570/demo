@@ -8,23 +8,24 @@ export const useIndexStore = defineStore(
   'index',
   () => {
     // 数据列表
-    const dataList = ref(list)
+    const shortcutList = ref(list)
     // 打开方式
     const openMode = ref<OpenMode>('_blank')
-
-    const initDataList = () => {
-      dataList.value = dataList.value.map((item: any) => ({
+    // 搜索框是否聚焦
+    const searchFocus = ref(false)
+    const initShortcutList = () => {
+      shortcutList.value = shortcutList.value.map((item: any) => ({
         ...default_data,
         ...item,
         id: item.id || generateUUID(),
       }))
     }
 
-    return { dataList, openMode, initDataList }
+    return { shortcutList, openMode, searchFocus, initShortcutList }
   },
   {
     // persist: {
-    //   pick: ['dataList'],
+    //   pick: ['shortcutList'],
     // },
     persist: true,
   },
