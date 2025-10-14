@@ -1,10 +1,12 @@
 <template>
-  <div class="fixed top-12 right-12 z-20" @click="openSet">设置 {{ visible }}</div>
-  <div
-    v-if="visible"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-neutral-200 p-4 rounded-xl"
-  >
-    <div class="bg-white rounded-xl w-[400px]">
+  <div class="fixed top-12 right-12 z-20" @click="openSet">设置</div>
+  <sf-modal v-if="visible" v-model="visible">
+    <h2>时间</h2>
+    <set-box>
+      <sf-set-item title="下班倒计时" type="switch" v-model="countDown" />
+      <sf-set-item title="下班时间" model-value="09:00" type="time" v-model="startTime" />
+    </set-box>
+    <set-box>
       <sf-set-item
         title="打开方式"
         :config="{
@@ -25,8 +27,8 @@
       />
       <sf-set-item title="数据" model-value="导出" type="button" @onClick="exportDataList" />
       <sf-set-item title="数据" model-value="导入" type="button" @onClick="importDataList" />
-    </div>
-  </div>
+    </set-box>
+  </sf-modal>
 </template>
 
 <script setup>
