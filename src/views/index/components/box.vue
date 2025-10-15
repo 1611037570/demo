@@ -5,9 +5,12 @@ import { VueDraggable } from 'vue-draggable-plus'
 import Item from './item.vue'
 
 const indexStore = useIndexStore()
-const { dataList, openMode } = storeToRefs(indexStore)
+const { shortcutList, openMode } = storeToRefs(indexStore)
 
+// 拖拽状态
 const isDrag = ref(false)
+// 缩放比例
+const zoom = ref(1)
 const onStart = (e) => {
   isDrag.value = true
   console.log('start', e)
@@ -24,29 +27,49 @@ const onUpdate = () => {
 const isInit = ref(false)
 onMounted(async () => {
   await nextTick()
-  indexStore.initDataList()
+  indexStore.initShortcutList()
   isInit.value = true
 })
 
 const handleClick = (item) => {
   window.open(item.url, openMode.value)
 }
+
+const handleAdd = () => {
+  indexStore.addShortcut({
+    name: '新应用',
+    url: '#',
+  })
+}
 </script>
 
 <template>
-  <VueDraggable
-    v-if="isInit"
-    v-model="dataList"
-    class="w-[680px] mx-auto grid grid-cols-5 gap-10"
-    ghostClass="bg-amber-500"
-    @start="onStart"
-    @update="onUpdate"
-    @end="onEnd"
-  >
-    <SfMenu v-for="item in dataList" :key="item.id">
-      <Item :item="item" :class="{ 'shake-element': isDrag }" @click="handleClick(item)"></Item>
-    </SfMenu>
-  </VueDraggable>
+  <div>
+    <VueDraggable
+      :style="{
+        zoom: zoom,
+      }"
+      class="w-[680px] mx-auto grid grid-cols-5"
+      v-if="isInit"
+      v-model="shortcutList"
+      ghostClass="bg-amber-500"
+      @start="onStart"
+      @update="onUpdate"
+      @end="onEnd"
+    >
+      <SfMenu v-for="item in shortcutList" :key="item.id">
+        <Item :item="item" :class="{ 'shake-element': isDrag }" @click="handleClick(item)"></Item>
+      </SfMenu>
+      <Item
+        :item="{
+          name: '添加',
+          url: '#',
+        }"
+        :class="{ 'shake-element': isDrag }"
+        @click="handleAdd()"
+      ></Item>
+    </VueDraggable>
+  </div>
 </template>
 <style scoped>
 @keyframes tiltShake {

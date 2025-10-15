@@ -1,10 +1,6 @@
 <template>
   <!-- 木鱼容器 -->
-  <div
-    class="fixed bottom-12 left-12 z-20 w-12 h-12"
-    @mousedown="downWoodenFish"
-    @mouseup="upWoodenFish"
-  >
+  <div class="w-12 h-12" @mousedown="downWoodenFish">
     <!-- 木鱼图标 -->
     <div
       class="w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ease-out"
@@ -71,6 +67,15 @@ function downWoodenFish() {
   setTimeout(() => {
     showAdd.value = false
   }, 501) // 与动画持续时间匹配
+
+  // 添加document级别的mouseup事件监听器
+  document.addEventListener('mouseup', handleMouseUp)
+
+  // 清理函数
+  function handleMouseUp() {
+    upWoodenFish()
+    document.removeEventListener('mouseup', handleMouseUp)
+  }
 }
 
 // 重置敲击状态函数

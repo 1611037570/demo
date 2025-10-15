@@ -1,12 +1,13 @@
 <template>
   <div class="fixed top-12 right-12 z-20" @click="openSet">设置</div>
   <sf-modal v-if="visible" v-model="visible">
-    <h2>时间</h2>
-    <set-box>
+    <sf-set-title title="时间" />
+    <sf-set-box>
       <sf-set-item title="下班倒计时" type="switch" v-model="countDown" />
       <sf-set-item title="下班时间" model-value="09:00" type="time" v-model="startTime" />
-    </set-box>
-    <set-box>
+    </sf-set-box>
+    <sf-set-title title="快捷方式" />
+    <sf-set-box>
       <sf-set-item
         title="打开方式"
         :config="{
@@ -25,9 +26,45 @@
         v-model="openMode"
         type="select"
       />
-      <sf-set-item title="数据" model-value="导出" type="button" @onClick="exportDataList" />
-      <sf-set-item title="数据" model-value="导入" type="button" @onClick="importDataList" />
-    </set-box>
+    </sf-set-box>
+    <sf-set-title title="数据管理" />
+    <sf-set-box>
+      <sf-set-item
+        title="配置导出"
+        info="会导出当前所有配置"
+        model-value="导出"
+        type="button"
+        @onClick="exportDataList"
+      />
+      <sf-set-item
+        title="配置导入"
+        info="会覆盖当前所有配置"
+        model-value="导入"
+        type="button"
+        @onClick="importDataList"
+      />
+      <sf-set-item
+        title="快捷方式导出"
+        info="仅导出所有快捷方式"
+        model-value="导出"
+        type="button"
+        @onClick="exportDataList"
+      />
+      <sf-set-item
+        title="快捷方式导入"
+        info="仅导入所有快捷方式"
+        model-value="导入"
+        type="button"
+        @onClick="importDataList"
+      />
+      <sf-set-item
+        title="重置"
+        info="会重置所有配置"
+        model-value="重置"
+        type="button"
+        @onClick="resetDataList"
+      />
+    </sf-set-box>
   </sf-modal>
 </template>
 
@@ -35,7 +72,7 @@
 import { useIndexStore } from '@/stores/index'
 import { storeToRefs } from 'pinia'
 const indexStore = useIndexStore()
-const { openMode, dataList } = storeToRefs(indexStore)
+const { openMode, shortcutList } = storeToRefs(indexStore)
 const visible = ref(false)
 // 导入数据列表
 const importDataList = () => {}
@@ -44,12 +81,12 @@ const openSet = () => {
 }
 // 把dataList导出为json文件
 const exportDataList = () => {
-  const json = JSON.stringify(dataList.value)
+  const json = JSON.stringify(shortcutList.value)
   const blob = new Blob([json], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'dataList.json'
+  a.download = 'shortcutList.json'
   a.click()
   URL.revokeObjectURL(url)
 }

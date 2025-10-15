@@ -1,17 +1,17 @@
 import dayjs from 'dayjs'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-// 倒计时目标时间配置项
+// 目标时间配置项
 interface TimeOptions {
-  year?: number | null
-  month?: number | null
-  day?: number | null
-  hour?: number
-  minute?: number
-  second?: number
+  year?: number | null // 具体年份（如2024），null则随当前年
+  month?: number | null // 月份（1-12），null则随当前月
+  day?: number | null // 日期（1-31），null则随当前日
+  hour?: number // 小时（0-23，默认17）
+  minute?: number // 分钟（0-59，默认30）
+  second?: number // 秒（0-59，默认0）
 }
 
-// 剩余时间结构
+// 剩余时间结构（包含剩余时间+当前日期+当前时间）
 interface TimeLeft {
   years: number
   months: number
@@ -19,46 +19,86 @@ interface TimeLeft {
   hours: number
   minutes: number
   seconds: number
+  date: string // 格式：YYYY/MM/DD
+  time: string // 格式：HH:mm:ss
 }
 
 export const useCountdown = (options: TimeOptions = {}) => {
-  // 合并默认配置（默认每天17:30:00）
-  const defaultOptions = {
+  // 合并配置（确保默认值安全）
+  const opts = {
     hour: 17,
     minute: 30,
     second: 0,
-    ...options,
+    year: options.year ?? null,
+    month: options.month ?? null,
+    day: options.day ?? null,
   }
 
-  // 当前时间（dayjs对象）
   const currentTime = ref(dayjs())
-  const isCompleted = ref(false) // 倒计时是否已完成
+  const isCompleted = ref(false)
 
   // 计算目标时间
   const targetDateTime = computed(() => {
-    const now = dayjs()
-    return dayjs()
-      .year(defaultOptions.year ?? now.year())
-      .month(defaultOptions.month ? defaultOptions.month - 1 : now.month())
-      .date(defaultOptions.day ?? now.date())
-      .hour(defaultOptions.hour)
-      .minute(defaultOptions.minute)
-      .second(defaultOptions.second)
+    const now = dayjs(currentTime.value)
+    let target = dayjs()
+      .year(opts.year ?? now.year())
+      .month(opts.month != null ? opts.month - 1 : now.month())
+      .date(opts.day ?? now.date())
+      .hour(opts.hour)
+      .minute(opts.minute)
+      .second(opts.second)
+
+    const endOfDay = target.endOf('day')
+    if (now.isAfter(endOfDay)) {
+      const hasFixedYear = typeof opts.year === 'number'
+      const hasFixedMonthDay = typeof opts.month === 'number' && typeof opts.day === 'number'
+      const hasFixedDay = typeof opts.day === 'number'
+
+      if (!hasFixedYear) {
+        if (hasFixedMonthDay) {
+          target = target.add(1, 'year')
+        } else if (hasFixedDay) {
+          const nextMonth = target.add(1, 'month')
+          const maxDate = nextMonth.daysInMonth()
+          target = nextMonth.date(Math.min(opts.day, maxDate))
+        } else {
+          target = target.add(1, 'day')
+        }
+      }
+    }
+    return target
   })
 
-  // 计算剩余时间
+  // 整合剩余时间、当前日期和时间
   const timeLeft = computed<TimeLeft>(() => {
-    const now = currentTime.value
+    const now = dayjs(currentTime.value)
     const target = targetDateTime.value
+    const endOfDay = target.endOf('day')
 
-    if (now.isAfter(target)) {
+    // 完成状态判断
+    const isPermanentDone = typeof opts.year === 'number' && now.isAfter(target)
+    const isTodayDone =
+      !isPermanentDone && now.isSameOrAfter(target) && now.isSameOrBefore(endOfDay)
+
+    if (isPermanentDone || isTodayDone) {
       isCompleted.value = true
-      return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
+      return {
+        years: 0,
+        months: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      }
     }
 
     isCompleted.value = false
 
-    const units: any = [
+    // 计算剩余时间
+    const units: Array<{
+      name: keyof Omit<TimeLeft, 'date' | 'time'>
+      unit: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'
+    }> = [
       { name: 'years', unit: 'year' },
       { name: 'months', unit: 'month' },
       { name: 'days', unit: 'day' },
@@ -68,76 +108,74 @@ export const useCountdown = (options: TimeOptions = {}) => {
     ]
 
     let tempTarget = target.clone()
-    const result: any = {}
+    const result: Omit<TimeLeft, 'date' | 'time'> = {
+      years: 0,
+      months: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    }
 
     for (const { name, unit } of units) {
-      const value = Math.floor(tempTarget.diff(now, unit, true))
-      result[name] = value
-      tempTarget = tempTarget.subtract(value, unit)
+      result[name] = Math.floor(tempTarget.diff(now, unit, true))
+      tempTarget = tempTarget.subtract(result[name], unit)
     }
 
     return result
   })
 
-  // 格式化当前时间
-  const time = computed(() => currentTime.value.format('HH:mm:ss'))
-  const date = computed(() => currentTime.value.format('YYYY/MM/DD'))
+  // 计时器逻辑（修复ESLint和类型问题）
+  let rafId: number | null = null
+  let lastTimestamp = 0
 
-  // 主更新逻辑：同步当前时间
-  const update = () => {
+  const updateTime = () => {
     currentTime.value = dayjs()
   }
 
-  // 动画帧回调：基于时间戳差值控制每秒更新
-  let rafId: number | null = null
-  let lastUpdateTime = 0 // 记录上一次更新的时间戳
-
   const tick = (timestamp: number) => {
-    // 首次触发时初始化基准时间戳
-    if (!lastUpdateTime) {
-      lastUpdateTime = timestamp
+    if (!lastTimestamp) {
+      lastTimestamp = timestamp
     }
 
-    // 当时间差≥1000ms时更新（确保每秒一次）
-    if (timestamp - lastUpdateTime >= 1000) {
-      update()
-      lastUpdateTime = timestamp // 重置基准时间戳
+    if (timestamp - lastTimestamp >= 1000) {
+      updateTime()
+      lastTimestamp = timestamp
     }
 
-    // 未完成时继续请求下一帧
     if (!isCompleted.value) {
       rafId = requestAnimationFrame(tick)
     }
   }
 
-  // 启动计时器
-  const startTimer = () => {
-    stopTimer() // 清除可能的旧任务
-    lastUpdateTime = 0 // 重置基准时间戳
+  // 修复ESLint错误：使用明确的条件语句而非表达式
+  const start = () => {
+    if (rafId) {
+      cancelAnimationFrame(rafId)
+    }
+    lastTimestamp = 0
     rafId = requestAnimationFrame(tick)
   }
 
-  // 停止计时器
-  const stopTimer = () => {
+  const stop = () => {
     if (rafId) {
       cancelAnimationFrame(rafId)
       rafId = null
     }
   }
 
-  // 生命周期管理
   onMounted(() => {
-    update() // 初始化数据
-    startTimer()
+    updateTime()
+    start()
   })
 
-  onBeforeUnmount(stopTimer)
+  onBeforeUnmount(stop)
 
   return {
     timeLeft,
     isCompleted,
-    time,
-    date,
     targetDateTime,
+    start,
+    stop,
   }
 }

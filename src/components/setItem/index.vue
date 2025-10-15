@@ -26,6 +26,15 @@
         :value="item.value"
       />
     </el-select>
+    <el-time-picker
+      v-else-if="type === 'time'"
+      style="width: 120px"
+      @change="handleChange"
+      v-model="modeValue"
+      format="HH:mm"
+      value-format="HH:mm"
+      placeholder="选择时间"
+    ></el-time-picker>
   </div>
 </template>
 
