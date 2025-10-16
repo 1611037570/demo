@@ -19,6 +19,8 @@
     <!-- <games></games> -->
   </div>
   <div v-if="!searchFocus" class="fixed left-12 bottom-12 z-20 w-12 h-12 bg-amber-200">
+    <!-- 冥想组件 -->
+    <meditation class="absolute left-1/2 bottom-72 -translate-x-1/2"></meditation>
     <!-- 幸运转盘组件 -->
     <lucky-wheel class="absolute left-1/2 bottom-44 -translate-x-1/2"></lucky-wheel>
     <!-- 收入组件 -->
@@ -42,6 +44,7 @@ import setting from './components/set.vue'
 import currentTime from './components/time.vue'
 import tip from './components/tip.vue'
 import luckyWheel from './games/luckyWheel.vue'
+import meditation from './games/meditation.vue'
 import woodenFish from './games/woodenFish.vue'
 
 const indexStore = useIndexStore()
