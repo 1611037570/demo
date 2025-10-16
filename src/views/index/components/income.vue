@@ -6,39 +6,54 @@
   >
     <!-- 背景扩宽元素 - 位于底层 -->
     <div
-      class="absolute left-2 h-full bg-amber-200 rounded-xl transition-all duration-300 ease-out whitespace-nowrap overflow-hidden flex items-center"
-      :style="{ width: isHovered ? '350px' : '0px', zIndex: 10 }"
+      class="absolute left-2 h-full bg-amber-200 rounded-xl transition-all duration-300 ease-out whitespace-nowrap overflow-hidden flex flex-col justify-center"
+      :style="{ width: isHovered ? '320px' : '0px', zIndex: 10 }"
+      :class="isHovered ? 'pl-20 shadow-xl' : 'pl-0'"
     >
-      <countdown class="ml-20"></countdown>
+      <!-- 假期 -->
+      <div v-if="workStatus === 'weekend' || workStatus === 'holiday'">~</div>
+      <!-- 距离工作时间 -->
+      <div v-else-if="!workStartStatus.isReached">距离工作还有：{{ workStartStatus.time }}</div>
+      <!-- 距离午休时间 -->
+      <div v-else-if="!restStartStatus.isReached">距离午休还有：{{ restStartStatus.time }}</div>
+      <!-- 距离下午工作时间 -->
+      <div v-else-if="restStartStatus.isReached && !restEndStatus.isReached">
+        距离下午工作还有：{{ restEndStatus.time }}
+      </div>
+      <!-- 距离下班时间 -->
+      <div v-else-if="workEndStatus.isReached">下班啦！开铲~</div>
+      <div v-else>距离下班还有：{{ workEndStatus.time }}</div>
+      <!-- 距离爆金币时间 -->
+      <div v-if="expireStatus.isReached">爆金币时间！！！</div>
+      <div v-else>距离爆金币还有：{{ expireStatus.days }}天</div>
     </div>
-    <!-- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -->
-
     <div
       class="relative flex flex-col justify-center items-center whitespace-nowrap w-20 h-20 bg-amber-300 rounded-xl text-sm cursor-pointer z-20"
     >
-      <div v-if="workStatus === 'weekend'">周末</div>
-      <div v-else-if="workStatus === 'holiday'">{{ workStatus }}</div>
+      <div>
+        今日<span class="font-bold">{{ currentWeekday }}</span>
+      </div>
+      <div v-if="workStatus === 'weekend'">~</div>
+      <div v-else-if="workStatus === 'holiday'">{{ todayFestival }}</div>
       <template v-else-if="workStatus === 'work'">
-        <div>今日<span class="font-bold">周三</span></div>
         <div>已摸到</div>
         <div>
           <span class="font-bold text-red-500">{{ accumulatedIncome }}</span> 元
         </div>
       </template>
       <div v-else-if="workStatus === 'rest'">午休时间</div>
-      <div v-else>{{ workStatus }}</div>
+      <template v-else-if="workStatus === 'off'">下班时间</template>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useCountdown } from '@/hooks/useCountdown'
 import ww from 'chinese-workday'
 import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween' // 导入插件
+import isBetween from 'dayjs/plugin/isBetween'
 import { computed, ref } from 'vue'
-import countdown from './countdown.vue'
 dayjs.extend(isBetween)
-const isHovered = ref(false)
 // 上下班时间
 const workTime = ref({
   start: '08:30',
@@ -49,6 +64,30 @@ const restTime = ref({
   start: '11:30',
   end: '13:00',
 })
+const restStartStatus = useCountdown({
+  hour: restTime.value.start.split(':')[0],
+  minute: restTime.value.start.split(':')[1],
+})
+const restEndStatus = useCountdown({
+  hour: restTime.value.end.split(':')[0],
+  minute: restTime.value.end.split(':')[1],
+})
+const workStartStatus = useCountdown({
+  hour: workTime.value.start.split(':')[0],
+  minute: workTime.value.start.split(':')[1],
+})
+// 下班倒计时
+const workEndStatus = useCountdown({
+  hour: workTime.value.end.split(':')[0],
+  minute: workTime.value.end.split(':')[1],
+})
+// 爆金币倒计时
+const expireStatus = useCountdown({
+  day: 18,
+})
+
+const isHovered = ref(false)
+
 // 月收入
 const monthIncome = ref(5500)
 // 月工作天数
@@ -65,15 +104,26 @@ const currentTime = computed(() => {
   return time
 })
 
+// 当前周几（周一到周日）
+const currentWeekday = computed(() => {
+  const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+  return weekdays[currentTime.value.day()]
+})
+
 const isWeekend = (date) => {
   const day = dayjs(date).get('day')
   return day === 0 || day === 6
 }
+// 今天节日
+const todayFestival = computed(() => {
+  const currentDate = currentTime.value.format('YYYY-MM-DD')
+  return ww.getFestival(currentDate)
+})
 const workStatus = computed(() => {
   const currentDate = currentTime.value.format('YYYY-MM-DD')
   // 是否为节假日
   if (ww.isHoliday(currentDate)) {
-    return ww.getFestival(currentDate)
+    return 'holiday'
   }
   // 是否在周六周日并不是额外工作日
   if (isWeekend(currentDate) && !ww.isAddtionalWorkday(currentDate)) {
@@ -87,7 +137,7 @@ const workStatus = computed(() => {
   if (currentTime.value.isBetween(restStart, restEnd)) {
     return 'rest'
   }
-  return ''
+  return 'off'
 })
 
 // 每秒收入
@@ -170,7 +220,7 @@ const calculateIncomeFromToday = () => {
   totalEffectiveSeconds = Math.max(0, totalEffectiveSeconds)
 
   // 计算累计收入
-  return totalEffectiveSeconds * secondIncome.value
+  return Number((totalEffectiveSeconds * secondIncome.value).toFixed(2))
 }
 
 // 新变量：累积收入（从今天到现在）

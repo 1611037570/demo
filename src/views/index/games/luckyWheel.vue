@@ -1,143 +1,166 @@
 <template>
-  <!-- 幸运转盘容器 -->
   <div class="flex flex-col items-center">
-    <!-- 上次结果显示 - 顶部 -->
+    <!-- 结果显示：从下往上滑动过渡 -->
     <div
-      v-if="lastResult"
-      class="text-[10px] text-gray-600 bg-white/80 px-2 py-0.5 rounded-full mb-1 whitespace-nowrap"
+      v-if="result"
+      class="mb-2 text-sm font-medium text-gray-800 transition-all duration-600 ease-out whitespace-nowrap"
+      :class="{
+        'opacity-0 transform translate-y-10 scale-90': !result,
+        'opacity-100 transform translate-y-0 scale-100': result,
+      }"
     >
-      {{ lastResult }}
+      {{ result }}
     </div>
 
-    <!-- 转盘主体 - 保持原尺寸 w-12 h-12 -->
-    <div class="relative w-12 h-12 mb-4">
-      <!-- 转盘背景（承载所有扇区） -->
+    <!-- 转盘容器：hover交互提示 -->
+    <div
+      class="relative w-20 h-20 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
+      @click="startSpin"
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
+      :class="{ 'opacity-70 cursor-not-allowed hover:scale-100': isSpinning }"
+    >
+      <!-- 鼠标经过提示 -->
       <div
-        class="absolute inset-0 rounded-full shadow-md overflow-hidden"
-        :style="{
-          transform: `rotate(${wheelData.currentAngle}deg)`,
-          transition: wheelData.isSpinning
-            ? 'transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)'
-            : 'none',
-        }"
+        v-show="isHovered"
+        class="font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs text-white transition-opacity duration-100"
       >
-        <!-- 遍历生成扇区（动态适配数量，每个大小一致） -->
-        <div
-          v-for="(sector, index) in wheelData.sectors"
-          :key="sector.id"
-          class="absolute inset-0"
-          :style="{
-            transform: `rotate(${index * sectorAngle}deg)`, // 扇区旋转到对应位置
-            clipPath: getSectorClipPath(sectorAngle), // 动态计算切割路径
-          }"
+        吃什么
+      </div>
+      <!-- 转盘 SVG：扇区hover加亮 -->
+      <svg
+        class="w-full h-full rounded-full overflow-hidden transition-all duration-300"
+        viewBox="0 0 100 100"
+      >
+        <g
+          :transform="`rotate(${rotation}, 50, 50)`"
+          class="transition-transform duration-5000 ease-out hover:filter hover:brightness-110"
+          @transitionend="handleSpinEnd"
         >
-          <!-- 扇区颜色层 + 细白分隔线 -->
-          <div
-            class="w-full h-full border-l border-white/50"
-            :style="{ backgroundColor: sector.color }"
-          ></div>
-        </div>
-      </div>
+          <!-- 动态生成扇区 -->
+          <path
+            v-for="(item, index) in items"
+            :key="index"
+            :d="getSectorPath(index)"
+            :fill="getSectorColor(index)"
+          />
+        </g>
+      </svg>
 
-      <!-- 转盘指针 -->
-      <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1.5 z-10">
-        <div
-          class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[8px] border-b-red-500"
-        ></div>
-      </div>
-
-      <!-- 中心按钮 -->
-      <button
-        class="absolute inset-0 m-auto w-4 h-4 rounded-full bg-red-500 text-white flex items-center justify-center shadow transition-all duration-200"
-        :class="{
-          'scale-90 bg-red-600': isButtonPressed,
-          'opacity-50 cursor-not-allowed': wheelData.isSpinning,
-        }"
-        @mousedown="handleButtonDown"
-        @mouseup="handleButtonUp"
-        @mouseleave="handleButtonUp"
-        @click="spinWheel"
-        :disabled="wheelData.isSpinning"
-      ></button>
+      <!-- 转盘指针：hover放大 -->
+      <div
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full z-10 shadow-md transition-transform duration-300 hover:scale-125"
+      ></div>
     </div>
-
-    <!-- 标题 - 底部 -->
-    <div class="text-xs font-bold text-gray-800">吃什么</div>
   </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
 
-// 状态管理
-const isButtonPressed = ref(false)
-const lastResult = ref('')
-
-// 转盘数据（可动态增删扇区，当前6个）
-const wheelData = ref({
-  sectors: [
-    { id: 1, color: '#FF4136', name: '麻辣烫' },
-    { id: 2, color: '#2ECC40', name: '烧烤' },
-    { id: 3, color: '#0074D9', name: '炒菜' },
-    { id: 4, color: '#FFDC00', name: '快餐' },
-    { id: 5, color: '#B10DC9', name: '寿司' },
-    { id: 6, color: '#FF851B', name: '面条' },
-  ],
-  currentAngle: 0,
-  isSpinning: false,
+// 接收外部传入的奖项数组
+const props = defineProps({
+  items: {
+    type: Array,
+    default: () => ['螺蛳粉', '猪脚饭', '麻辣烫', '烧烤', '火锅', '炒饭', '汉堡'],
+  },
 })
 
-// 1. 计算每个扇区的角度（360° / 扇区数量，动态适配）
-const sectorAngle = computed(() => 360 / wheelData.value.sectors.length)
+// 状态管理
+const rotation = ref(0) // 旋转角度
+const isSpinning = ref(false) // 是否正在旋转
+const result = ref('') // 旋转结果
+const spinEnded = ref(false) // 旋转结束标记
+const resultTimer = ref(null) // 结果自动消失定时器
+const isHovered = ref(false) // 是否鼠标悬停
 
-// 2. 动态生成扇区的 clip-path 路径（核心：解决扇区大小不一致）
-function getSectorClipPath(angle) {
-  // 计算扇区结束边的角度（当前扇区角度 + 单个扇区角度）
-  const endAngle = angle
-  // 角度转弧度（用于计算坐标）
-  const radStart = (0 * Math.PI) / 180
-  const radEnd = (endAngle * Math.PI) / 180
+// 计算扇区总数和单个扇区角度（固定值，无随机）
+const sectorCount = computed(() => props.items.length)
+const anglePerSector = computed(() => 360 / sectorCount.value) // 单个扇区的角度
 
-  // 计算扇区边缘的两个顶点（基于元素100%尺寸，中心在(50%,50%)）
-  const startX = 50 + 50 * Math.cos(radStart - Math.PI / 2) // 起始边顶点（右向为0°，修正为上向）
-  const startY = 50 + 50 * Math.sin(radStart - Math.PI / 2)
-  const endX = 50 + 50 * Math.cos(radEnd - Math.PI / 2) // 结束边顶点
-  const endY = 50 + 50 * Math.sin(radEnd - Math.PI / 2)
-
-  // 生成 clip-path 多边形路径：中心 → 起始边 → 边缘 → 结束边 → 中心
-  return `polygon(50% 50%, ${startX}% ${startY}%, 100% 0%, 100% 100%, ${endX}% ${endY}%)`
+// 生成扇区颜色（循环使用预设色）
+const getSectorColor = (index) => {
+  const colors = [
+    '#ef4444',
+    '#f97316',
+    '#f59e0b',
+    '#84cc16',
+    '#10b981',
+    '#06b6d4',
+    '#0ea5e9',
+    '#3b82f6',
+    '#6366f1',
+    '#8b5cf6',
+    '#a855f7',
+    '#ec4899',
+  ]
+  return colors[index % colors.length]
 }
 
-// 按钮交互
-function handleButtonDown() {
-  if (!wheelData.value.isSpinning) isButtonPressed.value = true
+// 计算扇形路径（SVG绘图逻辑，不变）
+const getSectorPath = (index) => {
+  if (sectorCount.value === 0) return ''
+
+  const startAngle = index * anglePerSector.value // 扇区起始角度
+  const endAngle = startAngle + anglePerSector.value // 扇区结束角度
+
+  // 角度转弧度（-90确保从顶部开始绘制）
+  const startRad = (startAngle - 90) * (Math.PI / 180)
+  const endRad = (endAngle - 90) * (Math.PI / 180)
+
+  // 计算扇区边缘坐标
+  const startX = 50 + 50 * Math.cos(startRad)
+  const startY = 50 + 50 * Math.sin(startRad)
+  const endX = 50 + 50 * Math.cos(endRad)
+  const endY = 50 + 50 * Math.sin(endRad)
+
+  // 生成SVG路径
+  return [
+    `M 50 50`,
+    `L ${startX} ${startY}`,
+    `A 50 50 0 ${endAngle - startAngle > 180 ? 1 : 0} 1 ${endX} ${endY}`,
+    `Z`,
+  ].join(' ')
 }
-function handleButtonUp() {
-  isButtonPressed.value = false
+
+// 开始旋转：100%精准落在扇区中心（核心修改）
+const startSpin = () => {
+  if (isSpinning.value || sectorCount.value === 0) return
+
+  // 清除旧定时器
+  if (resultTimer.value) clearTimeout(resultTimer.value)
+
+  isSpinning.value = true
+  result.value = ''
+  spinEnded.value = false
+
+  // 1. 随机选中一个目标扇区（保证随机性）
+  const targetSectorIndex = Math.floor(Math.random() * sectorCount.value)
+  // 2. 计算目标扇区的【正中心角度】（关键：彻底消除偏移）
+  const sectorCenterAngle = targetSectorIndex * anglePerSector.value + anglePerSector.value / 2
+  // 3. 基础旋转：3-5圈（保证动画流畅，不影响精准度）
+  const baseRotation = rotation.value + 360 * (3 + Math.random() * 2)
+
+  // 最终角度 = 基础旋转 + 扇区中心角度（100%精准）
+  rotation.value = baseRotation + sectorCenterAngle
 }
 
-// 旋转逻辑（适配动态扇区）
-function spinWheel() {
-  if (wheelData.value.isSpinning) return
-  wheelData.value.isSpinning = true
+// 旋转结束处理（逻辑不变，结果必然对应中心扇区）
+const handleSpinEnd = () => {
+  if (spinEnded.value || !isSpinning.value) return
 
-  const randomIndex = Math.floor(Math.random() * wheelData.value.sectors.length)
-  const targetSector = wheelData.value.sectors[randomIndex]
+  spinEnded.value = true
+  isSpinning.value = false
 
-  // 精准计算旋转角度（确保停在扇区中心）
-  const totalAngle =
-    wheelData.value.currentAngle +
-    4 * 360 + // 基础旋转4圈
-    (360 - (randomIndex * sectorAngle.value + sectorAngle.value / 2)) // 对准扇区中心
+  // 计算选中的扇区（因角度精准，结果必然正确）
+  const normalizedRotation = ((rotation.value % 360) + 360) % 360
+  const adjustedRotation = (360 - normalizedRotation + 90) % 360
+  const selectedIndex = Math.floor(adjustedRotation / anglePerSector.value) % sectorCount.value
 
-  wheelData.value.currentAngle = totalAngle
-
-  // 旋转结束更新结果
-  setTimeout(() => {
-    lastResult.value = targetSector.name
-    wheelData.value.isSpinning = false
+  // 显示结果并3秒后自动消失
+  result.value = props.items[selectedIndex]
+  resultTimer.value = setTimeout(() => {
+    result.value = ''
   }, 3000)
 }
 </script>
-
-<style scoped></style>
