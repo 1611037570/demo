@@ -3,7 +3,7 @@ import { useIndexStore } from '@/stores/index'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 const indexStore = useIndexStore()
-const { searchFocus } = storeToRefs(indexStore)
+const { searchFocus, searchHistory, searchHistoryDisabled } = storeToRefs(indexStore)
 function translateSearch() {
   // 参考url
   // https://fanyi.baidu.com/mtpe-individual/transText?query=I%20don%27t%20know&lang=en2zh#/
@@ -14,29 +14,45 @@ function translateSearch() {
 
   const encodedText = encodeURIComponent(searchText.value)
   const hash = `#/auto/${fromLang}/${encodedText}`
-
   window.open(BASE_URL + hash)
+  addSearchHistory()
 }
 const searchText = ref('')
-
+function addSearchHistory() {
+  if (searchText.value) {
+    searchHistory.value.push(searchText.value)
+  }
+}
 function githubSearch() {
   window.open(
     'https://github.com/search?q=' + encodeURIComponent(searchText.value) + '&type=repositories',
   )
+  addSearchHistory()
 }
 // 文心一言搜索
 function aiSearch() {
   window.open('https://chat.baidu.com/search?word=' + encodeURIComponent(searchText.value))
+  addSearchHistory()
 }
 
-const handleSearch = () => {
-  window.open('https://www.baidu.com/s?ie=utf-8&wd=' + searchText.value)
+const handleSearch = (text) => {
+  const currentText = text || searchText.value
+  console.log('currentText', currentText)
+
+  if (!currentText) return
+  window.open('https://www.baidu.com/s?ie=utf-8&wd=' + encodeURIComponent(currentText))
+  // 自定义传入文本时，不添加到历史记录
+  if (!text) {
+    addSearchHistory()
+  }
 }
 const handleFocus = () => {
   searchFocus.value = true
 }
 const handleBlur = () => {
-  searchFocus.value = false
+  setTimeout(() => {
+    searchFocus.value = false
+  }, 200)
 }
 
 const list = ref([
@@ -53,6 +69,11 @@ const list = ref([
     fn: githubSearch,
   },
 ])
+
+const openFn = (item) => {
+  item.fn()
+  console.log('openFn', item.fn)
+}
 </script>
 
 <template>
@@ -63,26 +84,53 @@ const list = ref([
           v-model="searchText"
           placeholder="请输入搜索内容"
           clearable
-          @keyup.enter="handleSearch"
+          @keyup.enter="handleSearch(searchText)"
           @focus="handleFocus"
           @blur="handleBlur"
         ></sf-input>
       </div>
       <div
         class="h-12 w-24 flex items-center justify-center bg-[#409eff] text-white cursor-pointer rounded-r-lg"
-        @click="handleSearch"
+        @click="handleSearch(searchText)"
       >
         搜索
       </div>
     </div>
-    <div v-if="searchText && searchFocus" class="w-full bg-amber-200 flex flex-col z-30 p-3">
+    <div
+      v-if="searchFocus"
+      class="w-full bg-white rounded-lg shadow-lg border border-blue-100 flex flex-col z-30"
+    >
+      <!-- 搜索建议 -->
+      <template v-if="searchText">
+        <div
+          @click="openFn(item)"
+          v-for="item in list"
+          :key="item.name"
+          class="px-4 py-3 cursor-pointer hover:bg-blue-50 whitespace-nowrap overflow-hidden text-ellipsis transition-colors duration-200"
+        >
+          <span class="font-medium text-blue-600">{{ item.name }}</span>
+          <span class="text-gray-600 ml-2">：{{ searchText }}</span>
+        </div>
+      </template>
+      <!-- 搜索历史 -->
       <div
-        @click="item.fn"
-        v-for="item in list"
-        :key="item.name"
-        class="p-3 cursor-pointer hover:bg-[#e5e5e5] whitespace-nowrap overflow-hidden text-ellipsis"
+        class="p-3 flex flex-wrap gap-2"
+        v-else-if="!searchHistoryDisabled && searchHistory.length"
       >
-        {{ item.name }}：{{ searchText }}
+        <div class="text-sm text-gray-500 w-full mb-1">搜索历史：</div>
+        <div
+          @click="handleSearch(item)"
+          v-for="(item, index) in searchHistory"
+          :key="index"
+          class="bg-blue-50 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-blue-100 whitespace-nowrap transition-colors duration-200 text-sm"
+        >
+          {{ item }}
+          <span
+            class="text-gray-400 cursor-pointer ml-1 hover:text-red-400 transition-colors duration-200"
+            @click.stop="removeHistory(index)"
+            >×</span
+          >
+        </div>
       </div>
     </div>
   </div>

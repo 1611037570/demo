@@ -1,9 +1,9 @@
 <template>
   <!-- 木鱼容器 -->
-  <div class="w-12 h-12" @mousedown="downWoodenFish">
+  <div class="w-20 h-20 flex justify-center items-center flex-col" @mousedown="downWoodenFish">
     <!-- 木鱼图标 -->
     <div
-      class="w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ease-out"
+      class="min-w-15 min-h-15 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 ease-out"
       :class="isKnocking ? 'scale-95 bg-amber-600' : 'bg-amber-700'"
     >
       <Icon
@@ -12,7 +12,8 @@
         :class="isKnocking ? 'animate-pulse' : ''"
       />
     </div>
-
+    <!-- 计数器 -->
+    <div class="w-auto whitespace-nowrap">功德：{{ fish.count }}</div>
     <!-- 功德+1动画效果 -->
     <div
       class="absolute left-1/2-translate-x-1/2 text-amber-300 font-bold text-xl transition-all duration-500 ease-linear"
@@ -20,21 +21,15 @@
     >
       {{ showAdd ? '+1' : '' }}
     </div>
-
     <!-- 木鱼棒 -->
     <div
-      class="absolute top-4 left-6 w-15 h-4 bg-amber-800 rounded-full flex items-center justify-center transition-all duration-100"
+      class="absolute top-4 left-10 w-15 h-4 bg-amber-800 rounded-full flex items-center justify-center transition-all duration-100"
       :style="{ rotate: isKnocking ? '0deg' : '40deg' }"
     >
       <div class="w-12 h-1 bg-amber-600 rounded-full"></div>
       <div
         class="rounded-full w-6 h-6 bg-amber-900 absolute top-1/2 -translate-y-1/2 -left-2"
       ></div>
-    </div>
-
-    <!-- 计数器 -->
-    <div class="absolute left-1/2 -translate-x-1/2 -bottom-6 w-auto whitespace-nowrap">
-      功德：{{ fish.count }}
     </div>
   </div>
 </template>
