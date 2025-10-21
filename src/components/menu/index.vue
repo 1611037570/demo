@@ -10,10 +10,8 @@ import type { MenuEmits, MenuProps } from './types'
 // emit 事件
 const emit = defineEmits<MenuEmits>()
 // props 数据
-const { model, stopPropagation, preventDefault, beforeCreateFn, fnKey, position } = withDefaults(
-  defineProps<MenuProps>(),
-  defaultMenuProps,
-)
+const { model, stopPropagation, preventDefault, beforeCreateFn, fnKey, position, list } =
+  withDefaults(defineProps<MenuProps>(), defaultMenuProps)
 // 菜单元素
 const menuContainer = useTemplateRef('menuContainer')
 const { windowWidth, windowHeight } = useWindowSize()
@@ -36,6 +34,8 @@ const handleEvent = (event: any) => {
 
 const down = (event: any) => {
   handleEvent(event)
+
+  if (list.length === 0) return
 
   //打开前事件
   if (!beforeCreateFn()) {

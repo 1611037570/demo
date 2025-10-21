@@ -1,6 +1,6 @@
 <template>
   <sf-menu :list="menuList">
-    <div class="flex items-center justify-center flex-col cursor-pointer">
+    <div class="flex items-center justify-center flex-col cursor-pointer" @click="handleClick">
       <div
         class="flex items-center justify-center bg-amber-200 rounded-xl"
         :style="{
@@ -45,6 +45,7 @@ export interface IconProps {
   name?: number | string
   type?: 'custom' | 'default'
   index?: number
+  value?: any
 }
 
 const props = withDefaults(defineProps<IconProps>(), {
@@ -53,22 +54,26 @@ const props = withDefaults(defineProps<IconProps>(), {
   name: '',
   type: 'default',
   index: -1,
+  value: '',
 })
-const menuList = ref([
-  {
-    name: '重新获取图标',
-    fn: () => {},
-  },
-  {
-    name: '删除',
-    fn: () => {
-      if (props.index === -1) return
-      shortcutList.value.splice(props.index, 1)
+const menuList = computed(() => {
+  if (props.type === 'custom') return []
+  return [
+    {
+      name: '重新获取图标',
+      fn: () => {},
     },
-  },
-])
+    {
+      name: '删除',
+      fn: () => {
+        if (props.index === -1) return
+        shortcutList.value.splice(props.index, 1)
+      },
+    },
+  ]
+})
 
-const handleClick = (item) => {
-  window.open(item.url, openMode.value)
+const handleClick = () => {
+  window.open(props.value, openMode.value)
 }
 </script>

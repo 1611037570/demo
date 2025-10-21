@@ -60,10 +60,15 @@ const handleAdd = () => {
         :key="item.id"
         :index="index"
         :name="item.name"
+        :value="item.url"
         :class="{ 'shake-element': isDrag }"
-        @click="handleClick(item)"
       ></sf-app>
-      <sf-app text="添加" :class="{ 'shake-element': isDrag }" @click="handleAdd"></sf-app>
+      <sf-app
+        name="添加"
+        type="custom"
+        :class="{ 'shake-element': isDrag }"
+        @click="handleAdd"
+      ></sf-app>
     </VueDraggable>
   </div>
 </template>
