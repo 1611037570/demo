@@ -1,14 +1,21 @@
 <template>
   <div
     v-if="modeValue"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-neutral-200 p-4 rounded-xl flex flex-col"
+    class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center"
+    style="
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.4);
+    "
   >
-    <!-- 标题和关闭按钮 -->
-    <div class="flex justify-between items-center">
-      <div class="text-2xl font-bold">123</div>
-      <div class="text-2xl font-bold cursor-pointer" @click="modeValue = false">关闭</div>
+    <div class="flex flex-col bg-neutral-200 rounded-xl p-4">
+      <!-- 标题和关闭按钮 -->
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold">123</div>
+        <div class="text-2xl font-bold cursor-pointer" @click="modeValue = false">关闭</div>
+      </div>
+      <slot></slot>
     </div>
-    <slot></slot>
   </div>
 </template>
 
@@ -16,4 +23,4 @@
 const modeValue = defineModel()
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

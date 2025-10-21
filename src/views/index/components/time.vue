@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto text-6xl font-bold pt-12">{{ time }}</div>
+  <div class="mx-auto text-5xl font-bold pt-12 cursor-pointer">{{ time }}</div>
 </template>
 
 <script setup>

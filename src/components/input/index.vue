@@ -1,5 +1,12 @@
 <template>
-  <el-input v-model="modelValue" v-bind="$attrs" />
+  <el-input v-model="modelValue" v-bind="$attrs">
+    <template #prefix>
+      <slot name="prefix"></slot>
+    </template>
+    <template #suffix>
+      <slot name="suffix"></slot>
+    </template>
+  </el-input>
 </template>
 
 <script setup>
@@ -8,4 +15,8 @@ const modelValue = defineModel({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+:deep(.el-input__wrapper) {
+  box-shadow: none !important;
+}
+</style>

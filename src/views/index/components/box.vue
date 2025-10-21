@@ -1,11 +1,14 @@
 <script setup>
 import { useIndexStore } from '@/stores/index'
+import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 import Item from './item.vue'
 
 const indexStore = useIndexStore()
-const { shortcutList, openMode } = storeToRefs(indexStore)
+const searchStore = useSearchStore()
+const { shortcutList } = storeToRefs(indexStore)
+const { openMode } = storeToRefs(searchStore)
 
 // 拖拽状态
 const isDrag = ref(false)

@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto px-4 mb-6 cursor-pointer">
+  <div class="cursor-pointer fixed bottom-48 left-1/2 transform -translate-x-1/2">
     <div
-      class="relative p-4 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-gray-700 group"
+      class="relative p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-gray-700 group hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50"
     >
       <!-- 按钮区域 - 顶部居中，鼠标经过时显示 -->
       <div
@@ -26,7 +26,7 @@
           收藏
         </div>
       </div>
-      <p class="relative z-10 text-center text-base leading-relaxed italic py-2" s>
+      <p class="relative z-10 text-center text-sm leading-relaxed italic py-2" @click="copyQuote">
         {{ quote }}
       </p>
     </div>
@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+import { useClipboard } from '@/hooks/useClipboard'
 import { getRandomQuote } from '@/utils/getRandomQuote'
 import { onMounted, ref } from 'vue'
 
@@ -41,6 +42,14 @@ import { onMounted, ref } from 'vue'
 const quote = ref('愿这份简历 能把你带到想去的地方！')
 // 收藏状态
 const isFavorite = ref(false)
+
+// 使用剪贴板钩子
+const { copyToClipboard } = useClipboard()
+
+// 复制引言到剪贴板
+const copyQuote = () => {
+  copyToClipboard(quote.value)
+}
 
 // 更新引言的方法
 const updateQuote = () => {

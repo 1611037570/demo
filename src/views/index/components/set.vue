@@ -26,8 +26,12 @@
           }"
           v-model="openMode"
           type="select"
+          @change="(val) => searchStore.setOpenMode(val)"
         />
       </sf-set-box>
+      <sf-set-title title="搜索设置" />
+      <search />
+
       <sf-set-title title="数据管理" />
       <sf-set-box>
         <sf-set-item
@@ -72,9 +76,14 @@
 
 <script setup>
 import { useIndexStore } from '@/stores/index'
+import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
+import search from '../setting/search.vue'
 const indexStore = useIndexStore()
-const { openMode, shortcutList } = storeToRefs(indexStore)
+const searchStore = useSearchStore()
+
+const { shortcutList } = storeToRefs(indexStore)
+const { openMode, showSearchHistory, showAppSource } = storeToRefs(searchStore)
 const visible = ref(false)
 // 导入数据列表
 const importDataList = () => {}

@@ -7,19 +7,10 @@ type OpenMode = '_blank' | '_self'
 export const useIndexStore = defineStore(
   'index',
   () => {
-    const searchConfig = ref({
-      placeholder: '搜索',
-      // 历史记录
-      history: [],
-    })
     // 数据列表
     const shortcutList = ref(list)
-    // 打开方式
-    const openMode = ref<OpenMode>('_blank')
-    // 搜索框是否聚焦
-    const searchFocus = ref(false)
-    const searchHistory = ref([])
-    const searchHistoryDisabled = ref(false)
+
+    const tabIndex = ref(0)
     const initShortcutList = () => {
       shortcutList.value = shortcutList.value.map((item: any) => ({
         ...default_data,
@@ -37,13 +28,9 @@ export const useIndexStore = defineStore(
 
     return {
       shortcutList,
-      openMode,
-      searchFocus,
+      tabIndex,
       initShortcutList,
       addShortcut,
-      searchConfig,
-      searchHistory,
-      searchHistoryDisabled,
     }
   },
   {
