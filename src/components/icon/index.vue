@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-center">
-    <Icon :icon="icon" :size="size" />
+  <div class="flex items-center justify-center cursor-pointer" :class="[`w-${size}`, `h-${size}`]">
+    <Icon :icon="icon" width="100%" height="100%" />
     <span v-if="text">{{ text }}</span>
   </div>
 </template>
@@ -23,6 +23,7 @@ export interface IconProps {
    * 图标大小
    */
   size?: number | string
+  iconSize?: number | string
 }
 
 withDefaults(defineProps<IconProps>(), {

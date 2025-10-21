@@ -167,54 +167,58 @@ useEventListener(document, 'click', handleOutsideClick)
     <div
       class="flex w-full items-center h-12 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
     >
-      <div class="flex flex-1 h-full">
-        <sf-input
-          v-model="searchValue"
-          placeholder="请输入搜索内容"
-          :autofocus="false"
-          :clearable="false"
-          @keyup.enter="goSearch(currentSource)"
-          @focus="handleFocus"
-          class="h-full border-0 focus:ring-0 bg-transparent rounded-l-xl overflow-hidden"
-        >
-          <template #prefix>
-            <div class="source-selector ml-1">
-              <div
-                class="cursor-pointer flex items-center bg-blue-400 text-white rounded-xl px-2.5 h-9 text-sm font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
-                @click.stop="toggleSourceMenu"
-              >
-                <div class="search-source-item">
-                  <el-image :src="currentSource.icon" class="h-4 w-4 mr-1.5"></el-image>
-                  <span>{{ currentSource.type }}</span>
-                  <svg
-                    class="w-3 h-3 ml-1.5 transition-transform duration-200"
-                    :class="{ 'rotate-180': sourceMenuOpen }"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
+      <sf-input
+        v-model="searchValue"
+        placeholder="请输入搜索内容"
+        :autofocus="false"
+        :clearable="false"
+        @keyup.enter="goSearch(currentSource)"
+        @focus="handleFocus"
+        class="h-12 border-0 focus:ring-0 bg-transparent rounded-lg overflow-hidden"
+      >
+        <template #prefix>
+          <div class="source-selector ml-1">
+            <div
+              class="cursor-pointer flex items-center bg-blue-400 text-white rounded-lg px-2.5 h-9 text-sm font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
+              @click.stop="toggleSourceMenu"
+            >
+              <div class="search-source-item">
+                <el-image :src="currentSource.icon" class="h-4 w-4 mr-1.5"></el-image>
+                <span>{{ currentSource.type }}</span>
+                <svg
+                  class="w-3 h-3 ml-1.5 transition-transform duration-200"
+                  :class="{ 'rotate-180': sourceMenuOpen }"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
               </div>
             </div>
-          </template>
-          <template #suffix v-if="handleValue">
-            <div @click.stop="clearSearch">删除</div>
-          </template>
-        </sf-input>
-      </div>
-      <div
-        class="h-12 w-24 flex items-center justify-center bg-[#409eff] text-white cursor-pointer rounded-r-xl transition-all duration-300 hover:bg-blue-600"
-        @click="goSearch(currentSource)"
-      >
-        搜索
-      </div>
+          </div>
+        </template>
+        <template #suffix>
+          <sf-icon
+            v-if="handleValue"
+            icon="fluent:dismiss-24-regular"
+            class="w-6 h-6"
+            size="8"
+            @click.stop="clearSearch"
+          />
+          <sf-icon
+            icon="fluent:search-24-regular"
+            class="ml-1 w-6 h-6"
+            size="8"
+            @click="goSearch(currentSource)"
+          />
+        </template>
+      </sf-input>
     </div>
 
     <!-- 搜索结果/历史区域 -->

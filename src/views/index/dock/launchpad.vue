@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-20 h-20 cursor-pointer group rounded-lg bg-white/80 backdrop-blur-md transition-all duration-300"
-    @click="handleClick"
+    @click="switchTab"
   >
     <!-- 多彩3x3圆点网格 -->
     <div class="grid grid-cols-3 gap-0.5 h-full w-full place-items-center p-2">
@@ -19,9 +19,8 @@
 </template>
 
 <script setup>
-const handleClick = () => {
-  console.log('点击了')
-}
+import { useIndexStore } from '@/stores/index'
+const { switchTab } = useIndexStore()
 </script>
 
 <style scoped></style>

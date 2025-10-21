@@ -18,6 +18,11 @@ export const useIndexStore = defineStore(
         id: item?.id || generateUUID(),
       }))
     }
+
+    const switchTab = () => {
+      console.log('切换tab')
+      tabIndex.value = tabIndex.value == 0 ? 1 : 0
+    }
     const addShortcut = (item: any) => {
       shortcutList.value.push({
         ...default_data,
@@ -31,6 +36,7 @@ export const useIndexStore = defineStore(
       tabIndex,
       initShortcutList,
       addShortcut,
+      switchTab,
     }
   },
   {

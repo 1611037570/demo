@@ -3,17 +3,20 @@ import { ref, useTemplateRef } from 'vue'
 import MenuList from './MenuList.vue'
 import { defaultMenuProps } from './data'
 import useClick from './hooks/useClick'
-import usePosition from './hooks/usePosition'
 import useWindowSize from './hooks/useWindowSize'
 import type { MenuEmits, MenuProps } from './types'
 
 // emit 事件
 const emit = defineEmits<MenuEmits>()
 // props 数据
-const { model, stopPropagation, preventDefault, beforeCreateFn, fnKey, position, list } =
-  withDefaults(defineProps<MenuProps>(), defaultMenuProps)
+const { model, stopPropagation, preventDefault, beforeCreateFn, fnKey, list } = withDefaults(
+  defineProps<MenuProps>(),
+  defaultMenuProps,
+)
+
 // 菜单元素
 const menuContainer = useTemplateRef('menuContainer')
+// const { width: windowWidth, height: windowHeight } = useWindowSize()
 const { windowWidth, windowHeight } = useWindowSize()
 // 菜单大小
 const menuWidth = ref(0)
@@ -43,11 +46,9 @@ const down = (event: any) => {
   }
   // 打开前回调
   emit('onBeforeCreate')
-
   open.value = true
   // 打开后回调
   emit('onMounted')
-
   if (model == 'press') {
     window.addEventListener(
       'mousedown',
@@ -91,41 +92,34 @@ const end = () => {
   window.removeEventListener('contextmenu', end, { capture: true })
 }
 
-const menuPositron = usePosition(
-  windowWidth,
-  menuWidth,
-  clientX,
-  windowHeight,
-  menuHeight,
-  clientY,
-  position,
-)
+const menuPositron = computed(() => {
+  const wW = windowWidth.value
+  const mW = menuWidth.value
+  const cX = clientX.value
+  const wH = windowHeight.value
+  const mH = menuHeight.value
+  const cY = clientY.value
 
-// // 菜单加载前
-// const onBeforeEnter = (el: any) => {
-//   el.style.opacity = 0
-//   el.style.height = 0
-// }
-// // 菜单加载后
-// const onEnter = (el: any) => {
-//   el.style.height = 'auto'
+  const positionStyle: any = {}
 
-//   menuWidth.value = el.clientWidth
-//   menuHeight.value = el.clientHeight
+  if (cX > windowWidth.value - mW) {
+    positionStyle.right = `${wW - cX}px`
+    positionStyle.transformOrigin = 'right'
+  } else {
+    positionStyle.left = `${cX}px`
+    positionStyle.transformOrigin = 'left'
+  }
 
-//   el.style.height = 0
-//   el.style.opacity = 1
+  if (cY > wH - mH) {
+    positionStyle.bottom = `${wH - cY}px`
+    positionStyle.transformOrigin += ' bottom'
+  } else {
+    positionStyle.top = `${cY}px`
+    positionStyle.transformOrigin += ' top'
+  }
 
-//   requestAnimationFrame(() => {
-//     el.style.borderRadius = 0
-//     el.style.height = menuHeight.value + 'px'
-//     el.style.transition = '.3s'
-//   })
-// }
-// // 菜单离开时
-// const onAfterEnter = (el: any) => {
-//   el.style.transition = 'none'
-// }
+  return positionStyle
+})
 </script>
 
 <template>
@@ -138,13 +132,11 @@ const menuPositron = usePosition(
         mode="out-in"
         enter-active-class="transition-all duration-200 linear"
         leave-active-class="transition-all duration-200 linear"
-        enter-from-class=" scale-0"
-        leave-to-class=" scale-0"
+        enter-from-class="scale-0"
+        leave-to-class="scale-0"
       >
         <div v-if="open" class="menu-container" :style="[menuPositron, menuContainerStyle]">
-          <slot name="menu">
-            <MenuList :list="list" :nameKey="nameKey" @select="select"></MenuList>
-          </slot>
+          <MenuList :list="list" :nameKey="nameKey" @select="select"></MenuList>
         </div>
       </transition>
     </Teleport>
@@ -155,6 +147,5 @@ const menuPositron = usePosition(
   position: fixed;
   overflow: hidden;
   z-index: 999999999;
-  width: auto;
 }
 </style>

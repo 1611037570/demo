@@ -5,7 +5,7 @@
   <tip></tip>
   <div class="flex flex-col w-full h-full fixed z-10">
     <!-- 时间组件 -->
-    <currentTime @click="switchTab"></currentTime>
+    <currentTime></currentTime>
     <search></search>
 
     <div class="flex-1 flex flex-col">
@@ -38,7 +38,7 @@
       <setting v-if="tabIndex == 1"></setting>
     </transition>
 
-    <dock @click="switchTab" />
+    <dock />
 
     <copyright></copyright>
 
@@ -87,8 +87,4 @@ tabIndex.value = 0
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
 searchFocus.value = false
-
-const switchTab = () => {
-  tabIndex.value = tabIndex.value == 0 ? 1 : 0
-}
 </script>
