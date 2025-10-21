@@ -3,7 +3,6 @@ import { useIndexStore } from '@/stores/index'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
-import Item from './item.vue'
 
 const indexStore = useIndexStore()
 const searchStore = useSearchStore()
@@ -34,10 +33,6 @@ onMounted(async () => {
   isInit.value = true
 })
 
-const handleClick = (item) => {
-  window.open(item.url, openMode.value)
-}
-
 const handleAdd = () => {
   indexStore.addShortcut({
     name: '新应用',
@@ -60,17 +55,15 @@ const handleAdd = () => {
       @update="onUpdate"
       @end="onEnd"
     >
-      <SfMenu v-for="item in shortcutList" :key="item.id">
-        <Item :item="item" :class="{ 'shake-element': isDrag }" @click="handleClick(item)"></Item>
-      </SfMenu>
-      <Item
-        :item="{
-          name: '添加',
-          url: '#',
-        }"
+      <sf-app
+        v-for="(item, index) in shortcutList"
+        :key="item.id"
+        :index="index"
+        :name="item.name"
         :class="{ 'shake-element': isDrag }"
-        @click="handleAdd()"
-      ></Item>
+        @click="handleClick(item)"
+      ></sf-app>
+      <sf-app text="添加" :class="{ 'shake-element': isDrag }" @click="handleAdd"></sf-app>
     </VueDraggable>
   </div>
 </template>

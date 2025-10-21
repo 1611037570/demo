@@ -132,17 +132,17 @@ const onAfterEnter = (el: any) => {
   <!-- 触发展开区 -->
   <div ref="menuContainer">
     <slot></slot>
+    <!-- 菜单展示区 -->
+    <Teleport to="body">
+      <Transition @beforeEnter="onBeforeEnter" @enter="onEnter" @afterEnter="onAfterEnter">
+        <div v-if="open" class="menu-container" :style="[menuPositron, menuContainerStyle]">
+          <slot name="menu">
+            <MenuList :list="list" :nameKey="nameKey" @select="select"></MenuList>
+          </slot>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
-  <!-- 菜单展示区 -->
-  <Teleport to="body">
-    <Transition @beforeEnter="onBeforeEnter" @enter="onEnter" @afterEnter="onAfterEnter">
-      <div v-if="open" class="menu-container" :style="[menuPositron, menuContainerStyle]">
-        <slot name="menu">
-          <MenuList :list="list" :nameKey="nameKey" @select="select"></MenuList>
-        </slot>
-      </div>
-    </Transition>
-  </Teleport>
 </template>
 <style scoped>
 .menu-container {
