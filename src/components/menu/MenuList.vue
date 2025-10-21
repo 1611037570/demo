@@ -1,13 +1,18 @@
 <template>
-  <div class="menu-list">
+  <div class="w-[220px] bg-white rounded-xl shadow-lg border border-blue-100 overflow-hidden p-2">
     <div
       v-for="(item, index) in list"
-      class="menu-item"
       :key="index"
+      class="menu-item flex items-center px-3 py-2.5 rounded-md hover:bg-blue-50 cursor-pointer text-sm transition-all duration-200 hover:pl-4 group"
       @click="select($event, item)"
       @mousedown="select($event, item)"
     >
-      {{ item[nameKey] }}
+      <!-- 菜单项文本 -->
+      <div
+        class="text-gray-700 group-hover:text-blue-600 transition-colors duration-200 font-medium"
+      >
+        {{ item[nameKey] }}
+      </div>
     </div>
   </div>
 </template>
@@ -31,26 +36,4 @@ const select = (event: any, item: any) => {
 }
 </script>
 
-<style scoped>
-.menu-list {
-  width: 200px;
-  padding: 4px;
-  border-radius: 8px;
-  border: 1px solid #e3e3e3;
-  background: #6ba1c7;
-  display: flex;
-  flex-direction: column;
-}
-.menu-item {
-  padding: 4px 8px;
-  height: 32px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: #fff;
-}
-.menu-item:hover {
-  background: #96c5e7;
-}
-</style>
+<style scoped></style>

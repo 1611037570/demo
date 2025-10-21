@@ -74,6 +74,7 @@ const menuList = computed(() => {
 })
 
 const handleClick = () => {
+  if (props.type !== 'default') return
   window.open(props.value, openMode.value)
 }
 </script>

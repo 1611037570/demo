@@ -101,31 +101,31 @@ const menuPositron = usePosition(
   position,
 )
 
-// 菜单加载前
-const onBeforeEnter = (el: any) => {
-  el.style.opacity = 0
-  el.style.height = 0
-}
-// 菜单加载后
-const onEnter = (el: any) => {
-  el.style.height = 'auto'
+// // 菜单加载前
+// const onBeforeEnter = (el: any) => {
+//   el.style.opacity = 0
+//   el.style.height = 0
+// }
+// // 菜单加载后
+// const onEnter = (el: any) => {
+//   el.style.height = 'auto'
 
-  menuWidth.value = el.clientWidth
-  menuHeight.value = el.clientHeight
+//   menuWidth.value = el.clientWidth
+//   menuHeight.value = el.clientHeight
 
-  el.style.height = 0
-  el.style.opacity = 1
+//   el.style.height = 0
+//   el.style.opacity = 1
 
-  requestAnimationFrame(() => {
-    el.style.borderRadius = 0
-    el.style.height = menuHeight.value + 'px'
-    el.style.transition = '.3s'
-  })
-}
-// 菜单离开时
-const onAfterEnter = (el: any) => {
-  el.style.transition = 'none'
-}
+//   requestAnimationFrame(() => {
+//     el.style.borderRadius = 0
+//     el.style.height = menuHeight.value + 'px'
+//     el.style.transition = '.3s'
+//   })
+// }
+// // 菜单离开时
+// const onAfterEnter = (el: any) => {
+//   el.style.transition = 'none'
+// }
 </script>
 
 <template>
@@ -134,13 +134,19 @@ const onAfterEnter = (el: any) => {
     <slot></slot>
     <!-- 菜单展示区 -->
     <Teleport to="body">
-      <Transition @beforeEnter="onBeforeEnter" @enter="onEnter" @afterEnter="onAfterEnter">
+      <transition
+        mode="out-in"
+        enter-active-class="transition-all duration-200 linear"
+        leave-active-class="transition-all duration-200 linear"
+        enter-from-class=" scale-0"
+        leave-to-class=" scale-0"
+      >
         <div v-if="open" class="menu-container" :style="[menuPositron, menuContainerStyle]">
           <slot name="menu">
             <MenuList :list="list" :nameKey="nameKey" @select="select"></MenuList>
           </slot>
         </div>
-      </Transition>
+      </transition>
     </Teleport>
   </div>
 </template>
