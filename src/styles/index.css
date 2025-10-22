@@ -21,6 +21,31 @@
   --radius-2xl: 1.5rem;
 }
 
+/* 自定义缩放工具类 - 推荐使用transform: scale()而非zoom */
+@layer utilities {
+  /* 缩放工具类 */
+  .scale-zoom-50 { transform: scale(0.5); }
+  .scale-zoom-75 { transform: scale(0.75); }
+  .scale-zoom-90 { transform: scale(0.9); }
+  .scale-zoom-95 { transform: scale(0.95); }
+  .scale-zoom-100 { transform: scale(1); }
+  .scale-zoom-105 { transform: scale(1.05); }
+  .scale-zoom-110 { transform: scale(1.1); }
+  .scale-zoom-125 { transform: scale(1.25); }
+  .scale-zoom-150 { transform: scale(1.5); }
+  
+  /* 支持旧版IE的zoom属性（不推荐，但保留兼容性） */
+  .zoom-50 { zoom: 0.5; }
+  .zoom-75 { zoom: 0.75; }
+  .zoom-90 { zoom: 0.9; }
+  .zoom-95 { zoom: 0.95; }
+  .zoom-100 { zoom: 1; }
+  .zoom-105 { zoom: 1.05; }
+  .zoom-110 { zoom: 1.1; }
+  .zoom-125 { zoom: 1.25; }
+  .zoom-150 { zoom: 1.5; }
+}
+
 html,
 body,
 #app {

@@ -45,7 +45,8 @@ const handleAdd = () => {
   <div>
     <VueDraggable
       :style="{
-        zoom: zoom,
+        transform: `scale(${zoom})`,
+        transformOrigin: 'center'
       }"
       class="w-[680px] mx-auto grid grid-cols-5"
       v-if="isInit"

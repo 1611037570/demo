@@ -61,6 +61,7 @@
         <wooden-fish class="absolute left-1/2 bottom-0 -translate-x-1/2"></wooden-fish>
       </div>
     </transition>
+    <settingModal />
   </div>
 </template>
 
@@ -74,13 +75,14 @@ import copyright from './components/copyright.vue'
 import income from './components/income.vue'
 import quote from './components/quote.vue'
 import search from './components/search.vue'
-import setting from './components/set.vue'
+import setting from './components/setting.vue'
 import currentTime from './components/time.vue'
 import tip from './components/tip.vue'
 import dock from './dock/index.vue'
 import luckyWheel from './games/luckyWheel.vue'
 import meditation from './games/meditation.vue'
 import woodenFish from './games/woodenFish.vue'
+import settingModal from './setting/modal.vue'
 const indexStore = useIndexStore()
 const { tabIndex } = storeToRefs(indexStore)
 tabIndex.value = 0

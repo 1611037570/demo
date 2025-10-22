@@ -9,6 +9,7 @@ export const useIndexStore = defineStore(
   () => {
     // 数据列表
     const shortcutList = ref(list)
+    const systemVisible = ref(false)
 
     const tabIndex = ref(0)
     const initShortcutList = () => {
@@ -37,6 +38,7 @@ export const useIndexStore = defineStore(
       initShortcutList,
       addShortcut,
       switchTab,
+      systemVisible,
     }
   },
   {

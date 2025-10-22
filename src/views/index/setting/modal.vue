@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="fixed top-12 right-12 z-20" @click="openSet">设置</div>
-    <sf-modal v-if="visible" v-model="visible">
+    <sf-modal v-if="systemVisible" v-model="systemVisible">
       <sf-set-title title="时间" />
       <sf-set-box>
         <sf-set-item title="下班倒计时" type="switch" v-model="countDown" />
@@ -78,18 +77,14 @@
 import { useIndexStore } from '@/stores/index'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
-import search from '../setting/search.vue'
+import search from './modal-search.vue'
 const indexStore = useIndexStore()
 const searchStore = useSearchStore()
 
-const { shortcutList } = storeToRefs(indexStore)
-const { openMode, showSearchHistory, showAppSource } = storeToRefs(searchStore)
-const visible = ref(false)
+const { shortcutList, systemVisible } = storeToRefs(indexStore)
+const { openMode } = storeToRefs(searchStore)
 // 导入数据列表
 const importDataList = () => {}
-const openSet = () => {
-  visible.value = true
-}
 // 把dataList导出为json文件
 const exportDataList = () => {
   const json = JSON.stringify(shortcutList.value)
