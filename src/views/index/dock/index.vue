@@ -1,11 +1,12 @@
 <template>
-  <div class="fixed bottom-0 left-0 right-0 w-full h-40 group">
+  <div class="fixed bottom-0 left-0 right-0 w-full h-48 group">
     <div
-      class="flex items-center justify-center p-2.5 bg-white/20 mx-auto rounded-xl gap-3 fixed transform -translate-x-1/2 left-1/2 transition-all duration-300 z-[999] cursor-pointer"
+      class="flex items-center justify-center p-2.5 bg-white/20 mx-auto rounded-xl gap-3 fixed transform -translate-x-1/2 left-1/2 transition-all duration-500 z-[999] cursor-pointer"
       :class="[autoHideDock ? 'group-hover:bottom-[50px] -bottom-[100px]' : 'bottom-[50px]']"
       style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
     >
-      <launchpad class="" />
+      <launchpad />
+      <bg />
       <div
         class="hover:scale-105 transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center"
         @click="openSet"
@@ -27,6 +28,7 @@
 <script setup>
 import { useIndexStore } from '@/stores/index'
 import { storeToRefs } from 'pinia'
+import bg from './bg.vue'
 import launchpad from './launchpad.vue'
 import writeResume from './write-resume.vue'
 

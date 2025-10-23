@@ -1,5 +1,8 @@
 <template>
-  <div class="mx-auto text-5xl font-bold pt-32 mb-8 cursor-pointer z-10" @click="switchTab">
+  <div
+    class="mx-auto text-5xl font-bold pt-32 mb-8 cursor-pointer z-10 text-white"
+    @click="switchTab"
+  >
     {{ time }}
   </div>
 </template>
