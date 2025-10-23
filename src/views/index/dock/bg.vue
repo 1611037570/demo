@@ -40,7 +40,7 @@ vue
 }
 
 .icon:hover span {
-  animation: rotating 2s ease-in-out forwards;
+  animation: rotating 0.8s ease-in-out forwards;
 }
 
 @keyframes rotating {
