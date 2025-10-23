@@ -61,7 +61,6 @@
         <wooden-fish class="absolute left-1/2 bottom-0 -translate-x-1/2"></wooden-fish>
       </div>
     </transition>
-    <settingModal />
   </div>
 </template>
 
@@ -82,7 +81,6 @@ import dock from './dock/index.vue'
 import luckyWheel from './games/luckyWheel.vue'
 import meditation from './games/meditation.vue'
 import woodenFish from './games/woodenFish.vue'
-import settingModal from './setting/modal.vue'
 const indexStore = useIndexStore()
 const { tabIndex } = storeToRefs(indexStore)
 tabIndex.value = 0

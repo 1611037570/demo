@@ -10,12 +10,8 @@
     >
       <sf-icon icon="fluent:settings-24-regular" size="6" />
     </div>
-    <div
-      class="hover:scale-105 transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center text-[10px]"
-      @click="openResume"
-    >
-      写简历
-    </div>
+    <writeResume />
+
     <div
       class="hover:scale-105 transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center text-[10px]"
       @click="sendResume"
@@ -28,9 +24,9 @@
 <script setup>
 import { useIndexStore } from '@/stores/index'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
 import launchpad from './launchpad.vue'
-const router = useRouter()
+import writeResume from './write-resume.vue'
+
 const indexStore = useIndexStore()
 const { systemVisible } = storeToRefs(indexStore)
 const openSet = () => {
@@ -38,9 +34,6 @@ const openSet = () => {
 }
 const sendResume = () => {
   window.open('https://www.zhipin.com/')
-}
-const openResume = () => {
-  router.push('/resume')
 }
 </script>
 

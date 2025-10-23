@@ -1,0 +1,23 @@
+<template>
+  <sf-modal v-if="indexVisible" v-model="indexVisible">
+    <div v-if="list.length"></div>
+    <div v-else>
+      <el-button @click="openResume">制作第一个简历</el-button>
+    </div>
+  </sf-modal>
+</template>
+
+<script setup>
+import { useResumeStore } from '@/stores/resume'
+import { storeToRefs } from 'pinia'
+const resumeStore = useResumeStore()
+const { indexVisible, list } = storeToRefs(resumeStore)
+
+const router = useRouter()
+
+const openResume = () => {
+  router.push('/resume')
+}
+</script>
+
+<style scoped></style>
