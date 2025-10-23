@@ -1,7 +1,7 @@
 <template>
   <div class="cursor-pointer fixed bottom-48 left-1/2 transform -translate-x-1/2">
     <div
-      class="relative p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-gray-700 group hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50"
+      class="relative p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-white group hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50 group"
     >
       <!-- 按钮区域 - 顶部居中，鼠标经过时显示 -->
       <div
@@ -26,7 +26,10 @@
           收藏
         </div>
       </div>
-      <p class="relative z-10 text-center text-sm leading-relaxed italic py-2" @click="copyQuote">
+      <p
+        class="relative z-10 text-center text-sm leading-relaxed italic py-2 group-hover:text-blue-600"
+        @click="copyQuote"
+      >
         {{ quote }}
       </p>
     </div>

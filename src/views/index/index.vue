@@ -6,7 +6,14 @@
   <div class="flex flex-col w-full h-full fixed z-10">
     <!-- 时间组件 -->
     <currentTime></currentTime>
-    <search></search>
+    <transition
+      enter-active-class="transition-all duration-300 linear"
+      leave-active-class="transition-all duration-300 linear"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+    >
+      <search v-if="tabIndex == 0"></search>
+    </transition>
 
     <div class="flex-1 flex flex-col">
       <transition
@@ -61,6 +68,7 @@
         <wooden-fish class="absolute left-1/2 bottom-0 -translate-x-1/2"></wooden-fish>
       </div>
     </transition>
+    <settingModal />
   </div>
 </template>
 
@@ -68,6 +76,7 @@
 import { useIndexStore } from '@/stores/index'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
+import settingModal from './/setting/modal.vue'
 import background from './components/background.vue'
 import box from './components/box.vue'
 import copyright from './components/copyright.vue'

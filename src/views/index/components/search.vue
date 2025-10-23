@@ -136,8 +136,10 @@ useEventListener(document, 'click', handleOutsideClick)
 </script>
 
 <template>
-  <!-- 添加relative定位，使下拉菜单基于此定位 -->
-  <div class="h-12 w-[650px] my-12 flex flex-col mx-auto relative search-container">
+  <div
+    class="h-12 flex flex-col search-container group items-center transition-all duration-200 fixed top-50 left-1/2 -translate-x-1/2"
+    :class="[searchFocus ? 'w-[650px]' : 'w-[230px]']"
+  >
     <!-- 搜索源下拉菜单（移到最顶层，确保正确层级） -->
     <transition name="dropdown" appear>
       <div
@@ -164,19 +166,22 @@ useEventListener(document, 'click', handleOutsideClick)
       </div>
     </transition>
     <!-- 搜索框和按钮 -->
+    <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="flex w-full items-center h-12 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+      class="flex w-full items-center h-12 rounded-xl shadow-xl transition-all group-hover:w-[650px] duration-300"
+      :class="[searchFocus ? 'bg-[#ffffffe6] ' : 'group-hover:bg-[#fff9] bg-[#ffffff40]']"
+      style="backdrop-filter: blur(10px) saturate(1.5)"
     >
       <sf-input
         v-model="searchValue"
-        placeholder="请输入搜索内容"
+        placeholder="开始搜索"
         :autofocus="false"
         :clearable="false"
         @keyup.enter="goSearch(currentSource)"
         @focus="handleFocus"
-        class="h-12 border-0 focus:ring-0 bg-transparent rounded-lg overflow-hidden"
+        class="h-12 bg-transparent rounded-lg overflow-hidden text-white"
       >
-        <template #prefix>
+        <template #prefix v-if="searchFocus">
           <div class="source-selector ml-1">
             <div
               class="cursor-pointer flex items-center bg-blue-400 text-white rounded-lg px-2.5 h-9 text-sm font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
@@ -203,7 +208,7 @@ useEventListener(document, 'click', handleOutsideClick)
             </div>
           </div>
         </template>
-        <template #suffix>
+        <template #suffix v-if="searchFocus">
           <sf-icon
             v-if="handleValue"
             icon="fluent:dismiss-24-regular"
@@ -224,7 +229,7 @@ useEventListener(document, 'click', handleOutsideClick)
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus && (handleValue || (showSearchHistory && searchHistory.length))"
-      class="w-full bg-white rounded-lg shadow-lg border border-blue-100 flex flex-col z-30 mt-1 p-3"
+      class="bg-white rounded-lg shadow-lg border border-blue-100 flex flex-col z-30 mt-1 p-3 w-[650px]"
     >
       <!-- 搜索建议 -->
       <template v-if="handleValue">
@@ -355,5 +360,12 @@ useEventListener(document, 'click', handleOutsideClick)
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+:deep(.el-input__wrapper) {
+  background-color: transparent !important;
+}
+:deep(.el-input__inner) {
+  text-align: center !important;
 }
 </style>

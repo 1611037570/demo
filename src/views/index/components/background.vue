@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full bg-blue-50 fixed z-1 transition-all duration-300 bg-cover bg-center"
+    class="w-full h-full bg-blue-50 fixed z-1 transition-all duration-200 bg-cover bg-center"
     :style="{
       filter: searchFocus || tabIndex == 1 ? 'blur(10px)' : 'blur(0px)',
       transform: searchFocus || tabIndex == 1 ? 'scale(1.1)' : 'scale(1)',

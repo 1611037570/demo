@@ -4,6 +4,7 @@
     <sf-set-box>
       <sf-set-item title="下班倒计时" type="switch" v-model="countDown" />
       <sf-set-item title="下班时间" model-value="09:00" type="time" v-model="startTime" />
+      <sf-set-item title="自动隐藏dock" type="switch" v-model="autoHideDock" />
     </sf-set-box>
     <sf-set-title title="快捷方式" />
     <sf-set-box>
@@ -79,7 +80,7 @@ import search from './modal-search.vue'
 const indexStore = useIndexStore()
 const searchStore = useSearchStore()
 
-const { shortcutList, systemVisible } = storeToRefs(indexStore)
+const { shortcutList, systemVisible, autoHideDock } = storeToRefs(indexStore)
 const { openMode } = storeToRefs(searchStore)
 // 导入数据列表
 const importDataList = () => {}

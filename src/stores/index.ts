@@ -10,7 +10,7 @@ export const useIndexStore = defineStore(
     // 数据列表
     const shortcutList = ref(list)
     const systemVisible = ref(false)
-
+    const autoHideDock = ref(false)
     const tabIndex = ref(0)
     const initShortcutList = () => {
       shortcutList.value = shortcutList.value.map((item: any) => ({
@@ -39,6 +39,7 @@ export const useIndexStore = defineStore(
       addShortcut,
       switchTab,
       systemVisible,
+      autoHideDock,
     }
   },
   {
