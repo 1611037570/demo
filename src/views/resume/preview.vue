@@ -34,15 +34,23 @@
           <div>React</div>
         </div>
       </div>
+
       <div>
         <div class="text-lg font-bold my-2">工作经历</div>
+
         <div class="flex justify-between items-center">
           <span class="font-medium"> 公司A </span>
           前端开发工程师 2023.03-2024.06
         </div>
       </div>
       <div>
-        <div class="text-lg font-bold my-2">项目经历</div>
+        <div class="text-lg font-bold my-2">个人项目经历</div>
+        <div class="flex justify-between items-center">
+          <span class="font-medium"> 简历生成器 </span>
+          独立开发 2023.03-2024.06
+        </div>
+        <div>项目描述：此简历由本项目制作。</div>
+        <div class="text-lg font-bold my-2">工作项目经历</div>
         <div class="flex justify-between items-center">
           <span class="font-medium"> 公司A </span>
           前端开发工程师 2023.03-2024.06
