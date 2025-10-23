@@ -1,26 +1,15 @@
 <template>
-  <div class="p-4">
-    <!-- 打印按钮 -->
-    <div class="mb-4 flex justify-end">
-      <el-button
-        type="primary"
-        @click="printFormToPDF"
-        :loading="isLoading"
-        icon="el-icon-download"
-      >
+  <div class="flex w-full h-full">
+    <div class="w-1/2 h-full bg-amber-100">
+      <builder />
+    </div>
+    <div class="w-1/2 h-full bg-amber-400">
+      <el-button type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
         打印表单PDF
       </el-button>
-    </div>
-
-    <!-- 表单容器 -->
-    <div class="bg-white p-4 rounded-lg shadow-md">
+      <!-- 表单容器 -->
       <div ref="formContainer">
-        <div class="hyperlink-wrapper">
-          <a href="https://www.baidu.com" target="_blank" data-pdf-link="https://www.baidu.com"
-            >我是超级链接</a
-          >
-        </div>
-        <dynamic-form />
+        <preview />
       </div>
     </div>
   </div>
@@ -30,6 +19,8 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import { ref } from 'vue'
+import builder from './builder.vue'
+import preview from './preview.vue'
 
 // 表单容器引用
 const formContainer = ref(null)
@@ -39,7 +30,7 @@ const isLoading = ref(false)
 /**
  * 将表单打印为PDF文件
  */
-const printFormToPDF = async () => {
+const printPDF = async () => {
   if (!formContainer.value) {
     console.error('表单容器未找到')
     return
@@ -55,84 +46,146 @@ const printFormToPDF = async () => {
       format: 'a4',
     })
 
-    // 提取页面中的超链接及其位置信息
-    const hyperlinks = []
-    const linkElements = formContainer.value.querySelectorAll('a[data-pdf-link]')
-    linkElements.forEach((link) => {
-      const href = link.getAttribute('data-pdf-link')
-      const text = link.textContent.trim()
-      if (href && text) {
-        // 获取元素在页面中的位置信息
-        const rect = link.getBoundingClientRect()
-        const formRect = formContainer.value.getBoundingClientRect()
+    // 计算A4尺寸（mm）
+    const pageWidth = 210
+    const pageHeight = 297
+    const margin = 5 // 减小边距，使其更接近原始页面
 
-        // 计算相对位置（相对于表单容器）
-        const relativeX = rect.left - formRect.left
-        const relativeY = rect.top - formRect.top
-        const width = rect.width
-        const height = rect.height
+    // 获取所有子元素
+    const elements = Array.from(formContainer.value.children)
+    const originalStyles = [] // 保存原始样式
 
-        hyperlinks.push({
-          text,
-          href,
-          x: relativeX,
-          y: relativeY,
-          width,
-          height,
-        })
-      }
-    })
+    // 临时创建一个容器用于测量和渲染
+    const tempContainer = document.createElement('div')
+    tempContainer.style.position = 'absolute'
+    tempContainer.style.top = '-9999px'
+    tempContainer.style.width = `${pageWidth}mm`
+    tempContainer.style.padding = '0mm'
+    tempContainer.style.backgroundColor = '#ffffff'
+    tempContainer.style.pageBreakInside = 'avoid'
+    document.body.appendChild(tempContainer)
 
-    // 创建一个新的canvas，捕获表单内容
-    const canvas = await html2canvas(formContainer.value, {
-      scale: 2, // 提高清晰度
-      useCORS: true, // 允许跨域图片
-      logging: false, // 禁用日志
-      backgroundColor: '#ffffff', // 设置背景色
-    })
-
-    // 获取canvas的宽度和高度
-    const imgWidth = 210 // A4宽度(mm)
-    const pageHeight = 297 // A4高度(mm)
-    const imgHeight = (canvas.height * imgWidth) / canvas.width
-    let heightLeft = imgHeight
-
-    // 生成图片数据URL
-    const imgData = canvas.toDataURL('image/png')
-
-    // 添加图片到PDF
-    let position = 0
-    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-    heightLeft -= pageHeight
-
-    // 添加超链接到PDF
-    // 根据实际位置和缩放比例计算PDF中的坐标
-    hyperlinks.forEach((link) => {
-      // 计算在PDF中的位置（考虑缩放比例）
-      const pdfX = (link.x * imgWidth) / formContainer.value.offsetWidth
-      const pdfY = (link.y * imgHeight) / formContainer.value.offsetHeight
-      const pdfWidth = (link.width * imgWidth) / formContainer.value.offsetWidth
-      const pdfHeight = (link.height * imgHeight) / formContainer.value.offsetHeight
-
-      // 添加链接注释 - 参数顺序：x, y, width, height
-      pdf.link(pdfX, pdfY, pdfWidth, pdfHeight, {
-        url: link.href,
+    // 为每个元素设置分页保护样式
+    elements.forEach((element) => {
+      originalStyles.push({
+        element,
+        pageBreakInside: element.style.pageBreakInside,
+        pageBreakAfter: element.style.pageBreakAfter,
       })
+      element.style.pageBreakInside = 'avoid'
+      element.style.pageBreakAfter = 'auto'
     })
 
-    // 如果内容超过一页，添加更多页面
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight
-      pdf.addPage()
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-      heightLeft -= pageHeight
+    // 处理单页内容的函数
+    const processPage = async (pageElements) => {
+      // 清空并填充临时容器
+      tempContainer.innerHTML = ''
+      pageElements.forEach((el) => {
+        tempContainer.appendChild(el.cloneNode(true))
+      })
+
+      // 渲染到canvas，优化样式和清晰度
+      const canvas = await html2canvas(tempContainer, {
+        scale: 2.5, // 提高清晰度，使PDF输出更细腻
+        useCORS: true, // 允许跨域图片
+        logging: false, // 禁用日志
+        backgroundColor: '#ffffff', // 设置背景色
+        letterRendering: true, // 优化文字渲染
+        allowTaint: true, // 允许渲染所有内容
+        imageTimeout: 15000, // 增加图片加载超时时间
+        removeContainer: false, // 手动管理容器移除
+      })
+
+      // 添加到PDF
+      const imgData = canvas.toDataURL('image/png')
+      const imgWidth = pageWidth // 使用完整页面宽度
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, imgHeight) // 从页面左上角开始
     }
+
+    // 逐元素测量并智能分页
+    let currentPageElements = []
+    let currentPageHeight = 0
+    const safetyMargin = 2 // 额外的安全边界
+
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i]
+
+      // 创建元素克隆并测量其高度
+      const clone = element.cloneNode(true)
+      tempContainer.innerHTML = ''
+      tempContainer.appendChild(clone)
+
+      // 转换px到mm（假设96dpi）
+      const elementHeight = (clone.offsetHeight / 96) * 25.4
+
+      // 预测下一个元素的高度（如果有的话）
+      let nextElementHeight = 0
+      if (i + 1 < elements.length) {
+        const nextClone = elements[i + 1].cloneNode(true)
+        tempContainer.innerHTML = ''
+        tempContainer.appendChild(nextClone)
+        nextElementHeight = (nextClone.offsetHeight / 96) * 25.4
+      }
+
+      // 检查添加当前元素后是否会导致下一个元素放不下
+      if (
+        currentPageHeight + elementHeight + nextElementHeight + safetyMargin >
+          pageHeight - margin &&
+        i + 1 < elements.length
+      ) {
+        // 将当前元素放到新页面，确保下一个元素不会被分割
+        if (currentPageElements.length > 0) {
+          await processPage(currentPageElements)
+          pdf.addPage()
+          currentPageElements = []
+          currentPageHeight = 0
+        }
+      }
+
+      // 如果元素本身太大，需要单独一页
+      if (elementHeight > pageHeight - margin * 2) {
+        if (currentPageElements.length > 0) {
+          await processPage(currentPageElements)
+          pdf.addPage()
+          currentPageElements = []
+          currentPageHeight = 0
+        }
+      }
+
+      // 添加元素到当前页
+      currentPageElements.push(element)
+      currentPageHeight += elementHeight
+
+      // 如果当前页已满，处理并创建新页
+      if (currentPageHeight > pageHeight - margin) {
+        await processPage(currentPageElements)
+        pdf.addPage()
+        currentPageElements = []
+        currentPageHeight = 0
+      }
+    }
+
+    // 处理最后一页
+    if (currentPageElements.length > 0) {
+      await processPage(currentPageElements)
+    }
+
+    // 清理
+    document.body.removeChild(tempContainer)
+
+    // 恢复原始样式
+    originalStyles.forEach((styleInfo) => {
+      styleInfo.element.style.pageBreakInside = styleInfo.pageBreakInside
+      styleInfo.element.style.pageBreakAfter = styleInfo.pageBreakAfter
+    })
 
     // 保存PDF文件
     const fileName = `表单-${new Date().toISOString().split('T')[0]}.pdf`
     pdf.save(fileName)
 
-    console.log('PDF生成成功，超链接已添加')
+    console.log('PDF生成成功，实现了逐行分页，确保文字不会被分割在两页之间')
   } catch (error) {
     console.error('生成PDF失败:', error)
   } finally {

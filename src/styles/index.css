@@ -1,49 +1,33 @@
 @import 'tailwindcss';
 
+/* 引入自定义字体 */
+@font-face {
+  font-family: 'Alibaba Sans';
+  src: url('./AlibabaSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Tailwind CSS 4 自定义配置 */
 @theme {
   /* 自定义主题色（蓝色系） */
-  --color-primary: #165DFF;
-  --color-primary-light: #4080FF;
-  --color-primary-dark: #0E42D2;
-  
+  --color-primary: #165dff;
+  --color-primary-light: #4080ff;
+  --color-primary-dark: #0e42d2;
+
   /* 扩展断点 */
   --breakpoint-3xl: 1920px;
-  
+
   /* 自定义字体 */
-  --font-sans: 'Inter', 'system-ui', sans-serif;
-  
+  --font-sans: 'Alibaba Sans', 'Inter', 'system-ui', sans-serif;
+
   /* 自定义间距 */
   --spacing-128: 32rem;
-  
+
   /* 自定义圆角 */
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
-}
-
-/* 自定义缩放工具类 - 推荐使用transform: scale()而非zoom */
-@layer utilities {
-  /* 缩放工具类 */
-  .scale-zoom-50 { transform: scale(0.5); }
-  .scale-zoom-75 { transform: scale(0.75); }
-  .scale-zoom-90 { transform: scale(0.9); }
-  .scale-zoom-95 { transform: scale(0.95); }
-  .scale-zoom-100 { transform: scale(1); }
-  .scale-zoom-105 { transform: scale(1.05); }
-  .scale-zoom-110 { transform: scale(1.1); }
-  .scale-zoom-125 { transform: scale(1.25); }
-  .scale-zoom-150 { transform: scale(1.5); }
-  
-  /* 支持旧版IE的zoom属性（不推荐，但保留兼容性） */
-  .zoom-50 { zoom: 0.5; }
-  .zoom-75 { zoom: 0.75; }
-  .zoom-90 { zoom: 0.9; }
-  .zoom-95 { zoom: 0.95; }
-  .zoom-100 { zoom: 1; }
-  .zoom-105 { zoom: 1.05; }
-  .zoom-110 { zoom: 1.1; }
-  .zoom-125 { zoom: 1.25; }
-  .zoom-150 { zoom: 1.5; }
 }
 
 html,
@@ -51,6 +35,7 @@ body,
 #app {
   width: 100%;
   height: 100%;
+  font-family: 'Alibaba Sans';
 }
 body {
   font-size: 16px;

@@ -1,13 +1,10 @@
 <script setup>
 import { useIndexStore } from '@/stores/index'
-import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 
 const indexStore = useIndexStore()
-const searchStore = useSearchStore()
 const { shortcutList } = storeToRefs(indexStore)
-const { openMode } = storeToRefs(searchStore)
 
 // 拖拽状态
 const isDrag = ref(false)
@@ -45,8 +42,7 @@ const handleAdd = () => {
   <div>
     <VueDraggable
       :style="{
-        transform: `scale(${zoom})`,
-        transformOrigin: 'center'
+        zoom: zoom,
       }"
       class="w-[680px] mx-auto grid grid-cols-5"
       v-if="isInit"
