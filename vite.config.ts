@@ -25,6 +25,9 @@ import ViteRestart from 'vite-plugin-restart'
 // Tailwind CSS插件
 import tailwindcss from '@tailwindcss/vite'
 import { SnowFlakeComponentResolver } from './src/components/componentsResolver'
+
+import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
+
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) =>
   defineConfig({
@@ -32,15 +35,9 @@ export default ({ mode }: { mode: string }) =>
     plugins: [
       // Vue 3 插件配置
       vue(),
-      // Vue DevTools调试
-      vueDevTools(),
       // Tailwind CSS插件配置
       tailwindcss(),
-      // // 这是ttapp样式补全代码
-      // plugin(function ({ addUtilities }) {
 
-      //   })
-      // }),
       // HTML插件配置
       createHtmlPlugin({
         minify: true,
@@ -72,16 +69,25 @@ export default ({ mode }: { mode: string }) =>
         // 是否深度搜索子目录
         deep: false,
       }),
-      // 移动端调试工具
-      vconsole({
-        // 入口文件
-        entry: 'src/main.ts',
-        enabled: mode === 'development',
+      createStyleImportPlugin({
+        resolves: [ElementPlusResolve()],
       }),
-      ViteRestart({
-        // 监听这些文件的变化，触发服务器重启
-        restart: ['vite.config.ts'],
-      }),
+      // 仅在开发环境启用
+      ...(mode === 'development'
+        ? [
+            // Vue DevTools调试
+            vueDevTools(),
+            // 移动端调试工具
+            vconsole({
+              // 入口文件
+              entry: 'src/main.ts',
+            }),
+            ViteRestart({
+              // 监听这些文件的变化，触发服务器重启
+              restart: ['vite.config.ts'],
+            }),
+          ]
+        : []),
     ],
     // 路径解析配置
     resolve: {
@@ -100,6 +106,8 @@ export default ({ mode }: { mode: string }) =>
       host: true,
       // 自动打开浏览器
       open: true,
+      // 启用服务端渲染
+      hmr: true,
     },
     // esbuild配置
     esbuild: {
@@ -159,15 +167,7 @@ export default ({ mode }: { mode: string }) =>
               else if (id.includes('@iconify')) {
                 return 'vendor.iconify'
               }
-              // 其他第三方库按照类别分组
-              const chunk = id.toString().split('node_modules/')[1].split('/')[0].toString()
-              // 对于大型第三方库，仍然保持独立打包
-              const largePackages = ['echarts', 'xlsx', 'pdfmake', 'marked']
-              if (largePackages.includes(chunk)) {
-                return `vendor.${chunk}`
-              }
-              // 对于小型库，可以考虑合并打包以减少HTTP请求
-              return 'vendor.commons'
+              return id.toString().split('node_modules/')[1].split('/')[0].toString()
             }
           },
         },

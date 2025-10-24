@@ -24,10 +24,8 @@ declare module 'vue' {
     SfInput: typeof import('@components/input/index.vue')['default']
     SfMenu: typeof import('@components/menu/index.vue')['default']
     SfModal: typeof import('@components/modal/index.vue')['default']
-    SfModalContent: typeof import('@components/modalContent/index.vue')['default']
     SfSetBox: typeof import('@components/setBox/index.vue')['default']
     SfSetContainer: typeof import('@components/setContainer/index.vue')['default']
-    SfSetContent: typeof import('@components/setContent/index.vue')['default']
     SfSetItem: typeof import('@components/setItem/index.vue')['default']
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
   }

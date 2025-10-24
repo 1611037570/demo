@@ -1,6 +1,6 @@
 // 自定义组件解析器
 import type { ComponentResolver } from 'unplugin-vue-components'
-function firstCharToLower(str) {
+function firstCharToLower(str: string): string {
   // 处理空字符串或长度为0的情况
   if (!str || str.length === 0) return str
   // 第一个字符转小写 + 剩余字符（从索引1开始截取）
@@ -10,8 +10,6 @@ export const SnowFlakeComponentResolver = (): ComponentResolver => {
   return (componentName: string) => {
     if (componentName.startsWith('Sf')) {
       const name = componentName
-      console.log('name', name, firstCharToLower(name.slice(2)))
-
       const path = `@components/${firstCharToLower(name.slice(2))}/index.vue`
       return {
         // importName: name,

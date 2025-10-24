@@ -1,7 +1,6 @@
 <template>
   <sf-modal v-if="systemVisible" v-model="systemVisible">
     <sf-set-container :list="list" v-model="currentTab">
-      {{ currentTab }}
       <template v-if="currentTab === 'default'">
         <sf-set-box>
           <sf-set-item title="自动隐藏dock" type="switch" v-model="autoHideDock" />

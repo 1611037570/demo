@@ -1,9 +1,12 @@
 <script setup>
+import { useIndexStore } from '@/stores/index'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import SearchTitle from './search-title.vue'
-const searchStore = useSearchStore()
+const indexStore = useIndexStore()
+const { openMode } = storeToRefs(indexStore)
 
+const searchStore = useSearchStore()
 const { searchHistory, searchHistoryVisible } = storeToRefs(searchStore)
 const openHistory = (item) => {
   window.open(item.url, openMode.value)

@@ -69,25 +69,34 @@
 import { useIndexStore } from '@/stores/index'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
-import settingModal from './/setting/modal.vue'
+
+// 基础组件 - 页面加载时需要的组件
 import background from './components/background.vue'
-import copyright from './components/copyright.vue'
 import currentTime from './components/current-time.vue'
-import quote from './components/quote.vue'
-import setting from './components/setting.vue'
 import tip from './components/tip.vue'
-import dock from './dock/index.vue'
-import income from './games/income.vue'
-// import game from './games/index.vue'
-import luckyWheel from './games/luckyWheel.vue'
-import meditation from './games/meditation.vue'
-import woodenFish from './games/woodenFish.vue'
-import search from './search/index.vue'
-import shortcut from './shortcut/index.vue'
+
+// 按需加载组件 - 使用动态导入
+const settingModal = defineAsyncComponent(() => import('.//setting/modal.vue'))
+const copyright = defineAsyncComponent(() => import('./components/copyright.vue'))
+const quote = defineAsyncComponent(() => import('./components/quote.vue'))
+const setting = defineAsyncComponent(() => import('./components/setting.vue'))
+const dock = defineAsyncComponent(() => import('./dock/index.vue'))
+
+// 游戏相关组件 - 懒加载以减少初始加载体积
+const income = defineAsyncComponent(() => import('./games/income.vue'))
+// const game = defineAsyncComponent(() => import('./games/index.vue'))
+const luckyWheel = defineAsyncComponent(() => import('./games/luckyWheel.vue'))
+const meditation = defineAsyncComponent(() => import('./games/meditation.vue'))
+const woodenFish = defineAsyncComponent(() => import('./games/woodenFish.vue'))
+
+// 主要功能组件 - 懒加载
+const search = defineAsyncComponent(() => import('./search/index.vue'))
+const shortcut = defineAsyncComponent(() => import('./shortcut/index.vue'))
 const indexStore = useIndexStore()
 const { tabIndex } = storeToRefs(indexStore)
-tabIndex.value = 0
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
+
+tabIndex.value = 0
 searchFocus.value = false
 </script>

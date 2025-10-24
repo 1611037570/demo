@@ -16,11 +16,11 @@
 </template>
 
 <script setup>
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
-import { ref } from 'vue'
-import builder from './builder.vue'
-import preview from './preview.vue'
+import { defineAsyncComponent, ref } from 'vue'
+
+// 懒加载组件
+const builder = defineAsyncComponent(() => import('./builder.vue'))
+const preview = defineAsyncComponent(() => import('./preview.vue'))
 
 // 表单容器引用
 const formContainer = ref(null)
@@ -28,7 +28,7 @@ const formContainer = ref(null)
 const isLoading = ref(false)
 
 /**
- * 将表单打印为PDF文件
+ * 将表单打印为PDF文件 - 延迟加载PDF相关库以优化初始加载性能
  */
 const printPDF = async () => {
   if (!formContainer.value) {
@@ -39,6 +39,10 @@ const printPDF = async () => {
   isLoading.value = true
 
   try {
+    // 动态导入PDF相关库
+    const { default: html2canvas } = await import('html2canvas')
+    const { default: jsPDF } = await import('jspdf')
+
     // 创建PDF文档
     const pdf = new jsPDF({
       orientation: 'portrait',

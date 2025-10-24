@@ -11,7 +11,10 @@
 <script setup>
 import { useResumeStore } from '@/stores/resume'
 import { storeToRefs } from 'pinia'
-import indexModal from '../../resume/index-modal.vue'
+import { defineAsyncComponent } from 'vue'
+
+// 异步导入模态框组件
+const indexModal = defineAsyncComponent(() => import('../../resume/index-modal.vue'))
 
 const resumeStore = useResumeStore()
 const { indexVisible } = storeToRefs(resumeStore)
@@ -21,4 +24,4 @@ const openResume = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

@@ -72,6 +72,7 @@
     "vite-plugin-compression": "0.5.1",
     "vite-plugin-html": "3.2.2",
     "vite-plugin-restart": "1.0.0",
+    "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-vconsole": "2.1.1",
     "vite-plugin-vue-devtools": "8.0.2",
     "vue-tsc": "3.1.1"
