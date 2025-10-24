@@ -39,10 +39,10 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs'
-import { computed, ref } from 'vue'
 import snowIcon from '@/assets/images/snow.svg'
 import startImg from '@/assets/images/start.jpg'
+import dayjs from 'dayjs'
+import { computed, ref } from 'vue'
 
 const aboutVisible = ref(false)
 const openAbout = () => {
@@ -52,6 +52,7 @@ const openAbout = () => {
 const list = [
   { name: '关于项目', value: 'about' },
   { name: '关于我', value: 'about-me' },
+  { name: '技术栈', value: 'tech-stack' },
 ]
 
 const timeList = [
