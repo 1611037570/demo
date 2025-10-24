@@ -1,12 +1,19 @@
 @import 'tailwindcss';
 
-/* 引入自定义字体 */
+/* 引入阿里巴巴普惠体 */
 @font-face {
-  font-family: 'Alibaba Sans';
-  src: url('./AlibabaSans-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  font-family: 'Alibaba PuHuiTi Regular';
+  src: url('./Alibaba-PuHuiTi-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi Medium';
+  src: url('./Alibaba-PuHuiTi-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi Bold';
+  src: url('./Alibaba-PuHuiTi-Bold.ttf') format('truetype');
 }
 
 /* Tailwind CSS 4 自定义配置 */
@@ -35,7 +42,7 @@ body,
 #app {
   width: 100%;
   height: 100%;
-  font-family: 'Alibaba Sans';
+  font-family: 'Alibaba PuHuiTi Regular', 'Alibaba PuHuiTi Medium', 'Alibaba PuHuiTi Bold';
 }
 body {
   font-size: 16px;

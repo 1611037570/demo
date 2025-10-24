@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hover:scale-105 transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center text-[10px]"
+    class="transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center text-[10px]"
     @click="openResume"
   >
     写简历

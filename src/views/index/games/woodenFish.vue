@@ -13,7 +13,7 @@
       />
     </div>
     <!-- 计数器 -->
-    <div class="w-auto whitespace-nowrap">功德：{{ fish.count }}</div>
+    <div class="w-auto whitespace-nowrap">功德：{{ fishCount }}</div>
     <!-- 功德+1动画效果 -->
     <div
       class="absolute left-1/2-translate-x-1/2 text-amber-300 font-bold text-xl transition-all duration-500 ease-linear"
@@ -42,7 +42,7 @@ import { ref } from 'vue'
 
 // 从游戏状态存储中获取功德计数器
 const gameStore = useGameStore()
-const { fish } = storeToRefs(gameStore)
+const { fishCount } = storeToRefs(gameStore)
 
 // 敲击状态
 const isKnocking = ref(false)
@@ -52,7 +52,7 @@ const showAdd = ref(false)
 // 敲击木鱼函数
 function downWoodenFish() {
   // 增加计数
-  fish.value.count++
+  fishCount.value++
 
   // 设置敲击状态为true
   isKnocking.value = true

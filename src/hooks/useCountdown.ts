@@ -29,8 +29,8 @@ export function useCountdown(options: TargetTimeOptions) {
     const year = options.year ?? now.year()
     const month = (options.month ?? now.month() + 1) - 1 // 转换为0-11月
     const day = options.day ?? now.date()
-    const hour = options.hour ?? 17
-    const minute = options.minute ?? 30
+    const hour = options.hour ?? 0
+    const minute = options.minute ?? 0
     const second = options.second ?? 0
 
     // 构建基础目标时间

@@ -1,0 +1,101 @@
+vue
+<template>
+  <div class="icon" @click="backgroundVisible = true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <sf-modal v-if="backgroundVisible" v-model="backgroundVisible">暂未开发</sf-modal>
+</template>
+
+<script setup>
+import { useBackgroundStore } from '@/stores/background'
+import { storeToRefs } from 'pinia'
+const backgroundStore = useBackgroundStore()
+const { backgroundVisible } = storeToRefs(backgroundStore)
+</script>
+
+<style scoped>
+.icon {
+  width: 40px;
+  height: 40px;
+  font-size: 4px;
+  background-color: #eee;
+  border-radius: 20%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 1em;
+}
+
+.icon span {
+  position: absolute;
+  width: 22.5%;
+  height: 37.5%;
+  border-radius: 50% / 30%;
+  transform-origin: center 105%;
+  transform: rotate(calc((var(--n) - 1) * 45deg));
+  background-color: var(--c);
+  mix-blend-mode: multiply;
+}
+
+.icon:hover span {
+  animation: rotating 0.8s ease-in-out forwards;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(calc((var(--n) - 1) * 45deg));
+  }
+}
+
+.icon span:nth-child(1) {
+  --n: 9;
+  --c: rgba(243, 156, 18, 0.7);
+}
+
+.icon span:nth-child(2) {
+  --n: 2;
+  --c: rgba(241, 196, 15, 0.7);
+}
+
+.icon span:nth-child(3) {
+  --n: 3;
+  --c: rgba(46, 204, 113, 0.7);
+}
+
+.icon span:nth-child(4) {
+  --n: 4;
+  --c: rgba(27, 188, 155, 0.7);
+}
+
+.icon span:nth-child(5) {
+  --n: 5;
+  --c: rgba(65, 131, 215, 0.7);
+}
+
+.icon span:nth-child(6) {
+  --n: 6;
+  --c: rgba(102, 51, 153, 0.7);
+}
+
+.icon span:nth-child(7) {
+  --n: 7;
+  --c: rgba(155, 89, 182, 0.7);
+}
+
+.icon span:nth-child(8) {
+  --n: 8;
+  --c: rgba(242, 38, 19, 0.7);
+}
+</style>

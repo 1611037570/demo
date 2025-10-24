@@ -4,13 +4,13 @@ import { ref } from 'vue'
 export const useGameStore = defineStore(
   'game',
   () => {
-    const fish = ref({
-      count: 0,
-    })
+    const fishCount = ref(0)
 
-    return { fish }
+    return { fishCount }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['fishCount'],
+    },
   },
 )

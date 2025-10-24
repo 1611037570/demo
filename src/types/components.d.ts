@@ -13,6 +13,7 @@ declare module 'vue' {
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
@@ -24,6 +25,7 @@ declare module 'vue' {
     SfMenu: typeof import('@components/menu/index.vue')['default']
     SfModal: typeof import('@components/modal/index.vue')['default']
     SfSetBox: typeof import('@components/setBox/index.vue')['default']
+    SfSetContainer: typeof import('@components/setContainer/index.vue')['default']
     SfSetItem: typeof import('@components/setItem/index.vue')['default']
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
   }

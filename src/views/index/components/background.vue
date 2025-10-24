@@ -1,6 +1,8 @@
 <template>
   <div
-    class="w-full h-full bg-blue-50 fixed z-1 transition-all duration-200 bg-cover bg-center"
+    @click="handleClick"
+    @contextmenu.prevent="handleContextMenu"
+    class="w-full h-full top-0 left-0 right-0 bottom-0 bg-blue-50 fixed z-1 transition-all duration-200 bg-cover bg-center"
     :style="{
       filter: searchFocus || tabIndex == 1 ? 'blur(10px)' : 'blur(0px)',
       transform: searchFocus || tabIndex == 1 ? 'scale(1.1)' : 'scale(1)',
@@ -20,6 +22,19 @@ const indexStore = useIndexStore()
 const { tabIndex } = storeToRefs(indexStore)
 
 const { searchFocus } = storeToRefs(searchStore)
+
+const handleClick = () => {
+  if (tabIndex.value == 0) {
+    return
+  }
+  tabIndex.value = 0
+}
+const handleContextMenu = () => {
+  if (tabIndex.value == 1) {
+    return
+  }
+  tabIndex.value = 1
+}
 </script>
 
 <style scoped></style>

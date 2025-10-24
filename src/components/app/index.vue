@@ -16,7 +16,7 @@
           }"
         ></div>
       </div>
-      <div class="h-6 flex items-center justify-center text-sm truncate">
+      <div class="h-6 flex items-center justify-center text-sm truncate text-white">
         {{ name }}
       </div>
     </div>

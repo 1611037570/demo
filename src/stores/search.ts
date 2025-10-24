@@ -6,20 +6,14 @@ type OpenMode = '_blank' | '_self'
 export const useSearchStore = defineStore(
   'search',
   () => {
-    // 搜索配置
-    const searchConfig = ref({
-      placeholder: '搜索',
-      // 历史记录
-      history: [],
-    })
     // 搜索框是否聚焦
     const searchFocus = ref(false)
     // 搜索历史
     const searchHistory = ref([])
     // 打开方式
     const openMode = ref<OpenMode>('_blank')
-    // 是否显示搜索历史
-    const showSearchHistory = ref(true)
+    // 搜索历史
+    const searchHistoryVisible = ref(true)
     // 是否显示应用内搜索
     const showAppSource = ref(true)
     const currentWebIndex = ref(0)
@@ -53,40 +47,21 @@ export const useSearchStore = defineStore(
       searchHistory.value = []
     }
 
-    // 设置搜索框聚焦状态
-    const setSearchFocus = (focus: boolean) => {
-      searchFocus.value = focus
-    }
-
-    // 设置打开方式
-    const setOpenMode = (mode: OpenMode) => {
-      openMode.value = mode
-    }
-    // 设置搜索历史禁用状态
-    const setShowSearchHistory = (disabled: boolean) => {
-      showSearchHistory.value = disabled
-    }
-    // 设置是否显示应用内搜索
-    const setShowAppSource = (show: boolean) => {
-      showAppSource.value = show
-    }
     return {
       currentWebIndex,
       searchFocus,
       searchHistory,
-      showSearchHistory,
+      searchHistoryVisible,
       openMode,
       showAppSource,
       addSearchHistory,
       removeSearchHistory,
       clearSearchHistory,
-      setSearchFocus,
-      setOpenMode,
-      setShowSearchHistory,
-      setShowAppSource,
     }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['searchFocus', 'searchHistory', 'searchHistoryVisible'],
+    },
   },
 )

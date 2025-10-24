@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[220px] bg-white rounded-xl shadow-lg border border-blue-100 overflow-hidden p-2">
+  <div class="w-[220px] bg-white rounded-xl border border-blue-100 overflow-hidden p-2">
     <div
       v-for="(item, index) in list"
       :key="index"

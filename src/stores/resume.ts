@@ -11,6 +11,8 @@ export const useResumeStore = defineStore(
     return { indexVisible, list }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['list'],
+    },
   },
 )

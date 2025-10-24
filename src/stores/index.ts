@@ -2,7 +2,6 @@ import { generateUUID } from '@/utils/getUUID'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { default_data, list } from './index.data'
-type OpenMode = '_blank' | '_self'
 
 export const useIndexStore = defineStore(
   'index',
@@ -21,7 +20,6 @@ export const useIndexStore = defineStore(
     }
 
     const switchTab = () => {
-      console.log('切换tab')
       tabIndex.value = tabIndex.value == 0 ? 1 : 0
     }
     const addShortcut = (item: any) => {
@@ -43,9 +41,8 @@ export const useIndexStore = defineStore(
     }
   },
   {
-    // persist: {
-    //   pick: ['shortcutList'],
-    // },
-    persist: true,
+    persist: {
+      pick: ['shortcutList', 'systemVisible', 'autoHideDock'],
+    },
   },
 )
