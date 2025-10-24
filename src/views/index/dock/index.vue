@@ -25,6 +25,7 @@
       >
         投简历
       </div>
+      <snowflake />
     </div>
   </div>
 </template>
@@ -34,6 +35,7 @@ import { useIndexStore } from '@/stores/index'
 import { storeToRefs } from 'pinia'
 import background from './background.vue'
 import launchpad from './launchpad.vue'
+import snowflake from './snowflake.vue'
 import writeResume from './write-resume.vue'
 
 const indexStore = useIndexStore()
