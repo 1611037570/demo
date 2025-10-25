@@ -5,19 +5,19 @@
       :class="[autoHideDock ? 'group-hover:bottom-[50px] -bottom-[100px]' : 'bottom-[50px]']"
       style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
     >
-      <launchpad />
-      <background />
+      <Launchpad />
+      <Background />
       <div
         class="transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center group"
         @click="openSet"
       >
-        <sf-icon
+        <SfIcon
           icon="fluent:settings-24-regular"
           size="8"
           class="hover:rotate-180 transition-all duration-200"
         />
       </div>
-      <writeResume />
+      <WriteResume />
 
       <div
         class="transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center text-[10px]"
@@ -25,7 +25,7 @@
       >
         投简历
       </div>
-      <snowflake />
+      <Snowflake />
     </div>
   </div>
 </template>
@@ -33,10 +33,10 @@
 <script setup>
 import { useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import background from './background.vue'
-import launchpad from './launchpad.vue'
-import snowflake from './snowflake.vue'
-import writeResume from './write-resume.vue'
+import Background from './background.vue'
+import Launchpad from './launchpad.vue'
+import Snowflake from './snowflake.vue'
+import WriteResume from './writeResume.vue'
 
 const homeStore = useHomeStore()
 const { systemVisible, autoHideDock } = storeToRefs(homeStore)

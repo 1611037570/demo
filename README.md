@@ -11,6 +11,7 @@
 您可以通过以下链接在线体验已部署的项目：
 
 **[Snowflake Index 官网](http://nannan.work/)**
+todo 埋点功能，统计用户搜索行为
 
 ## ✨ 功能特点
 

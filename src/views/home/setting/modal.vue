@@ -1,46 +1,46 @@
 <template>
-  <sf-modal v-if="systemVisible" v-model="systemVisible">
-    <sf-set-container :list="list" v-model="currentTab">
+  <SfModal v-if="systemVisible" v-model="systemVisible">
+    <SfSetContainer :list="list" v-model="currentTab">
       <template v-if="currentTab === 'default'">
-        <sf-set-box>
-          <sf-set-item title="自动隐藏dock" type="switch" v-model="autoHideDock" />
-        </sf-set-box>
-        <sf-set-title title="数据管理" />
-        <sf-set-box>
-          <sf-set-item
+        <SfSetBox>
+          <SfSetItem title="自动隐藏dock" type="switch" v-model="autoHideDock" />
+        </SfSetBox>
+        <SfSetTitle title="数据管理" />
+        <SfSetBox>
+          <SfSetItem
             title="配置导出"
             info="会导出当前所有配置"
             model-value="导出"
             type="button"
             @onClick="exportDataList"
           />
-          <sf-set-item
+          <SfSetItem
             title="配置导入"
             info="会覆盖当前所有配置"
             model-value="导入"
             type="button"
             @onClick="importDataList"
           />
-          <sf-set-item
+          <SfSetItem
             title="快捷方式导出"
             info="仅导出所有快捷方式"
             model-value="导出"
             type="button"
             @onClick="exportDataList"
           />
-          <sf-set-item
+          <SfSetItem
             title="快捷方式导入"
             info="仅导入所有快捷方式"
             model-value="导入"
             type="button"
             @onClick="importDataList"
           />
-          <sf-set-item title="重置" info="会重置所有配置" model-value="重置" type="button" />
-        </sf-set-box>
+          <SfSetItem title="重置" info="会重置所有配置" model-value="重置" type="button" />
+        </SfSetBox>
       </template>
       <template v-if="currentTab === 'shortcut'">
-        <sf-set-box>
-          <sf-set-item
+        <SfSetBox>
+          <SfSetItem
             title="打开方式"
             :config="{
               width: '122px',
@@ -58,26 +58,27 @@
             v-model="openMode"
             type="select"
           />
-        </sf-set-box>
+        </SfSetBox>
       </template>
       <template v-else-if="currentTab === 'search'">
-        <sf-set-title title="搜索设置" />
-        <search />
+        <SfSetTitle title="搜索设置" />
+        <ModalSearch />
       </template>
       <template v-else-if="currentTab === 'game'">
-        <sf-set-box>
-          <sf-set-item title="下班倒计时" type="switch" v-model="countDown" />
-          <sf-set-item title="下班时间" model-value="09:00" type="time" v-model="startTime" />
-        </sf-set-box>
+        <SfSetBox>
+          <SfSetItem title="下班倒计时" type="switch" v-model="countDown" />
+          <SfSetItem title="下班时间" model-value="09:00" type="time" v-model="startTime" />
+        </SfSetBox>
       </template>
-    </sf-set-container>
-  </sf-modal>
+    </SfSetContainer>
+  </SfModal>
 </template>
 
 <script setup>
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import search from './modal-search.vue'
+import ModalSearch from './modalSearch.vue'
+
 const homeStore = useHomeStore()
 const searchStore = useSearchStore()
 

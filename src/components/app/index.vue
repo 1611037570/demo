@@ -1,5 +1,5 @@
 <template>
-  <sf-menu :list="menuList">
+  <SfMenu :list="menuList">
     <div class="flex items-center justify-center flex-col cursor-pointer" @click="handleClick">
       <div
         class="flex items-center justify-center bg-amber-200 rounded-xl"
@@ -20,7 +20,7 @@
         {{ name }}
       </div>
     </div>
-  </sf-menu>
+  </SfMenu>
 </template>
 
 <script setup lang="ts">

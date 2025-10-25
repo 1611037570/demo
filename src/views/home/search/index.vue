@@ -4,8 +4,8 @@ import { useEventListener } from '@/hooks'
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import searchBefore from './search-before.vue'
-import searchRecommend from './search-recommend.vue'
+import SearchBefore from './searchBefore.vue'
+import SearchRecommend from './searchRecommend.vue'
 const searchStore = useSearchStore()
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
@@ -186,21 +186,21 @@ useEventListener(document, 'click', handleOutsideClick)
         </div>
       </div>
       <div v-if="searchFocus" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex">
-        <sf-icon
+        <SfIcon
           v-if="handleValue"
           icon="fluent:dismiss-24-regular"
           class="w-6 h-6"
           size="8"
           @click.stop="clearSearch"
         />
-        <sf-icon
+        <SfIcon
           icon="fluent:search-24-regular"
           class="ml-1 w-6 h-6"
           size="8"
           @click="goSearch(currentSource)"
         />
       </div>
-      <sf-input
+      <SfInput
         v-model="searchValue"
         placeholder="开始搜索"
         :autofocus="false"
@@ -212,7 +212,7 @@ useEventListener(document, 'click', handleOutsideClick)
       >
         <template #prefix> </template>
         <template #suffix v-if="searchFocus"> </template>
-      </sf-input>
+      </SfInput>
     </div>
 
     <!-- 搜索结果/历史区域 -->
@@ -221,9 +221,9 @@ useEventListener(document, 'click', handleOutsideClick)
       class="bg-white rounded-xl shadow-lg border border-blue-100 flex flex-col z-30 mt-1 p-3 w-[650px]"
     >
       <!-- 搜索建议 -->
-      <searchRecommend v-if="handleValue" />
+      <SearchRecommend v-if="handleValue" />
       <!-- 搜索历史 -->
-      <searchBefore v-else />
+      <SearchBefore v-else />
     </div>
   </div>
 </template>

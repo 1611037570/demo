@@ -19,6 +19,7 @@ declare module 'vue' {
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sf: typeof import('@components//index.vue')['default']
     SfApp: typeof import('@components/app/index.vue')['default']
     SfIcon: typeof import('@components/icon/index.vue')['default']
     SfInput: typeof import('@components/input/index.vue')['default']

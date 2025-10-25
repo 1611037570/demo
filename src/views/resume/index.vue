@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full h-full">
     <div class="w-1/2 h-full bg-amber-100">
-      <builder />
+      <Builder />
     </div>
     <div class="w-1/2 h-full bg-amber-400">
       <el-button type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
@@ -9,7 +9,7 @@
       </el-button>
       <!-- 表单容器 -->
       <div ref="formContainer">
-        <preview />
+        <Preview />
       </div>
     </div>
   </div>
@@ -19,8 +19,8 @@
 import { defineAsyncComponent, ref } from 'vue'
 
 // 懒加载组件
-const builder = defineAsyncComponent(() => import('./builder.vue'))
-const preview = defineAsyncComponent(() => import('./preview.vue'))
+const Builder = defineAsyncComponent(() => import('./builder.vue'))
+const Preview = defineAsyncComponent(() => import('./preview.vue'))
 
 // 表单容器引用
 const formContainer = ref(null)

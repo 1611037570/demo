@@ -52,20 +52,20 @@ const handleAdd = () => {
       @update="onUpdate"
       @end="onEnd"
     >
-      <sf-app
+      <SfApp
         v-for="(item, index) in shortcutList"
         :key="item.id"
         :index="index"
         :name="item.name"
         :value="item.url"
         :class="{ 'shake-element': isDrag }"
-      ></sf-app>
-      <sf-app
+      ></SfApp>
+      <SfApp
         name="添加"
         type="custom"
         :class="{ 'shake-element': isDrag }"
         @click="handleAdd"
-      ></sf-app>
+      ></SfApp>
     </VueDraggable>
   </div>
 </template>

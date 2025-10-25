@@ -4,11 +4,20 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 </script>
 
 <template>
-  <el-config-provider :locale="zhCn">
-    <router-view v-slot="{ Component }">
-      <component :is="Component || LoadingComponent" />
-    </router-view>
-  </el-config-provider>
+  <ElConfigProvider :locale="zhCn">
+    <Suspense>
+      <!-- 默认插槽 -->
+      <template #default>
+        <RouterView v-slot="{ Component }">
+          <Component :is="Component || LoadingComponent" />
+        </RouterView>
+      </template>
+      <!-- 占位插槽 -->
+      <template #fallback>
+        <LoadingComponent />
+      </template>
+    </Suspense>
+  </ElConfigProvider>
 </template>
 
 <style scoped></style>

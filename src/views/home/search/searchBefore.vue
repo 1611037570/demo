@@ -1,7 +1,7 @@
 <script setup>
 import { useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import SearchTitle from './search-title.vue'
+import SearchTitle from './searchTitle.vue'
 
 const searchStore = useSearchStore()
 const { searchHistory, searchHistoryVisible, openMode } = storeToRefs(searchStore)

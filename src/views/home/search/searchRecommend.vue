@@ -2,8 +2,8 @@
 import { appSource } from '@/datas/search.data'
 import { useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import SearchList from './search-list.vue'
-import SearchTitle from './search-title.vue'
+import SearchList from './searchList.vue'
+import SearchTitle from './searchTitle.vue'
 const searchStore = useSearchStore()
 const { showAppSource } = storeToRefs(searchStore)
 </script>

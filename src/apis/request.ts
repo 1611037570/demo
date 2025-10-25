@@ -70,7 +70,14 @@ class XyRequest {
     // 注册全局响应拦截
     this.instance.interceptors.response.use(
       (res: any) => {
-        return res
+        console.log('res', res)
+        const { code, data } = res.data
+        if (code !== 200 && code !== 1) {
+          console.error('请求失败', res)
+          return
+        }
+
+        return data
       },
       (err) => {
         return err

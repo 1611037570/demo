@@ -16,13 +16,13 @@ const handleClick = (item) => {
   <div class="flex">
     <div class="flex-col flex mr-4 w-[200px]">
       <div class="flex mb-4 rounded-xl overflow-hidden">
-        <sf-input v-model="searchValue">
+        <SfInput v-model="searchValue">
           <template #prefix>
-            <sf-icon icon="fluent:search-24-regular" class="w-4 h-4" />
+            <SfIcon icon="fluent:search-24-regular" class="w-4 h-4" size="4" />
           </template>
-        </sf-input>
+        </SfInput>
       </div>
-      <el-scrollbar class="flex-1">
+      <ElScrollbar class="flex-1">
         <div class="bg-white rounded-xl p-2">
           <div
             v-for="(item, index) in list"
@@ -39,11 +39,11 @@ const handleClick = (item) => {
             {{ item.name }}
           </div>
         </div>
-      </el-scrollbar>
+      </ElScrollbar>
     </div>
-    <el-scrollbar class="flex-1">
+    <ElScrollbar class="flex-1">
       <slot></slot>
-    </el-scrollbar>
+    </ElScrollbar>
   </div>
 </template>
 

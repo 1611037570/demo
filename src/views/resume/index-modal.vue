@@ -1,10 +1,10 @@
 <template>
-  <sf-modal v-if="indexVisible" v-model="indexVisible">
+  <SfModal v-if="indexVisible" v-model="indexVisible">
     <div v-if="list.length"></div>
     <div v-else>
       <el-button @click="openResume">制作第一个简历</el-button>
     </div>
-  </sf-modal>
+  </SfModal>
 </template>
 
 <script setup>
