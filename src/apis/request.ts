@@ -73,7 +73,6 @@ class XyRequest {
         return res
       },
       (err) => {
-        setTimeout(() => {}, 1000)
         return err
       },
     )

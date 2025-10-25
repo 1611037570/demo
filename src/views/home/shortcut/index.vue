@@ -1,5 +1,5 @@
 <script setup>
-import { useHomeStore } from '@/stores/home'
+import { useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 

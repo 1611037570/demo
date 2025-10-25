@@ -1,14 +1,17 @@
 // 背景相关store
-export { useBackgroundStore } from './background'
+export { useBackgroundStore } from './modules/background'
 
 // 游戏相关store
-export { useGameStore } from './game'
+export { useGameStore } from './modules/game'
 
 // 主页相关store
-export { useHomeStore } from './home'
+export { useHomeStore } from './modules/home'
 
 // 简历相关store
-export { useResumeStore } from './resume'
+export { useResumeStore } from './modules/resume'
 
 // 搜索相关store
-export { useSearchStore } from './search'
+export { useSearchStore } from './modules/search'
+
+// 缓存相关store
+export { useCacheStore } from './modules/cache'

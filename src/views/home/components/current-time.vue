@@ -9,7 +9,7 @@
 
 <script setup>
 import { useCurrentTime } from '@/hooks'
-import { useHomeStore } from '@/stores/home'
+import { useHomeStore } from '@/stores'
 const homeStore = useHomeStore()
 const { switchTab } = homeStore
 const { time } = useCurrentTime()

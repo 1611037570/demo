@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { useResumeStore } from '@/stores/resume'
+import { useResumeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { defineAsyncComponent } from 'vue'
 

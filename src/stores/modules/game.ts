@@ -10,6 +10,7 @@ export const useGameStore = defineStore(
   },
   {
     persist: {
+      storage: localStorage,
       pick: ['fishCount'],
     },
   },

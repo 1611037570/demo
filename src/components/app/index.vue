@@ -24,8 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { useHomeStore } from '@/stores/home'
-import { useSearchStore } from '@/stores/search'
+import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
 const homeStore = useHomeStore()

@@ -66,9 +66,7 @@
 </template>
 
 <script setup>
-import rollService from '@/services/rollService'
-import { useHomeStore } from '@/stores/home'
-import { useSearchStore } from '@/stores/search'
+import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
@@ -100,17 +98,5 @@ const { searchFocus } = storeToRefs(searchStore)
 
 tabIndex.value = 0
 
-// 获取IP信息并输出结果
-const fetchIPInfo = async () => {
-  try {
-    const ipInfo = await rollService.getIPInfo()
-    console.log('获取到的IP信息:', ipInfo)
-  } catch (error) {
-    console.error('获取IP信息时出错:', error)
-  }
-}
-
-// 页面加载时获取IP信息
-fetchIPInfo()
 searchFocus.value = false
 </script>

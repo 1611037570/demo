@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { useGameStore } from '@/stores/game'
+import { useGameStore } from '@/stores'
 import { Icon } from '@iconify/vue'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'

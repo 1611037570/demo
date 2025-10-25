@@ -14,7 +14,7 @@ vue
 </template>
 
 <script setup>
-import { useBackgroundStore } from '@/stores/background'
+import { useBackgroundStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 const backgroundStore = useBackgroundStore()
 const { backgroundVisible } = storeToRefs(backgroundStore)

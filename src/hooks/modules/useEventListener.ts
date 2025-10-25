@@ -4,7 +4,7 @@ export function useEventListener<T extends EventTarget>(
   target: T | Ref<T | null | undefined> | (() => T | null | undefined),
   event: string,
   handler: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ) {
   // 获取当前目标元素的函数
   const getCurrentTarget = () => {
@@ -18,11 +18,11 @@ export function useEventListener<T extends EventTarget>(
 
   // 事件监听的添加和移除逻辑
   let currentTarget: T | null | undefined = null
-  
+
   const setupEventListener = () => {
     // 首先移除可能存在的监听器
     cleanupListener()
-    
+
     // 获取当前目标并添加监听器
     currentTarget = getCurrentTarget()
     if (currentTarget) {

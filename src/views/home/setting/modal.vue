@@ -75,8 +75,7 @@
 </template>
 
 <script setup>
-import { useHomeStore } from '@/stores/home'
-import { useSearchStore } from '@/stores/search'
+import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import search from './modal-search.vue'
 const homeStore = useHomeStore()

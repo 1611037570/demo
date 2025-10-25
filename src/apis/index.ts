@@ -1,2 +1,2 @@
-// 导出各个服务模块
+// API统一出口
 export * from './modules/roll'

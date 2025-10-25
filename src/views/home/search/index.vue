@@ -1,10 +1,9 @@
 <script setup>
+import { webSource } from '@/datas/search.data'
 import { useEventListener } from '@/hooks'
-import { useHomeStore } from '@/stores/home'
-import { useSearchStore } from '@/stores/search'
+import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import { webSource } from '../../../datas/search.data'
 import searchBefore from './search-before.vue'
 import searchRecommend from './search-recommend.vue'
 const searchStore = useSearchStore()

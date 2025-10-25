@@ -1,3 +1,2 @@
-export * from './cacheUtil';
-export * from './getRandomQuote';
-export * from './getUUID';
+export * from './modules/getRandomQuote'
+export * from './modules/getUUID'

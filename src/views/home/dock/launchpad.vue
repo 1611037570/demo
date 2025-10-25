@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { useHomeStore } from '@/stores/home'
+import { useHomeStore } from '@/stores'
 const { switchTab } = useHomeStore()
 </script>
 

@@ -1,7 +1,7 @@
 <script setup>
-import { useSearchStore } from '@/stores/search'
+import { appSource } from '@/datas/search.data'
+import { useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { appSource } from '../../../datas/search.data'
 import SearchList from './search-list.vue'
 import SearchTitle from './search-title.vue'
 const searchStore = useSearchStore()

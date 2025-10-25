@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { useHomeStore } from '@/stores/home'
+import { useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import background from './background.vue'
 import launchpad from './launchpad.vue'

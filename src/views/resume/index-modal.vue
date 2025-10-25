@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { useResumeStore } from '@/stores/resume'
+import { useResumeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 const resumeStore = useResumeStore()
 const { indexVisible, list } = storeToRefs(resumeStore)

@@ -1,7 +1,7 @@
+import { default_data, list } from '@/datas/index.data'
 import { generateUUID } from '@/utils'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { default_data, list } from '../datas/index.data'
 
 export const useHomeStore = defineStore(
   'home',
@@ -42,6 +42,8 @@ export const useHomeStore = defineStore(
   },
   {
     persist: {
+      storage: localStorage,
+
       pick: ['shortcutList', 'systemVisible', 'autoHideDock'],
     },
   },

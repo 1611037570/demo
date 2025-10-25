@@ -1,5 +1,5 @@
 <script setup>
-import { useSearchStore } from '@/stores/search'
+import { useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import SearchTitle from './search-title.vue'
 

@@ -6,3 +6,4 @@
 5、图标使用 @iconify/vue 图标库
 6、style 不要使用lang="scss"
 7、UI需要有背景hover和文字hover效果，resume下的按钮不需要
+8、导入和函数配置块的注释移在代码上方，参数注释在右侧
