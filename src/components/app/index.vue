@@ -24,13 +24,13 @@
 </template>
 
 <script setup lang="ts">
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 
-const indexStore = useIndexStore()
+const homeStore = useHomeStore()
 const searchStore = useSearchStore()
-const { shortcutList } = storeToRefs(indexStore)
+const { shortcutList } = storeToRefs(homeStore)
 const { openMode } = storeToRefs(searchStore)
 export interface IconProps {
   /**

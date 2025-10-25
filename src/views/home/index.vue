@@ -66,7 +66,8 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import rollService from '@/services/rollService'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 
@@ -92,11 +93,24 @@ const woodenFish = defineAsyncComponent(() => import('./games/woodenFish.vue'))
 // 主要功能组件 - 懒加载
 const search = defineAsyncComponent(() => import('./search/index.vue'))
 const shortcut = defineAsyncComponent(() => import('./shortcut/index.vue'))
-const indexStore = useIndexStore()
-const { tabIndex } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { tabIndex } = storeToRefs(homeStore)
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
 
 tabIndex.value = 0
+
+// 获取IP信息并输出结果
+const fetchIPInfo = async () => {
+  try {
+    const ipInfo = await rollService.getIPInfo()
+    console.log('获取到的IP信息:', ipInfo)
+  } catch (error) {
+    console.error('获取IP信息时出错:', error)
+  }
+}
+
+// 页面加载时获取IP信息
+fetchIPInfo()
 searchFocus.value = false
 </script>

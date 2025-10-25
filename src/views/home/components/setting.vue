@@ -8,11 +8,11 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { storeToRefs } from 'pinia'
 
-const indexStore = useIndexStore()
-const { systemVisible } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { systemVisible } = storeToRefs(homeStore)
 const openSet = () => {
   systemVisible.value = true
 }

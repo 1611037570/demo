@@ -8,10 +8,10 @@
 </template>
 
 <script setup>
-import { useCurrentTime } from '@/hooks/useCurrentTime'
-import { useIndexStore } from '@/stores/index'
-const indexStore = useIndexStore()
-const { switchTab } = indexStore
+import { useCurrentTime } from '@/hooks'
+import { useHomeStore } from '@/stores/home'
+const homeStore = useHomeStore()
+const { switchTab } = homeStore
 const { time } = useCurrentTime()
 </script>
 

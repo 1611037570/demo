@@ -1,15 +1,15 @@
 <script setup>
-import { useEventListener } from '@/hooks/useEventListener'
-import { useIndexStore } from '@/stores/index'
+import { useEventListener } from '@/hooks'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
+import { webSource } from '../../../datas/search.data'
 import searchBefore from './search-before.vue'
 import searchRecommend from './search-recommend.vue'
-import { webSource } from './search.data'
 const searchStore = useSearchStore()
-const indexStore = useIndexStore()
-const { tabIndex } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { tabIndex } = storeToRefs(homeStore)
 const { searchFocus, openMode, currentWebIndex } = storeToRefs(searchStore)
 function getTranslate(item) {
   // 参考url
@@ -46,7 +46,7 @@ const sourceMenuOpen = ref(false)
 const goSearch = (item) => {
   if (!handleValue.value) return
   let url
-  item.value = searchValue.value
+  item.value = handleValue.value
   if (item.type === '翻译') {
     url = getTranslate(item)
   } else {
@@ -161,6 +161,46 @@ useEventListener(document, 'click', handleOutsideClick)
       :class="[searchFocus ? 'bg-[#ffffffe6] ' : 'group-hover:bg-[#fff9] bg-[#ffffff40]']"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
+      <div v-if="searchFocus" class="source-selector absolute left-2 top-1/2 -translate-y-1/2 z-10">
+        <div
+          class="cursor-pointer flex items-center bg-blue-400 text-white rounded-lg px-2 h-7 text-xs font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
+          @click.stop="toggleSourceMenu"
+        >
+          <div class="search-source-item">
+            <el-image :src="currentSource.icon" class="h-4 w-4 mr-1.5"></el-image>
+            <span>{{ currentSource.type }}</span>
+            <svg
+              class="w-3 h-3 ml-1.5 transition-transform duration-200"
+              :class="{ 'rotate-180': sourceMenuOpen }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div v-if="searchFocus" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex">
+        <sf-icon
+          v-if="handleValue"
+          icon="fluent:dismiss-24-regular"
+          class="w-6 h-6"
+          size="8"
+          @click.stop="clearSearch"
+        />
+        <sf-icon
+          icon="fluent:search-24-regular"
+          class="ml-1 w-6 h-6"
+          size="8"
+          @click="goSearch(currentSource)"
+        />
+      </div>
       <sf-input
         v-model="searchValue"
         placeholder="开始搜索"
@@ -168,50 +208,11 @@ useEventListener(document, 'click', handleOutsideClick)
         :clearable="false"
         @keyup.enter="goSearch(currentSource)"
         @focus="handleFocus"
-        class="h-10 bg-transparent rounded-lg overflow-hidden text-white"
+        class="h-10 bg-transparent rounded-lg overflow-hidden text-white relative"
+        :class="searchFocus ? 'px-24' : ''"
       >
-        <template #prefix v-if="searchFocus">
-          <div class="source-selector ml-1">
-            <div
-              class="cursor-pointer flex items-center bg-blue-400 text-white rounded-lg px-2 h-7 text-sm font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
-              @click.stop="toggleSourceMenu"
-            >
-              <div class="search-source-item">
-                <el-image :src="currentSource.icon" class="h-4 w-4 mr-1.5"></el-image>
-                <span>{{ currentSource.type }}</span>
-                <svg
-                  class="w-3 h-3 ml-1.5 transition-transform duration-200"
-                  :class="{ 'rotate-180': sourceMenuOpen }"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </template>
-        <template #suffix v-if="searchFocus">
-          <sf-icon
-            v-if="handleValue"
-            icon="fluent:dismiss-24-regular"
-            class="w-6 h-6"
-            size="8"
-            @click.stop="clearSearch"
-          />
-          <sf-icon
-            icon="fluent:search-24-regular"
-            class="ml-1 w-6 h-6"
-            size="8"
-            @click="goSearch(currentSource)"
-          />
-        </template>
+        <template #prefix> </template>
+        <template #suffix v-if="searchFocus"> </template>
       </sf-input>
     </div>
 

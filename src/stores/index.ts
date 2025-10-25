@@ -1,48 +1,14 @@
-import { generateUUID } from '@/utils/getUUID'
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { default_data, list } from './index.data'
+// 背景相关store
+export { useBackgroundStore } from './background'
 
-export const useIndexStore = defineStore(
-  'index',
-  () => {
-    // 数据列表
-    const shortcutList = ref(list)
-    const systemVisible = ref(false)
-    const autoHideDock = ref(false)
-    const tabIndex = ref(0)
-    const initShortcutList = () => {
-      shortcutList.value = shortcutList.value.map((item: any) => ({
-        ...default_data,
-        ...item,
-        id: item?.id || generateUUID(),
-      }))
-    }
+// 游戏相关store
+export { useGameStore } from './game'
 
-    const switchTab = () => {
-      tabIndex.value = tabIndex.value == 0 ? 1 : 0
-    }
-    const addShortcut = (item: any) => {
-      shortcutList.value.push({
-        ...default_data,
-        ...item,
-        id: generateUUID(),
-      })
-    }
+// 主页相关store
+export { useHomeStore } from './home'
 
-    return {
-      shortcutList,
-      tabIndex,
-      initShortcutList,
-      addShortcut,
-      switchTab,
-      systemVisible,
-      autoHideDock,
-    }
-  },
-  {
-    persist: {
-      pick: ['shortcutList', 'systemVisible', 'autoHideDock'],
-    },
-  },
-)
+// 简历相关store
+export { useResumeStore } from './resume'
+
+// 搜索相关store
+export { useSearchStore } from './search'

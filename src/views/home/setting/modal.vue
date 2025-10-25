@@ -75,14 +75,14 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 import search from './modal-search.vue'
-const indexStore = useIndexStore()
+const homeStore = useHomeStore()
 const searchStore = useSearchStore()
 
-const { shortcutList, systemVisible, autoHideDock } = storeToRefs(indexStore)
+const { shortcutList, systemVisible, autoHideDock } = storeToRefs(homeStore)
 const { openMode } = storeToRefs(searchStore)
 // 导入数据列表
 const importDataList = () => {}

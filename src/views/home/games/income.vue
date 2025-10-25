@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { useCountdown } from '@/hooks/useCountdown'
+import { useCountdown } from '@/hooks'
 import ww from 'chinese-workday'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'

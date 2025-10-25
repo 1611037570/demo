@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
-const { switchTab } = useIndexStore()
+import { useHomeStore } from '@/stores/home'
+const { switchTab } = useHomeStore()
 </script>
 
 <style scoped></style>

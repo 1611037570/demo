@@ -1,11 +1,10 @@
-// 统一导出所有API接口
+// API统一出口
 
-// 导入各个模块的API
-import * as exampleApi from './modules/example'
+import * as rollApi from './modules/roll'
 
 // 导出所有API
 export const api = {
-  ...exampleApi,
+  ...rollApi,
 }
 
 // 默认导出，方便使用

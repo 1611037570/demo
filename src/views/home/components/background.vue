@@ -14,12 +14,12 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia'
 const searchStore = useSearchStore()
-const indexStore = useIndexStore()
-const { tabIndex } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { tabIndex } = storeToRefs(homeStore)
 
 const { searchFocus } = storeToRefs(searchStore)
 

@@ -13,14 +13,17 @@ const handleClick = (item) => {
 </script>
 
 <template>
-  <div class="flex h-[500px]">
+  <div class="flex">
     <div class="flex-col flex mr-4 w-[200px]">
-      <div class="flex mb-4 rounded-xl overflow-hidden"><sf-input v-model="searchValue" /></div>
+      <div class="flex mb-4 rounded-xl overflow-hidden">
+        <sf-input v-model="searchValue">
+          <template #prefix>
+            <sf-icon icon="fluent:search-24-regular" class="w-4 h-4" />
+          </template>
+        </sf-input>
+      </div>
       <el-scrollbar class="flex-1">
-        <!-- 限制最大高度，确保滚动条正常显示 -->
         <div class="bg-white rounded-xl p-2">
-          <!-- 增加轻微阴影增强层次感 -->
-          <!-- 使用flex布局让item自动换行，增加间距 -->
           <div
             v-for="(item, index) in list"
             :key="item.value"

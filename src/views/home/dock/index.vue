@@ -31,15 +31,15 @@
 </template>
 
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { storeToRefs } from 'pinia'
 import background from './background.vue'
 import launchpad from './launchpad.vue'
 import snowflake from './snowflake.vue'
 import writeResume from './write-resume.vue'
 
-const indexStore = useIndexStore()
-const { systemVisible, autoHideDock } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { systemVisible, autoHideDock } = storeToRefs(homeStore)
 const openSet = () => {
   systemVisible.value = true
 }

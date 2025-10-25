@@ -1,10 +1,10 @@
 <script setup>
-import { useIndexStore } from '@/stores/index'
+import { useHomeStore } from '@/stores/home'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 
-const indexStore = useIndexStore()
-const { shortcutList } = storeToRefs(indexStore)
+const homeStore = useHomeStore()
+const { shortcutList } = storeToRefs(homeStore)
 
 // 拖拽状态
 const isDrag = ref(false)
@@ -26,12 +26,12 @@ const onUpdate = () => {
 const isInit = ref(false)
 onMounted(async () => {
   await nextTick()
-  indexStore.initShortcutList()
+  homeStore.initShortcutList()
   isInit.value = true
 })
 
 const handleAdd = () => {
-  indexStore.addShortcut({
+  homeStore.addShortcut({
     name: '新应用',
     url: '#',
   })
