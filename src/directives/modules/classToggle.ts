@@ -3,7 +3,7 @@ import type { App, Directive, DirectiveBinding } from 'vue'
 /**
  * 自定义指令 v-class-toggle
  * 用于根据条件动态添加或移除类名
- * 
+ *
  * 使用方式：
  * v-class-toggle="{ active: isActive, 'text-blue': isBlue }"
  * 或
@@ -15,7 +15,7 @@ export const classToggle: Directive = {
   },
   updated(el: HTMLElement, binding: DirectiveBinding) {
     updateClass(el, binding)
-  }
+  },
 }
 
 /**
