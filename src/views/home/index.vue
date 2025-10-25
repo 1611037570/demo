@@ -98,9 +98,13 @@ const { searchFocus } = storeToRefs(searchStore)
 
 tabIndex.value = 0
 
-import { getIPInfo } from '@/services'
-getIPInfo().then((res) => {
-  console.log('res', res)
+import { getBaiduSearchData, getWeatherData } from '@/services'
+getWeatherData('hello').then((res) => {
+  console.log('getWeatherData res', res)
+})
+
+getBaiduSearchData('hello', false).then((res) => {
+  console.log('getBaiduSearchData res', res)
 })
 
 searchFocus.value = false

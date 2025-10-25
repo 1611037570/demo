@@ -33,9 +33,9 @@
 <script setup>
 import { useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import Snowflake from '../snowflake/index.vue'
 import Background from './background.vue'
 import Launchpad from './launchpad.vue'
-import Snowflake from './snowflake.vue'
 import WriteResume from './writeResume.vue'
 
 const homeStore = useHomeStore()

@@ -11,3 +11,8 @@ export const getIP = async () => {
     url: '/api/ip/self',
   })
 }
+export const getWeather = async (city: string) => {
+  return request.get({
+    url: `/api/weather/current/${city}`,
+  })
+}
