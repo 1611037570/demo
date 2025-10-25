@@ -2,7 +2,7 @@
   <SfModal v-if="indexVisible" v-model="indexVisible">
     <div v-if="list.length"></div>
     <div v-else>
-      <el-button @click="openResume">制作第一个简历</el-button>
+      <ElButton @click="openResume">制作第一个简历</ElButton>
     </div>
   </SfModal>
 </template>

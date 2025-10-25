@@ -4,9 +4,9 @@
       <Builder />
     </div>
     <div class="w-1/2 h-full bg-amber-400">
-      <el-button type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
+      <ElButton type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
         打印表单PDF
-      </el-button>
+      </ElButton>
       <!-- 表单容器 -->
       <div ref="formContainer">
         <Preview />
