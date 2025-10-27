@@ -1,6 +1,6 @@
 <template>
   <div
-    class="transition-all duration-200 w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center"
+    class="w-10 h-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center"
     @click="openAbout"
   >
     <ElImage
@@ -8,8 +8,8 @@
       class="w-7.5 h-7.5 hover:rotate-180 transition-all duration-200"
       fit="contain"
     />
+    <Modal v-if="aboutVisible" />
   </div>
-  <Modal v-if="aboutVisible" />
 </template>
 
 <script setup>

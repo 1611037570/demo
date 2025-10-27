@@ -15,3 +15,6 @@ export { useSearchStore } from './modules/search'
 
 // 缓存相关store
 export { useCacheStore } from './modules/cache'
+
+// 弹窗相关store
+export { useModalStore } from './modules/modal'

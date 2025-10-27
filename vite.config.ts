@@ -55,7 +55,7 @@ export default ({ mode }: { mode: string }) =>
       // 自动导入配置
       AutoImport({
         resolvers: [ElementPlusResolver()], // Element Plus解析器
-        imports: ['vue', 'vue-router', '@vueuse/core'], // 自动导入模块
+        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'], // 自动导入模块
         dts: 'src/types/autoImports.d.ts', // 类型声明文件路径
       }),
       // 组件自动注册配置

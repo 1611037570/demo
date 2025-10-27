@@ -65,8 +65,10 @@ const menuList = computed(() => {
     {
       name: '删除',
       fn: () => {
+        console.log('删除')
         if (props.index === -1) return
         shortcutList.value.splice(props.index, 1)
+        ElMessage.success('删除成功')
       },
     },
   ]

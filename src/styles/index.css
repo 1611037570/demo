@@ -32,4 +32,14 @@ body,
 body {
   font-size: 16px;
   user-select: none;
+  cursor: url('/src/assets/images/cursorDefault.png'), auto;
+}
+
+/* 自定义指针样式 */
+.cursor-pointer {
+  cursor: url('/src/assets/images/cursorPointer.png'), pointer !important;
+}
+/* 插入光标样式 */
+body.cursor-text {
+  cursor: url('/src/assets/images/cursorText.png'), text !important;
 }

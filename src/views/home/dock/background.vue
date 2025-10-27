@@ -9,8 +9,8 @@ vue
     <span></span>
     <span></span>
     <span></span>
+    <sf-modal v-if="backgroundVisible" v-model="backgroundVisible">暂未开发</sf-modal>
   </div>
-  <sf-modal v-if="backgroundVisible" v-model="backgroundVisible">暂未开发</sf-modal>
 </template>
 
 <script setup>

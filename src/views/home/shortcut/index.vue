@@ -2,6 +2,7 @@
 import { useHomeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
+import AddShortcut from './addShortcut.vue'
 
 const homeStore = useHomeStore()
 const { shortcutList } = storeToRefs(homeStore)
@@ -31,15 +32,17 @@ onMounted(async () => {
 })
 
 const handleAdd = () => {
-  homeStore.addShortcut({
-    name: '新应用',
-    url: '#',
-  })
+  addVisible.value = true
+  return
 }
+const addVisible = ref(false)
 </script>
 
 <template>
   <div>
+    <SfModal v-if="addVisible" v-model="addVisible">
+      <AddShortcut />
+    </SfModal>
     <VueDraggable
       :style="{
         zoom: zoom,

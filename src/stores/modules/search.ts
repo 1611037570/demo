@@ -61,7 +61,7 @@ export const useSearchStore = defineStore(
   },
   {
     persist: {
-      pick: ['searchFocus', 'searchHistory', 'searchHistoryVisible'],
+      pick: ['searchHistory', 'searchHistoryVisible'],
     },
   },
 )

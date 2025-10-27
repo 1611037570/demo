@@ -4,8 +4,8 @@
     @click="openResume"
   >
     写简历
+    <indexModal v-if="indexVisible" />
   </div>
-  <indexModal v-if="indexVisible" />
 </template>
 
 <script setup>

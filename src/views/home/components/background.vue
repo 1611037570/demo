@@ -6,14 +6,14 @@
     :style="{
       filter: searchFocus || tabIndex == 1 ? 'blur(10px)' : 'blur(0px)',
       transform: searchFocus || tabIndex == 1 ? 'scale(1.1)' : 'scale(1)',
+      backgroundImage: `url(${bg})`,
     }"
-    style="
-      background-image: url('https://cn.bing.com/th?id=OHR.SunbeamsForest_ZH-CN5358008117_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
-    "
   ></div>
 </template>
 
 <script setup>
+// background-image: url('https://cn.bing.com/th?id=OHR.SunbeamsForest_ZH-CN5358008117_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
+import bg from '@/assets/images/background.jpg'
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 const searchStore = useSearchStore()

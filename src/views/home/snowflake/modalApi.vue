@@ -1,43 +1,58 @@
 <template>
-  <div class="space-y-5">
-    <!-- API服务列表 -->
-    <div
-      v-for="item in list"
-      :key="item.name"
-      class="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-blue-100 overflow-hidden relative"
-    >
-      <!-- 装饰元素 -->
-      <div
-        class="absolute -right-10 -top-10 w-40 h-40 bg-blue-50 rounded-full opacity-60 -z-10"
-      ></div>
+  <div class="max-w-2xl mx-auto p-6">
+    <!-- 页面标题 -->
+    <h3 class="text-xl font-semibold text-blue-600 mb-6 text-center">API服务支持</h3>
 
-      <!-- API服务名称 -->
+    <!-- 描述信息 -->
+    <div class="text-gray-600 mb-8 text-center">
+      以下是项目使用的API服务，点击服务名称或功能标签可查看详细文档
+    </div>
+
+    <!-- API服务卡片列表 -->
+    <div class="space-y-6">
       <div
-        class="font-semibold text-lg text-blue-600 hover:text-blue-800 transition-all duration-300 cursor-pointer flex items-center gap-2 group"
-        @click="openApi(item.url)"
+        v-for="item in list"
+        :key="item.name"
+        class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-blue-50 overflow-hidden group"
       >
-        {{ item.name }}
-        <SfIcon
-          icon="lucide:external-link"
-          size="16"
-          class="opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
-        />
-      </div>
-
-      <!-- 支持的功能列表 -->
-      <div class="mt-4 flex flex-wrap gap-2.5">
+        <!-- 背景装饰元素 -->
         <div
-          v-for="(support, index) in item.support"
-          :key="index"
-          class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm hover:bg-blue-100 transition-all duration-300 cursor-pointer group flex items-center gap-1"
-          @click="openApi(support.url)"
+          class="absolute -right-12 -top-12 w-48 h-48 bg-blue-50 rounded-full opacity-50 -z-10 transition-transform duration-500 group-hover:scale-110"
+        ></div>
+
+        <!-- API服务标题 -->
+        <div
+          class="font-semibold text-lg text-blue-600 hover:text-blue-700 transition-all duration-200 cursor-pointer flex items-center gap-2"
+          @click="openApi(item.url)"
         >
-          {{ support.name }}
-          <SfIcon
-            icon="lucide:arrow-up-right"
-            size="12"
-            class="opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-0.5 transition-all duration-300"
-          />
+          {{ item.name }}
+          <span
+            class="text-xs px-2 py-0.5 bg-blue-100 text-blue-600 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+            >查看文档</span
+          >
+        </div>
+
+        <!-- API功能标签列表 -->
+        <div class="mt-5 flex flex-wrap gap-3">
+          <span
+            v-for="(support, index) in item.support"
+            :key="support.name"
+            class="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm hover:bg-blue-100 transition-all duration-200 cursor-pointer flex items-center gap-1.5 group"
+            @click="openApi(support.url)"
+          >
+            {{ support.name }}
+            <svg
+              class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -92,16 +107,4 @@ const openApi = (url) => {
 }
 </script>
 
-<style scoped>
-/* 卡片动画效果 */
-div[class*='bg-white rounded-xl'] {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-div[class*='bg-white rounded-xl']:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 10px 25px -5px rgba(37, 99, 235, 0.1),
-    0 8px 10px -6px rgba(37, 99, 235, 0.1);
-}
-</style>
+<style scoped></style>

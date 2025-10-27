@@ -12,10 +12,17 @@
     enter-from-class="opacity-0 scale-0 "
     leave-to-class="opacity-0 scale-0 "
   >
+    <!-- 搜索组件 -->
+    <Search v-if="tabIndex == 0"></Search>
+  </Transition>
+  <Transition
+    enter-active-class="transition-all duration-300 linear"
+    leave-active-class="transition-all duration-300 linear"
+    enter-from-class="opacity-0"
+    leave-to-class="opacity-0"
+  >
     <!-- 快捷方式组件 -->
     <Shortcut v-if="tabIndex == 1"></Shortcut>
-    <!-- 搜索组件 -->
-    <Search v-else></Search>
   </Transition>
   <!-- 文案组件 -->
   <Transition
@@ -96,16 +103,12 @@ const { tabIndex } = storeToRefs(homeStore)
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
 
-tabIndex.value = 0
-
-import { getBaiduSearchData, getWeatherData } from '@/services'
+import { getWeatherData } from '@/services'
 getWeatherData('hello').then((res) => {
   console.log('getWeatherData res', res)
 })
 
-getBaiduSearchData('hello', false).then((res) => {
-  console.log('getBaiduSearchData res', res)
-})
-
-searchFocus.value = false
+// getBaiduSearchData('hello', false).then((res) => {
+//   console.log('getBaiduSearchData res', res)
+// })
 </script>

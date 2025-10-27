@@ -1,30 +1,71 @@
 <template>
-  <div class="text-center py-2">
-    <p class="text-sm text-gray-500 mb-1">项目已运行</p>
-    <p class="text-xl font-bold text-blue-600 hover:text-blue-800 transition-colors duration-200">
-      {{ runTimeDescription }}
-    </p>
-  </div>
-  <div v-for="item in timeList" :key="item.time" class="mb-4">
-    <p class="text-lg font-bold text-blue-600">{{ item.time }}</p>
-    <p class="text-sm text-gray-500">{{ item.desc }}</p>
-    <template v-if="item.img && item.img.length">
-      <el-image
-        v-for="(img, index) in item.img"
-        :key="index"
-        :src="img"
-        class="w-80 h-100"
-        :preview-src-list="item.img"
-        fit="contain"
-      />
-    </template>
+  <div class="max-w-2xl mx-auto p-6">
+    <!-- 项目运行时间卡片 -->
+    <div
+      class="bg-blue-50 rounded-xl p-6 text-center mb-8 shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100"
+    >
+      <h3 class="text-lg text-blue-600 font-medium mb-2">项目已运行</h3>
+      <p
+        class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors duration-200"
+      >
+        {{ runTimeDescription }}
+      </p>
+      <div class="mt-3 text-sm text-blue-500">自 {{ startTime }} 以来</div>
+    </div>
+
+    <!-- 项目历程标题 -->
+    <h4 class="text-lg font-medium text-blue-600 mb-5">项目发展历程</h4>
+
+    <!-- 项目历程时间线 -->
+    <div class="relative">
+      <!-- 时间线垂直轴 -->
+      <div class="absolute left-4 top-0 bottom-0 w-px bg-blue-100"></div>
+
+      <!-- 时间线条目 -->
+      <div v-for="(item, index) in timeList" :key="item.time" class="ml-12 relative group">
+        <!-- 时间线圆点 -->
+        <div class="absolute -left-12 mt-1.5 flex items-center justify-center">
+          <div
+            class="w-8 h-8 rounded-full bg-blue-500 border-4 border-white shadow-sm group-hover:scale-110 transition-transform duration-200"
+          ></div>
+        </div>
+
+        <!-- 时间戳 -->
+        <div
+          class="text-lg font-semibold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors duration-200 pt-1"
+        >
+          {{ item.time }}
+        </div>
+
+        <!-- 描述内容 -->
+        <div
+          class="text-gray-600 bg-white p-4 rounded-lg shadow-sm border border-blue-50 group-hover:border-blue-200 transition-all duration-300"
+        >
+          {{ item.desc }}
+        </div>
+
+        <!-- 图片展示 -->
+        <div v-if="item.img && item.img.length" class="mt-4">
+          <ElImage
+            v-for="(img, imgIndex) in item.img"
+            :key="imgIndex"
+            :src="img"
+            class="w-full max-w-md mx-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            :preview-src-list="item.img"
+            fit="contain"
+            lazy
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import startImg from '@/assets/images/start.jpg'
-
 import dayjs from 'dayjs'
+
+// 项目开始时间
 const startTime = '2020-11-22'
 
 // 计算项目运行天数
@@ -54,17 +95,35 @@ const runTimeDescription = computed(() => {
 
   return description
 })
+
+// 项目发展时间线数据
 const timeList = [
   {
-    desc: '第一个正式版上线',
+    desc: '将起始页、个人主页、简历生成器重构为一个项目',
     time: '2025-11-22',
   },
   {
-    desc: '使用vue2cli重构',
-    time: '2022-11-22',
+    desc: 'TypeScript重构项目',
+    time: '2024-11-22',
   },
   {
-    desc: '引入vue.js',
+    desc: '使用Vite重构项目',
+    time: '2024-11-22',
+  },
+  {
+    desc: '使用Vue3Cli重构项目',
+    time: '2024-11-22',
+  },
+  {
+    desc: '新增摄影时光机，记录所拍照片。',
+    time: '2023-06-03',
+  },
+  {
+    desc: '使用Vue2Cli重构项目',
+    time: '2021-11-22',
+  },
+  {
+    desc: '引入Vue.js项目',
     time: '2021-01-01',
   },
   {
@@ -72,11 +131,9 @@ const timeList = [
     time: '2020-11-22',
   },
   {
-    desc: '梦开始的地方',
+    desc: '梦开始的地方，[nannan.work]域名启用',
     time: '2020-09-03',
     img: [startImg],
   },
 ]
 </script>
-
-<style lang="scss" scoped></style>

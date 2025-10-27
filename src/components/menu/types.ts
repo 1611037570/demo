@@ -1,6 +1,6 @@
 export type MenuProps = {
   list?: any
-  model?: 'click' | 'contextmenu' | 'press'
+  model?: 'click' | 'contextmenu'
   stopPropagation?: boolean
   preventDefault?: boolean
   beforeCreateFn?: () => boolean
