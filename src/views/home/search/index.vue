@@ -1,16 +1,15 @@
 <script setup>
 import { webSource } from '@/datas/search.data'
-import { useCurrentTime, useEventListener } from '@/hooks'
+import { useEventListener } from '@/hooks'
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
+import CurrentTime from './currentTime.vue'
 import SearchBefore from './searchBefore.vue'
 import SearchRecommend from './searchRecommend.vue'
 const searchStore = useSearchStore()
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
-const { time } = useCurrentTime()
-const { switchTab } = homeStore
 const { searchFocus, openMode, currentWebIndex } = storeToRefs(searchStore)
 function getTranslate(item) {
   // 参考url
@@ -122,6 +121,10 @@ const clearSearch = () => {
 }
 // 监听点击外部事件
 useEventListener(document, 'click', handleOutsideClick)
+const init = ref(false)
+setTimeout(() => {
+  init.value = true
+}, 10)
 </script>
 
 <template>
@@ -129,15 +132,10 @@ useEventListener(document, 'click', handleOutsideClick)
     class="h-10 search-container group items-center fixed left-1/2 -translate-x-1/2 z-50 flex flex-col transition-all duration-300"
     :class="[
       searchFocus ? 'w-[650px]' : 'w-[230px]',
-      tabIndex === 0 ? 'translate-y-32' : 'translate-y-12',
+      init ? (tabIndex === 0 ? 'translate-y-32' : 'translate-y-12') : 'translate-y-0',
     ]"
   >
-    <div
-      class="text-5xl font-bold cursor-pointer z-10 text-white transition-all duration-300 mb-3"
-      @click="switchTab"
-    >
-      {{ time }}
-    </div>
+    <CurrentTime />
     <!-- 搜索源下拉菜单（移到最顶层，确保正确层级） -->
     <transition name="dropdown" appear>
       <div
