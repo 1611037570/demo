@@ -177,8 +177,12 @@ onMounted(() => {
     { deep: true },
   )
 })
-
+const init = ref(false)
+setTimeout(() => {
+  init.value = true
+}, 10)
 const dockClass = computed(() => {
+  if (!init.value) return 'bottom-[0px]'
   // 自动隐藏停靠栏
   if (autoHideDock.value) {
     return dockVisible.value ? 'bottom-[46px]' : '-bottom-[100px]'
