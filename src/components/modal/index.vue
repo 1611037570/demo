@@ -14,7 +14,6 @@
         class="flex flex-col bg-neutral-200 rounded-xl p-3 z-50"
         :style="transform"
         ref="modal"
-        @mousemove.stop
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseResume"
       >
@@ -47,7 +46,7 @@ const { modalVisible } = storeToRefs(modalStore)
 // 控制是否允许旋转的开关
 const allowRotate = ref(true)
 
-const maxRotate = 10 // 最大旋转角度，可根据需要调整
+const maxRotate = 5 // 最大旋转角度，可根据需要调整
 const yRange = [-maxRotate, maxRotate]
 const xRange = [-maxRotate, maxRotate]
 const rx = ref(0)
