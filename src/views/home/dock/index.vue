@@ -1,6 +1,6 @@
 <template>
   <div
-    class="docker menu p-2.5 bg-white/20 mx-auto rounded-xl z-20 fixed left-1/2 -translate-x-1/2"
+    class="docker flex items-end p-2.5 bg-white/20 mx-auto rounded-xl z-20 fixed translate left-1/2 -translate-x-1/2 transition-all duration-300"
     ref="menuRef"
     :class="dockClass"
     style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
@@ -35,7 +35,7 @@ import list from './dock.data'
 import { useHomeStore } from '@/stores'
 const homeStore = useHomeStore()
 const { autoHideDock } = storeToRefs(homeStore)
-const dockVisible = ref(true)
+const dockVisible = ref(false)
 
 // 常量定义
 const range = 200
@@ -210,12 +210,6 @@ window.addEventListener('mousemove', (event) => {
   max-height: 40px;
   overflow: visible;
   align-items: end;
-  transition: all 300ms;
-}
-
-.menu {
-  display: flex;
-  align-items: end;
 }
 
 .menu-item {
@@ -243,11 +237,6 @@ window.addEventListener('mousemove', (event) => {
   overflow: visible;
   align-items: end;
   transition: all 300ms;
-}
-
-.menu {
-  display: flex;
-  align-items: end;
 }
 
 .menu-item {

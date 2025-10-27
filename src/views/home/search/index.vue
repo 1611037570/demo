@@ -124,16 +124,19 @@ useEventListener(document, 'click', handleOutsideClick)
 const init = ref(false)
 setTimeout(() => {
   init.value = true
-}, 10)
+}, 1)
+const translateYClass = computed(() => {
+  if (!init.value) {
+    return 'translate-y-0'
+  }
+  return tabIndex.value === 0 ? 'translate-y-32' : 'translate-y-12'
+})
 </script>
 
 <template>
   <div
-    class="h-10 search-container group items-center fixed left-1/2 -translate-x-1/2 z-50 flex flex-col transition-all duration-300"
-    :class="[
-      searchFocus ? 'w-[650px]' : 'w-[230px]',
-      init ? (tabIndex === 0 ? 'translate-y-32' : 'translate-y-12') : 'translate-y-0',
-    ]"
+    class="h-10 search-container group items-center fixed translate left-1/2 -translate-x-1/2 z-50 flex flex-col transition-all duration-300"
+    :class="[searchFocus ? 'w-[650px]' : 'w-[230px]', translateYClass]"
   >
     <CurrentTime />
     <!-- 搜索源下拉菜单（移到最顶层，确保正确层级） -->
