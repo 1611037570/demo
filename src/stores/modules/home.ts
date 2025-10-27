@@ -1,4 +1,4 @@
-import { default_data, list } from '@/datas/index.data'
+import { default_data, list } from '@/datas/home.data'
 import { generateUUID } from '@/utils'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'

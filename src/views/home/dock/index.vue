@@ -181,10 +181,10 @@ onMounted(() => {
 const dockClass = computed(() => {
   // 自动隐藏停靠栏
   if (autoHideDock.value) {
-    return dockVisible.value ? 'bottom-[60px]' : '-bottom-[100px]'
+    return dockVisible.value ? 'bottom-[46px]' : '-bottom-[100px]'
   }
   // 不自动隐藏停靠栏
-  return 'bottom-[60px]'
+  return 'bottom-[46px]'
 })
 const { height } = useWindowSize()
 

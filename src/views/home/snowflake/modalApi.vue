@@ -11,7 +11,7 @@
     <!-- API服务卡片列表 -->
     <div class="space-y-6">
       <div
-        v-for="item in list"
+        v-for="item in apiList"
         :key="item.name"
         class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-blue-50 overflow-hidden group"
       >
@@ -61,7 +61,7 @@
 
 <script setup>
 // API服务列表数据
-const list = [
+const apiList = [
   {
     name: 'roll',
     url: 'https://www.mxnzp.com/doc/list',

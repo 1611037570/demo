@@ -1,5 +1,5 @@
 // 技术栈数据对象 - 包含所有类别
-const techStacks = {
+const techStackList = {
   // 核心框架与构建工具
   核心框架与构建工具: [
     { name: 'Vue 3', version: '3.5.22', description: '渐进式JavaScript框架', icon: 'logos:vue' },
@@ -50,4 +50,4 @@ const techStacks = {
   ],
 }
 
-export { techStacks }
+export { techStackList }

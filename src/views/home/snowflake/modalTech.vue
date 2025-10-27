@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(category, categoryName) in techStacks" :key="categoryName">
+  <div v-for="(category, categoryName) in techStackList" :key="categoryName">
     <h3 class="text-lg font-semibold mb-4 text-blue-600 pb-2">
       {{ categoryName }}
     </h3>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { techStacks } from './data'
+import { techStackList } from './data'
 </script>
 
 <style scoped></style>

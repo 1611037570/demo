@@ -3,23 +3,15 @@
   <Background> </Background>
   <!-- 提示组件 -->
   <Tip></Tip>
-  <!-- 时间组件 -->
-  <CurrentTime></CurrentTime>
+
+  <!-- 搜索组件 -->
+  <Search></Search>
 
   <Transition
     enter-active-class="transition-all duration-300 linear"
     leave-active-class="transition-all duration-300 linear"
-    enter-from-class="opacity-0 scale-0 "
-    leave-to-class="opacity-0 scale-0 "
-  >
-    <!-- 搜索组件 -->
-    <Search v-if="tabIndex == 0"></Search>
-  </Transition>
-  <Transition
-    enter-active-class="transition-all duration-300 linear"
-    leave-active-class="transition-all duration-300 linear"
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
+    enter-from-class="opacity-0 translate-y-12"
+    leave-to-class="opacity-0  translate-y-12"
   >
     <!-- 快捷方式组件 -->
     <Shortcut v-if="tabIndex == 1"></Shortcut>
@@ -78,7 +70,6 @@ import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
 import Background from './components/background.vue'
-import CurrentTime from './components/current-time.vue'
 import Tip from './components/tip.vue'
 
 // 按需加载组件 - 使用动态导入

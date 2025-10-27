@@ -1,6 +1,6 @@
 <script setup>
 import { webSource } from '@/datas/search.data'
-import { useEventListener } from '@/hooks'
+import { useCurrentTime, useEventListener } from '@/hooks'
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
@@ -9,6 +9,8 @@ import SearchRecommend from './searchRecommend.vue'
 const searchStore = useSearchStore()
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
+const { time } = useCurrentTime()
+const { switchTab } = homeStore
 const { searchFocus, openMode, currentWebIndex } = storeToRefs(searchStore)
 function getTranslate(item) {
   // 参考url
@@ -31,7 +33,6 @@ const handleValue = computed(() => {
 })
 const handleFocus = () => {
   searchFocus.value = true
-  tabIndex.value = 0
 }
 
 // 当前选中的搜索源
@@ -125,9 +126,18 @@ useEventListener(document, 'click', handleOutsideClick)
 
 <template>
   <div
-    class="h-10 flex flex-col search-container group items-center transition-all duration-200 fixed top-50 left-1/2 -translate-x-1/2 z-10"
-    :class="[searchFocus ? 'w-[650px]' : 'w-[230px]']"
+    class="h-10 search-container group items-center fixed left-1/2 -translate-x-1/2 z-50 flex flex-col transition-all duration-300"
+    :class="[
+      searchFocus ? 'w-[650px]' : 'w-[230px]',
+      tabIndex === 0 ? 'translate-y-32' : 'translate-y-12',
+    ]"
   >
+    <div
+      class="text-5xl font-bold cursor-pointer z-10 text-white transition-all duration-300 mb-3"
+      @click="switchTab"
+    >
+      {{ time }}
+    </div>
     <!-- 搜索源下拉菜单（移到最顶层，确保正确层级） -->
     <transition name="dropdown" appear>
       <div

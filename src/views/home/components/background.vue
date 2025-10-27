@@ -26,6 +26,9 @@ const handleClick = () => {
   if (tabIndex.value == 0) {
     return
   }
+  if (tabIndex.value == 1 && searchFocus.value) {
+    return
+  }
   tabIndex.value = 0
 }
 const handleContextMenu = () => {

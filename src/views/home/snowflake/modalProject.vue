@@ -22,7 +22,7 @@
       <div class="absolute left-4 top-0 bottom-0 w-px bg-blue-100"></div>
 
       <!-- 时间线条目 -->
-      <div v-for="(item, index) in timeList" :key="item.time" class="ml-12 relative group">
+      <div v-for="item in timeList" :key="item.time" class="ml-12 relative group">
         <!-- 时间线圆点 -->
         <div class="absolute -left-12 mt-1.5 flex items-center justify-center">
           <div
@@ -30,11 +30,24 @@
           ></div>
         </div>
 
-        <!-- 时间戳 -->
-        <div
-          class="text-lg font-semibold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors duration-200 pt-1"
-        >
-          {{ item.time }}
+        <!-- 时间戳和类型标签 -->
+        <div class="flex items-center justify-between mb-2 group pt-1">
+          <div
+            class="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors duration-200"
+          >
+            {{ item.time }}
+          </div>
+          <div
+            v-if="item.type && typeMap[item.type]"
+            :class="[
+              'text-xs px-2 py-1 rounded-full border',
+              typeMap[item.type].textColor,
+              typeMap[item.type].bgColor,
+              typeMap[item.type].borderColor,
+            ]"
+          >
+            {{ typeMap[item.type].name }}
+          </div>
         </div>
 
         <!-- 描述内容 -->
@@ -66,7 +79,7 @@ import startImg from '@/assets/images/start.jpg'
 import dayjs from 'dayjs'
 
 // 项目开始时间
-const startTime = '2020-11-22'
+const startTime = '2020-09-03'
 
 // 计算项目运行天数
 const runDays = computed(() => {
@@ -95,45 +108,91 @@ const runTimeDescription = computed(() => {
 
   return description
 })
-
+// 项目类型映射，包含名称和颜色方案
+const typeMap = {
+  frame: {
+    name: '架构',
+    textColor: 'text-blue-700',
+    bgColor: 'bg-blue-100 hover:bg-blue-200',
+    borderColor: 'border-blue-300',
+  },
+  new: {
+    name: '新增',
+    textColor: 'text-green-700',
+    bgColor: 'bg-green-100 hover:bg-green-200',
+    borderColor: 'border-green-300',
+  },
+  optimize: {
+    name: '优化',
+    textColor: 'text-orange-700',
+    bgColor: 'bg-orange-100 hover:bg-orange-200',
+    borderColor: 'border-orange-300',
+  },
+  fix: {
+    name: '修复',
+    textColor: 'text-purple-700',
+    bgColor: 'bg-purple-100 hover:bg-purple-200',
+    borderColor: 'border-purple-300',
+  },
+  del: {
+    name: '删除',
+    textColor: 'text-red-700',
+    bgColor: 'bg-red-100 hover:bg-red-200',
+    borderColor: 'border-red-300',
+  },
+}
 // 项目发展时间线数据
 const timeList = [
   {
-    desc: '将起始页、个人主页、简历生成器重构为一个项目',
+    desc: '将起始页、雪花组件库、简历生成器合并为一个项目',
     time: '2025-11-22',
+    type: 'frame',
   },
   {
-    desc: 'TypeScript重构项目',
-    time: '2024-11-22',
-  },
-  {
-    desc: '使用Vite重构项目',
-    time: '2024-11-22',
-  },
-  {
-    desc: '使用Vue3Cli重构项目',
-    time: '2024-11-22',
+    desc: '使用雪花组件库，重构项目',
+    time: '2021-11-22',
+    type: 'frame',
   },
   {
     desc: '新增摄影时光机，记录所拍照片。',
-    time: '2023-06-03',
+    time: '2023-07-18',
+    type: 'new',
+  },
+  {
+    desc: 'TypeScript重构项目',
+    time: '2022-07-18',
+    type: 'frame',
+  },
+  {
+    desc: '使用Vite2重构项目',
+    time: '2022-01-01',
+    type: 'frame',
+  },
+  {
+    desc: '使用Vue3Cli重构项目',
+    time: '2021-11-22',
+    type: 'frame',
   },
   {
     desc: '使用Vue2Cli重构项目',
-    time: '2021-11-22',
+    time: '2021-07-18',
+    type: 'frame',
   },
   {
-    desc: '引入Vue.js项目',
+    desc: '引入Vue.js重构项目',
     time: '2021-01-01',
+    type: 'frame',
   },
   {
-    desc: '第一个正式版上线',
+    desc: '起始页1.0页面上线',
     time: '2020-11-22',
+    type: 'optimize',
   },
   {
     desc: '梦开始的地方，[nannan.work]域名启用',
     time: '2020-09-03',
     img: [startImg],
+    type: 'new',
   },
 ]
 </script>
