@@ -1,0 +1,27 @@
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  /* font-family: 'Alibaba PuHuiTi Regular', 'Alibaba PuHuiTi Medium', 'Alibaba PuHuiTi Bold'; */
+}
+body {
+  font-size: 16px;
+  user-select: none;
+  cursor: url('/src/assets/images/cursorDefault.png'), auto;
+}
+
+/* 自定义指针样式 */
+.cursor-pointer,
+button,
+switch,
+.el-switch__core,
+.el-switch__action {
+  cursor: url('/src/assets/images/cursorPointer.png'), pointer !important;
+}
+/* 插入光标样式 */
+input,
+textarea {
+  cursor: url('/src/assets/images/cursorText.png'), text !important;
+}
