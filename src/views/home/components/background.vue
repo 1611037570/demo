@@ -2,10 +2,16 @@
   <div
     @click="handleClick"
     @contextmenu.prevent="handleContextMenu"
-    class="w-full h-full top-0 left-0 right-0 bottom-0 bg-blue-50 fixed z-1 transition-all duration-200 bg-cover bg-center"
+    class="w-full h-full top-0 left-0 right-0 bottom-0 bg-blue-50 fixed transition-all duration-200 bg-cover bg-center"
+    :class="[searchFocus ? 'z-50 ' : 'z-1']"
     :style="{
       filter: searchFocus || tabIndex == 1 ? 'blur(10px)' : 'blur(0px)',
-      transform: searchFocus || tabIndex == 1 ? 'scale(1.1)' : 'scale(1)',
+      transform:
+        searchFocus && tabIndex == 1
+          ? 'scale(1.2)'
+          : searchFocus || tabIndex == 1
+            ? 'scale(1.1)'
+            : 'scale(1)',
       backgroundImage: `url(${bg})`,
     }"
   ></div>

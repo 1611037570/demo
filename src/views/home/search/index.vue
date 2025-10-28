@@ -135,8 +135,8 @@ const translateYClass = computed(() => {
 
 <template>
   <div
-    class="h-10 search-container group items-center fixed translate left-1/2 -translate-x-1/2 z-50 flex flex-col transition-all duration-300"
-    :class="[searchFocus ? 'w-[650px]' : 'w-[230px]', translateYClass]"
+    class="h-10 search-container group items-center fixed translate left-1/2 -translate-x-1/2 z-60 flex flex-col transition-all duration-300"
+    :class="[translateYClass]"
   >
     <CurrentTime />
     <!-- 搜索源下拉菜单（移到最顶层，确保正确层级） -->
@@ -167,8 +167,11 @@ const translateYClass = computed(() => {
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="flex w-full items-center h-10 rounded-xl shadow-xl transition-all group-hover:w-[650px] duration-300"
-      :class="[searchFocus ? 'bg-[#ffffffe6] ' : 'group-hover:bg-[#fff9] bg-[#ffffff40]']"
+      class="flex items-center h-10 rounded-xl shadow-xl transition-all duration-300 translate"
+      :class="[
+        searchFocus ? 'bg-[#ffffffe6] ' : 'hover:bg-[#fff9] bg-[#ffffff40]',
+        searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
+      ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
       <div v-if="searchFocus" class="source-selector absolute left-2 top-1/2 -translate-y-1/2 z-10">

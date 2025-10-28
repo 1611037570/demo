@@ -26,7 +26,6 @@ const onUpdate = () => {
 }
 const isInit = ref(false)
 onMounted(async () => {
-  await nextTick()
   homeStore.initShortcutList()
   isInit.value = true
 })
@@ -47,7 +46,7 @@ const addVisible = ref(false)
       :style="{
         zoom: zoom,
       }"
-      class="w-[680px] mx-auto grid grid-cols-5 fixed top-41 left-1/2 -translate-x-1/2 z-10"
+      class="w-[680px] mx-auto grid grid-cols-5 fixed top-41 left-1/2 -translate-x-1/2 z-10 transform"
       v-if="isInit"
       v-model="shortcutList"
       ghostClass="bg-amber-500"

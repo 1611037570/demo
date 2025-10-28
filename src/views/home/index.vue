@@ -10,8 +10,8 @@
   <Transition
     enter-active-class="transition-all duration-300 linear"
     leave-active-class="transition-all duration-300 linear"
-    enter-from-class="opacity-0 translate-y-12"
-    leave-to-class="opacity-0  translate-y-12"
+    enter-from-class="opacity-0"
+    leave-to-class="opacity-0"
   >
     <!-- 快捷方式组件 -->
     <Shortcut v-if="tabIndex == 1"></Shortcut>

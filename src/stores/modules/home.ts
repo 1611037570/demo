@@ -44,7 +44,7 @@ export const useHomeStore = defineStore(
     persist: {
       storage: localStorage,
 
-      pick: ['shortcutList', 'systemVisible', 'autoHideDock'],
+      pick: ['shortcutList', 'autoHideDock'],
     },
   },
 )

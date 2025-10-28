@@ -72,7 +72,7 @@ onMounted(() => {
   // 全局鼠标监听（保持原始逻辑）
   const handleWindowMouseMove = (e) => {
     if (!autoHideDock.value) return
-    dockVisible.value = windowHeight.value - e.clientY < 300
+    dockVisible.value = windowHeight.value - e.clientY < 200
   }
 
   window.addEventListener('mousemove', handleWindowMouseMove, { passive: true })
@@ -131,6 +131,6 @@ const handleMouseLeave = () => {
 .gap {
   transform: translateZ(0); /* 开启GPU加速 */
   will-change: transform, width, height, margin-bottom;
-  transition: all 450ms cubic-bezier(0.4, 1.6, 0.05, 0.95);
+  transition: all 450ms;
 }
 </style>
