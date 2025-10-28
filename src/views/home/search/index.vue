@@ -167,7 +167,7 @@ const translateYClass = computed(() => {
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="flex items-center h-10 rounded-xl shadow-xl transition-all duration-300 translate"
+      class="flex items-center h-10 rounded-xl shadow-xl transition-all translate duration-300 translate"
       :class="[
         searchFocus ? 'bg-[#ffffffe6] ' : 'hover:bg-[#fff9] bg-[#ffffff40]',
         searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
@@ -221,11 +221,9 @@ const translateYClass = computed(() => {
         :clearable="false"
         @keyup.enter="goSearch(currentSource)"
         @focus="handleFocus"
-        class="h-10 bg-transparent rounded-lg overflow-hidden text-white relative"
-        :class="searchFocus ? 'px-24' : ''"
+        class="h-10 bg-transparent rounded-lg text-white relative translate"
+        :class="searchFocus ? 'px-22' : ''"
       >
-        <template #prefix> </template>
-        <template #suffix v-if="searchFocus"> </template>
       </SfInput>
     </div>
 
