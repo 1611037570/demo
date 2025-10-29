@@ -60,5 +60,14 @@
   "typescript.format.enable": false,
   "javascript.format.enable": false,
   "html.format.enable": false,
-  "cSpell.words": ["Addtional", "datas", "Persistedstate", "pinia", "unplugin", "Vite", "vueuse"]
+  "cSpell.words": [
+    "Addtional",
+    "datas",
+    "Persistedstate",
+    "pinia",
+    "Stylesheet",
+    "unplugin",
+    "Vite",
+    "vueuse"
+  ]
 }

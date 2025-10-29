@@ -3,10 +3,10 @@
     <!-- 结果显示：从下往上滑动过渡 -->
     <div
       v-if="result"
-      class="mb-2 text-sm font-medium text-gray-800 transition-all duration-600 ease-out whitespace-nowrap"
+      class="mb-2 text-sm font-medium whitespace-nowrap text-gray-800 transition-all duration-600 ease-out"
       :class="{
-        'opacity-0 transform translate-y-10 scale-90': !result,
-        'opacity-100 transform translate-y-0 scale-100': result,
+        'translate-y-10 scale-90 transform opacity-0': !result,
+        'translate-y-0 scale-100 transform opacity-100': result,
       }"
     >
       {{ result }}
@@ -14,27 +14,27 @@
 
     <!-- 转盘容器：hover交互提示 -->
     <div
-      class="relative w-20 h-20 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
+      class="relative h-20 w-20 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
       @click="startSpin"
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
-      :class="{ 'opacity-70 cursor-not-allowed hover:scale-100': isSpinning }"
+      :class="{ 'cursor-not-allowed opacity-70 hover:scale-100': isSpinning }"
     >
       <!-- 鼠标经过提示 -->
       <div
         v-show="isHovered"
-        class="font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs text-white transition-opacity duration-100"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-xs font-bold text-white transition-opacity duration-100"
       >
         吃什么
       </div>
       <!-- 转盘 SVG：扇区hover加亮 -->
       <svg
-        class="w-full h-full rounded-full overflow-hidden transition-all duration-300"
+        class="h-full w-full overflow-hidden rounded-full transition-all duration-300"
         viewBox="0 0 100 100"
       >
         <g
           :transform="`rotate(${rotation}, 50, 50)`"
-          class="transition-transform duration-5000 ease-out hover:filter hover:brightness-110"
+          class="transition-transform duration-5000 ease-out hover:brightness-110 hover:filter"
           @transitionend="handleSpinEnd"
         >
           <!-- 动态生成扇区 -->
@@ -49,7 +49,7 @@
 
       <!-- 转盘指针：hover放大 -->
       <div
-        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full z-10 shadow-md transition-transform duration-300 hover:scale-125"
+        class="absolute top-0 left-1/2 z-10 h-2 w-2 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-red-500 shadow-md transition-transform duration-300 hover:scale-125"
       ></div>
     </div>
   </div>

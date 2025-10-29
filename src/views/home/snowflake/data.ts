@@ -11,12 +11,12 @@ const techStackList = {
     },
     { name: 'Vite', version: '7.1.9', description: '快速构建工具', icon: 'logos:vitejs' },
     { name: 'Pinia', version: '3.0.3', description: '状态管理库', icon: 'logos:pinia' },
-    { name: 'Vue Router', version: '4.5.1', description: '路由管理', icon: 'logos:vue-router' },
+    { name: 'Vue Router', version: '4.5.1', description: '路由管理', icon: 'logos:router' },
     {
       name: 'Element Plus',
       version: '2.11.4',
       description: 'UI组件库',
-      icon: 'logos:element-plus',
+      icon: 'element-plus',
     },
     {
       name: 'Tailwind CSS',

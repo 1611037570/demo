@@ -2,21 +2,21 @@
 
 <template>
   <div
-    class="flex flex-col bg-white p-4 rounded-lg shadow-md w-[740px] h-[1000px] border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-blue-300"
+    class="flex h-[1000px] w-[740px] flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-md transition-all duration-300 hover:border-blue-300 hover:shadow-lg"
   >
     <div class="flex-1">
       <!-- 信息模块 -->
-      <div class="flex items-center mb-6">
-        <div class="text-xl font-bold text-blue-600 mr-3">小羊</div>
+      <div class="mb-6 flex items-center">
+        <div class="mr-3 text-xl font-bold text-blue-600">小羊</div>
         <div class="flex flex-col text-sm">
           <div>男|25岁 电话：15878892637 邮箱1611037570@qq.com</div>
           <div>3年工作经验</div>
         </div>
       </div>
       <!-- 教育经验 -->
-      <div class="flex flex-col mb-6">
-        <div class="text-lg font-bold mb-2 text-blue-600">教育经历</div>
-        <div class="flex justify-between items-center pb-2 mb-2">
+      <div class="mb-6 flex flex-col">
+        <div class="mb-2 text-lg font-bold text-blue-600">教育经历</div>
+        <div class="mb-2 flex items-center justify-between pb-2">
           <div>
             <span class="font-medium text-blue-500"> 柳州工学院 </span>
             全日制本科 计算机科学与技术
@@ -26,7 +26,7 @@
       </div>
       <!-- 专业技能 -->
       <div>
-        <div class="text-lg font-bold my-2">专业技能</div>
+        <div class="my-2 text-lg font-bold">专业技能</div>
         <div>
           <div>HTML/CSS</div>
           <div>JavaScript</div>
@@ -35,22 +35,22 @@
         </div>
       </div>
       <div>
-        <div class="text-lg font-bold my-2">工作经历</div>
-        <div class="flex justify-between items-center">
+        <div class="my-2 text-lg font-bold">工作经历</div>
+        <div class="flex items-center justify-between">
           <span class="font-medium"> 公司A </span>
           前端开发工程师 2023.03-2024.06
         </div>
       </div>
       <div>
-        <div class="text-lg font-bold my-2">项目经历</div>
-        <div class="flex justify-between items-center">
+        <div class="my-2 text-lg font-bold">项目经历</div>
+        <div class="flex items-center justify-between">
           <span class="font-medium"> 公司A </span>
           前端开发工程师 2023.03-2024.06
         </div>
       </div>
     </div>
 
-    <div class="mt-auto text-center text-gray-400 text-xs">第 1 页，共 1 页</div>
+    <div class="mt-auto text-center text-xs text-gray-400">第 1 页，共 1 页</div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-sm font-bold p-3">{{ title }}</div>
+  <div class="p-3 text-sm font-bold">{{ title }}</div>
 </template>
 
 <script setup>

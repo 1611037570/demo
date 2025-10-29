@@ -1,8 +1,8 @@
 <template>
   <SfMenu :list="menuList">
-    <div class="flex items-center justify-center flex-col cursor-pointer" @click="handleClick">
+    <div class="flex cursor-pointer flex-col items-center justify-center" @click="handleClick">
       <div
-        class="flex items-center justify-center bg-amber-200 rounded-xl"
+        class="flex items-center justify-center rounded-xl bg-amber-200"
         :style="{
           width: size + 'px',
           height: size + 'px',
@@ -16,7 +16,7 @@
           }"
         ></div>
       </div>
-      <div class="h-6 flex items-center justify-center text-sm truncate text-white">
+      <div class="flex h-6 items-center justify-center truncate text-sm text-white">
         {{ name }}
       </div>
     </div>

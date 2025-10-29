@@ -39,6 +39,8 @@
   <Dock />
   <!-- 版权组件 -->
   <Copyright></Copyright>
+  <!-- 主题组件 -->
+  <Theme></Theme>
 
   <!-- 游戏组件 -->
   <Transition
@@ -48,15 +50,15 @@
     enter-from-class="opacity-0 scale-0"
     leave-to-class="opacity-0 scale-0 "
   >
-    <div v-if="tabIndex == 1" class="fixed left-12 bottom-12 z-20 w-12 h-12" style="zoom: 0.8">
+    <div v-if="tabIndex == 1" class="fixed bottom-12 left-12 z-20 h-12 w-12" style="zoom: 0.8">
       <!-- 冥想组件 -->
-      <Meditation class="absolute left-1/2 bottom-80 -translate-x-1/2"></Meditation>
+      <Meditation class="absolute bottom-80 left-1/2 -translate-x-1/2"></Meditation>
       <!-- 幸运转盘组件 -->
-      <LuckyWheel class="absolute left-1/2 bottom-50 -translate-x-1/2"></LuckyWheel>
+      <LuckyWheel class="absolute bottom-50 left-1/2 -translate-x-1/2"></LuckyWheel>
       <!-- 收入组件 -->
-      <Income class="absolute left-1/2 bottom-33 -translate-x-1/2"></Income>
+      <Income class="absolute bottom-33 left-1/2 -translate-x-1/2"></Income>
       <!-- 木鱼组件 -->
-      <WoodenFish class="absolute left-1/2 bottom-0 -translate-x-1/2"></WoodenFish>
+      <WoodenFish class="absolute bottom-0 left-1/2 -translate-x-1/2"></WoodenFish>
     </div>
   </Transition>
   <!-- 游戏组件 -->
@@ -70,8 +72,8 @@ import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
 import Background from './components/background.vue'
+import Theme from './components/theme.vue'
 import Tip from './components/tip.vue'
-
 // 按需加载组件 - 使用动态导入
 const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
 const Copyright = defineAsyncComponent(() => import('./components/copyright.vue'))

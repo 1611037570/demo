@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { useThemeStore } from '@/stores'
 import LoadingComponent from '@views/status/loading.vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+const themeStore = useThemeStore()
+const { initTheme } = themeStore
+initTheme()
 </script>
 
 <template>

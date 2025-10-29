@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-5xl font-bold cursor-pointer z-10 text-white transition-all duration-300 mb-3"
+    class="z-10 mb-3 cursor-pointer text-5xl font-bold text-white transition-all duration-300"
     @click="updateTab"
   >
     {{ time }}

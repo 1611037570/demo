@@ -1,12 +1,12 @@
 <template>
-  <div class="max-w-2xl mx-auto p-6">
+  <div class="mx-auto max-w-2xl p-6">
     <!-- 项目运行时间卡片 -->
     <div
-      class="bg-blue-50 rounded-xl p-6 text-center mb-8 shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100"
+      class="mb-8 rounded-xl border border-blue-100 bg-blue-50 p-6 text-center shadow-sm transition-all duration-300 hover:shadow-md"
     >
-      <h3 class="text-lg text-blue-600 font-medium mb-2">项目已运行</h3>
+      <h3 class="mb-2 text-lg font-medium text-blue-600">项目已运行</h3>
       <p
-        class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors duration-200"
+        class="text-2xl font-bold text-blue-600 transition-colors duration-200 hover:text-blue-700"
       >
         {{ runTimeDescription }}
       </p>
@@ -14,33 +14,33 @@
     </div>
 
     <!-- 项目历程标题 -->
-    <h4 class="text-lg font-medium text-blue-600 mb-5">项目发展历程</h4>
+    <h4 class="mb-5 text-lg font-medium text-blue-600">项目发展历程</h4>
 
     <!-- 项目历程时间线 -->
     <div class="relative">
       <!-- 时间线垂直轴 -->
-      <div class="absolute left-4 top-0 bottom-0 w-px bg-blue-100"></div>
+      <div class="absolute top-0 bottom-0 left-4 w-px bg-blue-100"></div>
 
       <!-- 时间线条目 -->
-      <div v-for="item in timeList" :key="item.time" class="ml-12 relative group">
+      <div v-for="item in timeList" :key="item.time" class="group relative ml-12">
         <!-- 时间线圆点 -->
         <div class="absolute -left-12 mt-1.5 flex items-center justify-center">
           <div
-            class="w-8 h-8 rounded-full bg-blue-500 border-4 border-white shadow-sm group-hover:scale-110 transition-transform duration-200"
+            class="h-8 w-8 rounded-full border-4 border-white bg-blue-500 shadow-sm transition-transform duration-200 group-hover:scale-110"
           ></div>
         </div>
 
         <!-- 时间戳和类型标签 -->
-        <div class="flex items-center justify-between mb-2 group pt-1">
+        <div class="group mb-2 flex items-center justify-between pt-1">
           <div
-            class="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors duration-200"
+            class="text-lg font-semibold text-blue-600 transition-colors duration-200 group-hover:text-blue-700"
           >
             {{ item.time }}
           </div>
           <div
             v-if="item.type && typeMap[item.type]"
             :class="[
-              'text-xs px-2 py-1 rounded-full border',
+              'rounded-full border px-2 py-1 text-xs',
               typeMap[item.type].textColor,
               typeMap[item.type].bgColor,
               typeMap[item.type].borderColor,
@@ -52,7 +52,7 @@
 
         <!-- 描述内容 -->
         <div
-          class="text-gray-600 bg-white p-4 rounded-lg shadow-sm border border-blue-50 group-hover:border-blue-200 transition-all duration-300"
+          class="rounded-lg border border-blue-50 bg-white p-4 text-gray-600 shadow-sm transition-all duration-300 group-hover:border-blue-200"
         >
           {{ item.desc }}
         </div>
@@ -63,7 +63,7 @@
             v-for="(img, imgIndex) in item.img"
             :key="imgIndex"
             :src="img"
-            class="w-full max-w-md mx-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            class="mx-auto w-full max-w-md cursor-pointer rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg"
             :preview-src-list="item.img"
             fit="contain"
             lazy

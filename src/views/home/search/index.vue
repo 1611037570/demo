@@ -135,7 +135,7 @@ const translateYClass = computed(() => {
 
 <template>
   <div
-    class="h-10 search-container group items-center fixed translate left-1/2 -translate-x-1/2 z-60 flex flex-col transition-all duration-300"
+    class="search-container group translate fixed left-1/2 z-60 flex h-10 -translate-x-1/2 flex-col items-center transition-all duration-300"
     :class="[translateYClass]"
   >
     <CurrentTime />
@@ -143,21 +143,21 @@ const translateYClass = computed(() => {
     <transition name="dropdown" appear>
       <div
         v-if="sourceMenuOpen"
-        class="absolute left-3 top-full mt-1 w-[220px] bg-white rounded-xl shadow-lg border border-blue-100 z-60 source-dropdown overflow-hidden"
+        class="source-dropdown absolute top-full left-3 z-60 mt-1 w-[220px] overflow-hidden rounded-xl border border-blue-100 bg-white shadow-lg"
       >
         <div class="p-2">
           <div
             v-for="source in webSource"
             :key="source.type"
-            class="flex items-center px-3 py-2.5 rounded-md hover:bg-blue-50 cursor-pointer text-sm transition-all duration-200 hover:pl-4 group"
+            class="group flex cursor-pointer items-center rounded-md px-3 py-2.5 text-sm transition-all duration-200 hover:bg-blue-50 hover:pl-4"
             @click.stop="changeSource(source)"
           >
             <el-image
               v-if="source.icon"
               :src="source.icon"
-              class="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-200"
+              class="mr-2 h-4 w-4 transition-transform duration-200 group-hover:scale-110"
             ></el-image>
-            <span class="group-hover:text-blue-600 transition-colors duration-200">{{
+            <span class="transition-colors duration-200 group-hover:text-blue-600">{{
               source.type
             }}</span>
           </div>
@@ -167,23 +167,24 @@ const translateYClass = computed(() => {
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="flex items-center h-10 rounded-xl shadow-xl transition-all translate duration-300 translate"
+      class="translate translate flex h-10 items-center rounded-xl shadow-xl transition-all duration-300"
       :class="[
-        searchFocus ? 'bg-[#ffffffe6] ' : 'hover:bg-[#fff9] bg-[#ffffff40]',
+        // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
+        searchFocus ? 'bg-sf' : 'bg-sf-3 hover:bg-sf-2',
         searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
-      <div v-if="searchFocus" class="source-selector absolute left-2 top-1/2 -translate-y-1/2 z-10">
+      <div v-if="searchFocus" class="source-selector absolute top-1/2 left-2 z-10 -translate-y-1/2">
         <div
-          class="cursor-pointer flex items-center bg-blue-400 text-white rounded-lg px-2 h-7 text-xs font-medium transition-all duration-300 hover:bg-blue-500 hover:shadow-md overflow-hidden relative"
+          class="sf-theme relative flex h-7 cursor-pointer items-center overflow-hidden rounded-lg px-2 text-xs font-medium transition-all duration-300 hover:shadow-md"
           @click.stop="toggleSourceMenu"
         >
           <div class="search-source-item">
-            <el-image :src="currentSource.icon" class="h-4 w-4 mr-1.5"></el-image>
+            <el-image :src="currentSource.icon" class="mr-1.5 h-4 w-4"></el-image>
             <span>{{ currentSource.type }}</span>
             <svg
-              class="w-3 h-3 ml-1.5 transition-transform duration-200"
+              class="ml-1.5 h-3 w-3 transition-transform duration-200"
               :class="{ 'rotate-180': sourceMenuOpen }"
               fill="none"
               stroke="currentColor"
@@ -199,17 +200,17 @@ const translateYClass = computed(() => {
           </div>
         </div>
       </div>
-      <div v-if="searchFocus" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex">
+      <div v-if="searchFocus" class="absolute top-1/2 right-2 z-10 flex -translate-y-1/2">
         <SfIcon
           v-if="handleValue"
           icon="fluent:dismiss-24-regular"
-          class="w-6 h-6"
+          class="h-6 w-6"
           size="8"
           @click.stop="clearSearch"
         />
         <SfIcon
           icon="fluent:search-24-regular"
-          class="ml-1 w-6 h-6"
+          class="ml-1 h-6 w-6"
           size="8"
           @click="goSearch(currentSource)"
         />
@@ -221,7 +222,7 @@ const translateYClass = computed(() => {
         :clearable="false"
         @keyup.enter="goSearch(currentSource)"
         @focus="handleFocus"
-        class="h-10 bg-transparent rounded-lg text-white relative translate"
+        class="translate relative h-10 rounded-lg bg-transparent text-white"
         :class="searchFocus ? 'px-22' : ''"
       >
       </SfInput>
@@ -230,7 +231,7 @@ const translateYClass = computed(() => {
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="bg-white rounded-xl shadow-lg border border-blue-100 flex flex-col z-30 mt-1 p-3 w-[650px]"
+      class="z-30 mt-1 flex w-[650px] flex-col rounded-xl border border-blue-100 bg-white p-3 shadow-lg"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />

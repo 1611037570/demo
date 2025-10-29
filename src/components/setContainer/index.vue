@@ -14,20 +14,20 @@ const handleClick = (item) => {
 
 <template>
   <div class="flex">
-    <div class="flex-col flex mr-4 w-[200px]">
-      <div class="flex mb-4 rounded-xl overflow-hidden">
+    <div class="mr-4 flex w-[200px] flex-col">
+      <div class="mb-4 flex overflow-hidden rounded-xl">
         <SfInput v-model="searchValue">
           <template #prefix>
-            <SfIcon icon="fluent:search-24-regular" class="w-4 h-4" size="4" />
+            <SfIcon icon="fluent:search-24-regular" class="h-4 w-4" size="4" />
           </template>
         </SfInput>
       </div>
       <ElScrollbar class="flex-1">
-        <div class="bg-white rounded-xl p-2">
+        <div class="rounded-xl bg-white p-2">
           <div
             v-for="(item, index) in list"
             :key="item.value"
-            class="cursor-pointer px-3 py-2 rounded-lg transition-all duration-200"
+            class="cursor-pointer rounded-lg px-3 py-2 transition-all duration-200"
             :class="[
               item.value === modelValue ? 'bg-primary text-white' : 'hover:bg-gray-100',
               {

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-20 h-20 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors"
+    class="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-gray-100 transition-colors hover:bg-gray-50"
     @click="toggleMeditation"
   >
     <!-- 冥想模式（呼吸引导动画+计时） -->
@@ -17,11 +17,11 @@
       ></div>
 
       <!-- 状态显示（非激活时显示"冥想"，激活时显示时间和状态） -->
-      <div v-if="!isActive" class="text-gray-600 font-medium relative z-10">冥想</div>
+      <div v-if="!isActive" class="relative z-10 font-medium text-gray-600">冥想</div>
 
-      <div v-else class="flex flex-col items-center relative z-10">
-        <span class="text-blue-700 font-medium"> {{ Math.ceil(remainingTime) }}s </span>
-        <span class="text-xs text-blue-500 mt-1">
+      <div v-else class="relative z-10 flex flex-col items-center">
+        <span class="font-medium text-blue-700"> {{ Math.ceil(remainingTime) }}s </span>
+        <span class="mt-1 text-xs text-blue-500">
           {{ breathStatus }}
         </span>
       </div>

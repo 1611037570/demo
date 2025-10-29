@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-3xl mx-auto p-6 space-y-8">
+  <div class="mx-auto max-w-3xl space-y-8 p-6">
     <!-- 社交媒体部分 -->
     <div>
-      <h2 class="text-xl font-bold mb-5 text-blue-600 flex items-center">
+      <h2 class="mb-5 flex items-center text-xl font-bold text-blue-600">
         <SfIcon name="mdi:social" class="mr-2 text-blue-500" />
         社交媒体
       </h2>
@@ -10,10 +10,10 @@
         <div
           v-for="(platform, key) in socialMedia"
           :key="key"
-          class="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300 border border-blue-50"
+          class="rounded-xl border border-blue-50 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-md"
         >
           <h3
-            class="text-lg font-semibold mb-4 text-blue-700 hover:text-blue-600 transition-colors duration-200"
+            class="mb-4 text-lg font-semibold text-blue-700 transition-colors duration-200 hover:text-blue-600"
           >
             {{ platform.name }}平台
           </h3>
@@ -24,7 +24,7 @@
               :href="data.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 hover:text-blue-700 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+              class="rounded-lg bg-blue-50 px-4 py-2 text-blue-600 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-100 hover:text-blue-700 hover:shadow-sm"
             >
               {{ data.name }}
             </a>
@@ -37,12 +37,12 @@
     <template v-for="(item, index) in project" :key="index">
       <div class="mt-8">
         <div
-          class="text-lg font-semibold mb-4 text-blue-700 flex flex-col items-center justify-center"
+          class="mb-4 flex flex-col items-center justify-center text-lg font-semibold text-blue-700"
         >
-          <div class="text-2xl font-bold hover:text-blue-600 transition-colors duration-200">
+          <div class="text-2xl font-bold transition-colors duration-200 hover:text-blue-600">
             {{ item.name }}
           </div>
-          <div class="w-16 h-1 rounded-sm bg-blue-500 my-3"></div>
+          <div class="my-3 h-1 w-16 rounded-sm bg-blue-500"></div>
         </div>
         <div class="grid grid-cols-2 gap-5">
           <a
@@ -51,14 +51,14 @@
             :href="data.url || '#'"
             target="_blank"
             rel="noopener noreferrer"
-            class="block bg-blue-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-blue-100 hover:border-blue-200"
+            class="block overflow-hidden rounded-xl border border-blue-100 bg-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
           >
-            <div class="h-36 flex items-center justify-center text-2xl text-blue-600">
+            <div class="flex h-36 items-center justify-center text-2xl text-blue-600">
               {{ data.name }}
             </div>
             <div class="p-4">
               <div class="font-medium text-blue-800">{{ data.name }}</div>
-              <div v-if="data.desc" class="text-sm text-blue-600 mt-1">{{ data.desc }}</div>
+              <div v-if="data.desc" class="mt-1 text-sm text-blue-600">{{ data.desc }}</div>
             </div>
           </a>
         </div>

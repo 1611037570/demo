@@ -1,32 +1,32 @@
 <template>
   <div
-    class="cursor-pointer fixed bottom-48 left-1/2 transform -translate-x-1/2 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 text-white group hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50 group z-20"
+    class="group group fixed bottom-48 left-1/2 z-20 -translate-x-1/2 transform cursor-pointer rounded-xl border border-gray-100 p-4 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50 hover:shadow-md"
   >
     <!-- 按钮区域 - 顶部居中，鼠标经过时显示 -->
     <div
-      class="absolute top-2 left-1/2 transform -translate-x-1/2 -translate-y-2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-6 transition-all duration-300 flex gap-2 whitespace-nowrap"
+      class="absolute top-2 left-1/2 flex -translate-x-1/2 -translate-y-2 transform gap-2 whitespace-nowrap opacity-0 transition-all duration-300 group-hover:-translate-y-6 group-hover:opacity-100"
     >
       <div
         @click.stop="updateQuote"
-        class="px-3 py-1 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 text-sm flex items-center gap-1 shadow-md"
+        class="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-600 shadow-md hover:bg-blue-200"
       >
-        <sf-icon icon="lucide:refresh-cw" class="w-4 h-4" />
+        <sf-icon icon="lucide:refresh-cw" class="h-4 w-4" />
         刷新
       </div>
       <div
-        class="px-3 py-1 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-600 text-sm flex items-center gap-1 shadow-md"
+        class="flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-600 shadow-md hover:bg-amber-200"
         @click.stop="toggleFavorite"
       >
         <sf-icon
           :icon="isFavorite ? 'lucide:heart' : 'lucide:heart'"
-          class="w-4 h-4"
+          class="h-4 w-4"
           :class="isFavorite ? 'fill-red-500 text-red-500' : ''"
         />
         收藏
       </div>
     </div>
     <p
-      class="relative z-10 text-center text-sm leading-relaxed italic py-2 group-hover:text-blue-600"
+      class="relative z-10 py-2 text-center text-sm leading-relaxed italic group-hover:text-blue-600"
       @click="copyQuote"
     >
       {{ quote }}

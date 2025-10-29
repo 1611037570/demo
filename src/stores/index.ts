@@ -18,3 +18,6 @@ export { useCacheStore } from './modules/cache'
 
 // 弹窗相关store
 export { useModalStore } from './modules/modal'
+
+// 主题相关store
+export { useThemeStore } from './modules/theme'

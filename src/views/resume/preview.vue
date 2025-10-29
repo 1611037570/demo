@@ -2,13 +2,13 @@
 
 <template>
   <div
-    class="flex flex-col bg-white p-4 rounded-lg shadow-md w-[740px] h-[1000px] transition-all duration-300 hover:shadow-lg hover:border-blue-300"
+    class="flex h-[1000px] w-[740px] flex-col rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:border-blue-300 hover:shadow-lg"
   >
-    <div class="flex-1 flex flex-col">
+    <div class="flex flex-1 flex-col">
       <!-- 信息模块 -->
-      <div class="flex items-center mb-6 justify-between">
+      <div class="mb-6 flex items-center justify-between">
         <div class="flex-1">
-          <div class="text-xl font-bold mr-3">小羊</div>
+          <div class="mr-3 text-xl font-bold">小羊</div>
           <div class="flex flex-col text-sm">
             <div>男|25岁 电话：15878892637 邮箱1611037570@qq.com</div>
             <div>3年工作经验</div>
@@ -16,21 +16,21 @@
         </div>
         <div class="flex flex-col text-sm">
           <div class="flex flex-col">
-            <div class="w-10 h-10" style="background: red"></div>
+            <div class="h-10 w-10" style="background: red"></div>
             <div>稀土掘金</div>
             <div class="text-[8px]">https://juejin.cn/user/2342386827791687/posts</div>
           </div>
           <div class="flex flex-col">
-            <div class="w-10 h-10" style="background: red"></div>
+            <div class="h-10 w-10" style="background: red"></div>
             <div>github</div>
             <div class="text-[8px]">https://github.com/1611037570</div>
           </div>
         </div>
       </div>
       <!-- 教育经验 -->
-      <div class="flex flex-col mb-6">
-        <div class="text-lg font-bold mb-2">教育经历</div>
-        <div class="flex justify-between items-center pb-2 mb-2">
+      <div class="mb-6 flex flex-col">
+        <div class="mb-2 text-lg font-bold">教育经历</div>
+        <div class="mb-2 flex items-center justify-between pb-2">
           <div>
             <span class="font-medium"> 柳州工学院 </span>
             全日制本科 计算机科学与技术
@@ -40,7 +40,7 @@
       </div>
       <!-- 专业技能 -->
       <div>
-        <div class="text-lg font-bold my-2">专业技能</div>
+        <div class="my-2 text-lg font-bold">专业技能</div>
         <div>
           <div>HTML/CSS</div>
           <div>JavaScript</div>
@@ -50,9 +50,9 @@
       </div>
       <!-- 工作经历 -->
       <div>
-        <div class="text-lg font-bold my-2">工作经历</div>
+        <div class="my-2 text-lg font-bold">工作经历</div>
 
-        <div class="flex justify-between items-center">
+        <div class="flex items-center justify-between">
           <span class="font-medium"> 公司A </span>
           前端开发工程师 2023.03-2024.06
         </div>
@@ -60,8 +60,8 @@
       <div>
         <!-- 个人项目经历 -->
         <div>
-          <div class="text-lg font-bold my-2">个人项目经历</div>
-          <div class="flex justify-between items-center">
+          <div class="my-2 text-lg font-bold">个人项目经历</div>
+          <div class="flex items-center justify-between">
             <span class="font-medium"> 简历生成器 </span>
             独立开发 2023.03-2024.06
           </div>
@@ -69,8 +69,8 @@
         </div>
         <!-- 工作项目经历 -->
         <div>
-          <div class="text-lg font-bold my-2">工作项目经历</div>
-          <div class="flex justify-between items-center">
+          <div class="my-2 text-lg font-bold">工作项目经历</div>
+          <div class="flex items-center justify-between">
             <span class="font-medium"> 公司A </span>
             前端开发工程师 2023.03-2024.06
           </div>

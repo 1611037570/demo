@@ -1,7 +1,7 @@
 <template>
   <SfModal v-if="aboutVisible" v-model="aboutVisible">
     <SfSetContainer :list="list" v-model="activeTab" class="h-[600px]">
-      <div class="w-[500px] h-1"></div>
+      <div class="h-1 w-[500px]"></div>
       <ModalProject v-if="activeTab === 'project'" />
       <ModalApi v-else-if="activeTab === 'api'" />
       <ModalMe v-else-if="activeTab === 'me'" />

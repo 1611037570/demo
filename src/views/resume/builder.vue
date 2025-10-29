@@ -5,6 +5,6 @@ const back = () => {
 }
 </script>
 
-<template><div @click="back" class="w-full h-full">返回</div></template>
+<template><div @click="back" class="h-full w-full">返回</div></template>
 
 <style lang="scss" scoped></style>

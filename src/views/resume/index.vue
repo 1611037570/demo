@@ -1,9 +1,10 @@
 <template>
-  <div class="flex w-full h-full">
-    <div class="w-1/2 h-full bg-amber-100">
+  <div class="flex h-full w-full">
+    <div class="h-full w-1/2 bg-amber-100">
       <Builder />
     </div>
-    <div class="w-1/2 h-full bg-amber-400">
+    <div class="h-full w-1/2 bg-amber-400">
+      -amber-400">
       <ElButton type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
         打印表单PDF
       </ElButton>

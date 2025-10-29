@@ -1,7 +1,7 @@
 <template>
   <!-- 使用ref获取容器元素，避免DOM查询 -->
   <div
-    class="docker menu p-2.5 bg-white/20 mx-auto rounded-xl z-20 fixed bottom-12 left-1/2 -translate-x-1/2"
+    class="docker menu fixed bottom-12 left-1/2 z-20 mx-auto -translate-x-1/2 rounded-xl bg-white/20 p-2.5"
     ref="menuRef"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-center py-1 px-3 text-xs bg-blue-50/60 backdrop-blur-sm fixed bottom-2 left-1/2 -translate-x-1/2 rounded-full border border-blue-100/40 shadow-sm transition-all duration-300 hover:bg-blue-100/70 text-blue-400/70 z-10"
+    class="fixed bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center rounded-full border border-blue-100/40 bg-blue-50/60 px-3 py-1 text-xs text-blue-400/70 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-blue-100/70"
   >
     <span class="font-medium"> 2020-2025 XiaoYang</span>
     <span class="mx-1">•</span>

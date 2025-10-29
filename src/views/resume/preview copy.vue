@@ -94,16 +94,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-6 p-4 bg-gray-100">
+  <div class="flex flex-wrap gap-6 bg-gray-100 p-4">
     <!-- 生成多个页面 -->
     <div
       v-for="(page, index) in pages"
       :key="index"
-      class="flex flex-col bg-white p-4 rounded-lg shadow-md w-[740px] h-[1000px] border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-blue-300"
+      class="flex h-[1000px] w-[740px] flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-md transition-all duration-300 hover:border-blue-300 hover:shadow-lg"
     >
       <!-- 基本信息 -->
-      <div v-if="page.basicInfo" class="flex items-center mb-6">
-        <div class="text-xl font-bold text-blue-600 mr-3">{{ page.basicInfo.name }}</div>
+      <div v-if="page.basicInfo" class="mb-6 flex items-center">
+        <div class="mr-3 text-xl font-bold text-blue-600">{{ page.basicInfo.name }}</div>
         <div class="flex flex-col text-sm">
           <div>
             {{ page.basicInfo.gender }}|{{ page.basicInfo.age }}岁 电话：{{
@@ -116,15 +116,15 @@ onMounted(() => {
       </div>
 
       <!-- 教育经历 -->
-      <div v-if="page.education && page.education.length > 0" class="flex flex-col mb-6">
-        <div class="text-lg font-bold mb-2 text-blue-600">教育经历</div>
+      <div v-if="page.education && page.education.length > 0" class="mb-6 flex flex-col">
+        <div class="mb-2 text-lg font-bold text-blue-600">教育经历</div>
         <div
           v-for="(edu, eduIndex) in page.education"
           :key="eduIndex"
-          class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2"
+          class="mb-2 flex items-center justify-between border-b border-gray-100 pb-2"
         >
           <div>
-            <span class="font-medium text-blue-500 hover:text-blue-700 transition-colors">
+            <span class="font-medium text-blue-500 transition-colors hover:text-blue-700">
               {{ edu.school }}
             </span>
             {{ edu.degree }} {{ edu.major }}
@@ -135,12 +135,12 @@ onMounted(() => {
 
       <!-- 专业技能 -->
       <div v-if="page.skills && page.skills.length > 0" class="mb-6">
-        <div class="text-lg font-bold mb-2 text-blue-600">专业技能</div>
+        <div class="mb-2 text-lg font-bold text-blue-600">专业技能</div>
         <div class="flex flex-wrap gap-2">
           <div
             v-for="(skill, skillIndex) in page.skills"
             :key="skillIndex"
-            class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm hover:bg-blue-100 transition-colors"
+            class="rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-700 transition-colors hover:bg-blue-100"
           >
             {{ skill }}
           </div>
@@ -149,15 +149,15 @@ onMounted(() => {
 
       <!-- 工作经历 -->
       <div v-if="page.workExperience && page.workExperience.length > 0" class="mb-6">
-        <div class="text-lg font-bold mb-2 text-blue-600">工作经历</div>
+        <div class="mb-2 text-lg font-bold text-blue-600">工作经历</div>
         <div v-for="(work, workIndex) in page.workExperience" :key="workIndex" class="mb-4">
-          <div class="flex justify-between items-center mb-1">
-            <span class="font-medium text-blue-500 hover:text-blue-700 transition-colors">
+          <div class="mb-1 flex items-center justify-between">
+            <span class="font-medium text-blue-500 transition-colors hover:text-blue-700">
               {{ work.company }}
             </span>
             {{ work.position }} {{ work.period }}
           </div>
-          <div v-if="work.description" class="text-sm text-gray-600 ml-2">
+          <div v-if="work.description" class="ml-2 text-sm text-gray-600">
             {{ work.description }}
           </div>
         </div>
@@ -165,26 +165,26 @@ onMounted(() => {
 
       <!-- 项目经历 -->
       <div v-if="page.projectExperience && page.projectExperience.length > 0">
-        <div class="text-lg font-bold mb-2 text-blue-600">项目经历</div>
+        <div class="mb-2 text-lg font-bold text-blue-600">项目经历</div>
         <div
           v-for="(project, projectIndex) in page.projectExperience"
           :key="projectIndex"
           class="mb-4"
         >
-          <div class="flex justify-between items-center mb-1">
-            <span class="font-medium text-blue-500 hover:text-blue-700 transition-colors">
+          <div class="mb-1 flex items-center justify-between">
+            <span class="font-medium text-blue-500 transition-colors hover:text-blue-700">
               {{ project.name }}
             </span>
             {{ project.role }} {{ project.period }}
           </div>
-          <div v-if="project.description" class="text-sm text-gray-600 ml-2">
+          <div v-if="project.description" class="ml-2 text-sm text-gray-600">
             {{ project.description }}
           </div>
         </div>
       </div>
 
       <!-- 页码标识 -->
-      <div class="mt-auto text-center text-gray-400 text-xs">
+      <div class="mt-auto text-center text-xs text-gray-400">
         第 {{ index + 1 }} 页，共 {{ pages.length }} 页
       </div>
     </div>

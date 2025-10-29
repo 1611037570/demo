@@ -1,12 +1,12 @@
 <template>
   <div
-    class="relative flex w-20 h-20"
+    class="relative flex h-20 w-20"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
   >
     <!-- 背景扩宽元素 - 位于底层 -->
     <div
-      class="absolute left-2 h-full bg-amber-200 rounded-xl transition-all duration-300 ease-out whitespace-nowrap overflow-hidden flex flex-col justify-center"
+      class="absolute left-2 flex h-full flex-col justify-center overflow-hidden rounded-xl bg-amber-200 whitespace-nowrap transition-all duration-300 ease-out"
       :style="{ width: isHovered ? '320px' : '0px', zIndex: 10 }"
       :class="isHovered ? 'pl-20 shadow-xl' : 'pl-0'"
     >
@@ -28,7 +28,7 @@
       <div v-else>距离爆金币还有：{{ expireStatus.days }}天</div>
     </div>
     <div
-      class="relative flex flex-col justify-center items-center whitespace-nowrap w-20 h-20 bg-amber-300 rounded-xl text-sm cursor-pointer z-20"
+      class="relative z-20 flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-xl bg-amber-300 text-sm whitespace-nowrap"
     >
       <div>
         今日<span class="font-bold">{{ currentWeekday }}</span>

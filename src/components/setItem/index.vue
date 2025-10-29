@@ -1,7 +1,7 @@
 <template>
   <!-- 外层容器：整合布局与分割线，减少一层嵌套 -->
   <div
-    class="flex items-center justify-between bg-white py-3 mx-4"
+    class="mx-4 flex items-center justify-between bg-white py-3"
     :class="{ 'border-b border-gray-200': divider }"
   >
     <div class="flex flex-col gap-1">

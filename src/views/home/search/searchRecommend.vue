@@ -14,7 +14,7 @@ const { showAppSource } = storeToRefs(searchStore)
     <div
       v-for="item in appSource"
       :key="item.type"
-      class="px-2 py-1 rounded-lg bg-blue-300 text-white cursor-pointer transition-all duration-200 hover:bg-blue-400 hover:shadow-md transform hover:-translate-y-0.5 text-[13px] flex items-center justify-center"
+      class="flex transform cursor-pointer items-center justify-center rounded-lg bg-blue-300 px-2 py-1 text-[13px] text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-md"
       @click="goSearch(item)"
     >
       {{ item.type }}

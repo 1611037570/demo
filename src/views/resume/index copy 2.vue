@@ -1,7 +1,7 @@
 <template>
-  <div class="flex w-full h-full">
-    <div class="w-1/2 h-full bg-amber-100"></div>
-    <div class="w-1/2 h-full bg-amber-400">
+  <div class="flex h-full w-full">
+    <div class="h-full w-1/2 bg-amber-100"></div>
+    <div class="h-full w-1/2 bg-amber-400">
       <el-button type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
         打印表单PDF </el-button
       >1

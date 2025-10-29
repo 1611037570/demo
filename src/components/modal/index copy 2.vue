@@ -2,7 +2,7 @@
   <Teleport to="body" v-if="modelValue">
     <!-- 外层容器作为事件监听区域 -->
     <div
-      class="fixed left-0 top-0 right-0 bottom-0 z-80 flex items-center justify-center transform"
+      class="fixed top-0 right-0 bottom-0 left-0 z-80 flex transform items-center justify-center"
       style="
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);

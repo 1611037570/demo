@@ -2,7 +2,7 @@
   <Teleport to="body" v-if="modeValue">
     <!-- 遮罩层作为事件监听容器（modal 外部区域） -->
     <div
-      class="fixed left-0 top-0 right-0 bottom-0 z-80 flex items-center justify-center transform"
+      class="fixed top-0 right-0 bottom-0 left-0 z-80 flex transform items-center justify-center"
       style="
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -11,7 +11,7 @@
       @mousemove="handleMouseMove"
     >
       <div
-        class="flex flex-col bg-neutral-200 rounded-xl p-3 z-80 transform shadow-4xl border border-white"
+        class="shadow-4xl z-80 flex transform flex-col rounded-xl border border-white bg-neutral-200 p-3"
         :style="transform"
         ref="modal"
         @mouseenter="handleMouseEnter"

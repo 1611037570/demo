@@ -2,7 +2,7 @@
   <sf-icon
     icon="fluent:settings-24-regular"
     size="6"
-    class="hover:rotate-180 transition-all duration-200 fixed top-12 right-12 z-20"
+    class="fixed top-12 right-12 z-20 transition-all duration-200 hover:rotate-180"
     @click="openSet"
   />
 </template>

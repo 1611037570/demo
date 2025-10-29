@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center cursor-pointer" :class="[`w-${size}`, `h-${size}`]">
+  <div class="flex cursor-pointer items-center justify-center" :class="[`w-${size}`, `h-${size}`]">
     <Icon :icon="icon" width="100%" height="100%" />
     <span v-if="text">{{ text }}</span>
   </div>
