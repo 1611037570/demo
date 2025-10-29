@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3 text-5xl font-bold z-10 cursor-pointer" @click="updateTab">
+  <div class="mb-3 text-5xl font-bold z-10 cursor-pointer text-sf-primary" @click="updateTab">
     <span>
       {{ time }}
     </span>

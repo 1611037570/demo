@@ -170,7 +170,7 @@ const translateYClass = computed(() => {
       class="translate translate h-10 rounded-xl shadow-xl flex items-center transition-all duration-300"
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
-        searchFocus ? 'bg-sf-basic' : 'bg-sf-transparent-4 hover:bg-sf-transparent-2',
+        searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-4 hover:bg-sf-transparent-2',
         searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
@@ -231,7 +231,7 @@ const translateYClass = computed(() => {
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="mt-1 rounded-xl border-blue-100 bg-white p-3 shadow-lg z-30 flex w-[650px] flex-col border"
+      class="mt-1 rounded-xl border-blue-100 p-3 shadow-lg z-30 flex w-[650px] flex-col border bg-sf-primary"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />
