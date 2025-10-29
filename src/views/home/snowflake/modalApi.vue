@@ -35,7 +35,7 @@
         <!-- API功能标签列表 -->
         <div class="mt-5 flex flex-wrap gap-3">
           <span
-            v-for="(support) in item.support"
+            v-for="support in item.support"
             :key="support.name"
             class="group flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-50 px-4 py-2 text-sm text-blue-700 transition-all duration-200 hover:bg-blue-100"
             @click="openApi(support.url)"

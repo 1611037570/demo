@@ -17,7 +17,7 @@ export const useThemeStore = defineStore(
     const handleThemeChange = (e: MediaQueryListEvent) => {
       console.log('系统主题变化', e.matches)
       document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light')
-                                  themeMode.value = e.matches ? 'dark' : 'light'
+      themeMode.value = e.matches ? 'dark' : 'light'
     }
 
     // 切换主题模式
