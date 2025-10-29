@@ -3,7 +3,8 @@
     <!-- 点击触发按钮 -->
     <div @click="toggleTheme">
       <span>
-        {{ themeMode.value === 'dark' ? '深色模式' : '浅色模式' }}
+        {{ themeMode === 'dark' }}
+        {{ themeMode === 'dark' ? '浅色模式' : '深色模式' }}
       </span>
     </div>
   </div>
