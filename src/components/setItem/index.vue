@@ -1,12 +1,12 @@
 <template>
   <!-- 外层容器：整合布局与分割线，减少一层嵌套 -->
   <div
-    class="mx-4 flex items-center justify-between bg-white py-3"
-    :class="{ 'border-b border-gray-200': divider }"
+    class="mx-4 py-3 flex items-center justify-between bg-sf-primary text-sf-text"
+    :class="{ 'border-gray-200 border-b': divider }"
   >
-    <div class="flex flex-col gap-1">
+    <div class="gap-1 flex flex-col">
       <div class="text-sm font-medium">{{ title }}</div>
-      <div class="text-xs text-gray-400" v-if="info">{{ info }}</div>
+      <div class="text-xs text-sf-text-3" v-if="info">{{ info }}</div>
     </div>
     <el-switch v-if="type === 'switch'" v-model="modeValue" @change="handleChange" />
     <el-button v-else-if="type === 'button'" @click="handleClick" type="danger">{{

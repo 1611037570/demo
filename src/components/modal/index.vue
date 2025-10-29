@@ -1,28 +1,24 @@
 <template>
   <Teleport to="body" v-if="modeValue">
     <div
-      class="body fixed top-0 right-0 bottom-0 left-0 z-80 flex transform items-center justify-center"
+      class="body top-0 right-0 bottom-0 left-0 fixed z-80 flex transform items-center justify-center bg-sf-transparent-4"
       ref="mask"
-      style="
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        background-color: rgba(0, 0, 0, 0.4);
-      "
+      style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px)"
       @mousemove="handleMouseMove"
     >
       <div
         id="element"
         ref="elementRef"
-        class="shadow-4xl z-80 flex flex-col rounded-xl border border-white bg-neutral-200 p-3"
+        class="shadow-4xl rounded-xl p-3 z-80 flex flex-col border bg-sf-modal"
         :style="transformStyle"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
       >
         <!-- 标题和关闭按钮 -->
-        <div class="relative mb-3 flex items-center justify-between">
-          <div class="w-full text-center text-2xl font-bold">123</div>
+        <div class="mb-3 relative flex items-center justify-between">
+          <div class="text-2xl font-bold w-full text-center">123</div>
           <div
-            class="absolute top-1/2 right-0 -translate-y-1/2 transform cursor-pointer"
+            class="right-0 absolute top-1/2 -translate-y-1/2 transform cursor-pointer"
             @click="modeValue = false"
           >
             关闭

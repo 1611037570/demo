@@ -5,7 +5,7 @@ export const useThemeStore = defineStore(
   'theme',
   () => {
     const themeMode = ref<'light' | 'dark'>('light')
-    const follow = ref(true)
+    const follow = ref(false)
     const mediaQuery = ref<MediaQueryList | null>(null)
 
     // 获取系统主题

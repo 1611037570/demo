@@ -1,6 +1,6 @@
 <template>
   <div
-    class="translate fixed bottom-0 left-1/2 z-20 mx-auto flex max-h-[60px] min-h-[60px] w-auto -translate-x-1/2 items-end rounded-xl bg-white/20 p-2.5 transition-all duration-300"
+    class="translate bottom-0 rounded-xl p-2.5 fixed left-1/2 z-20 mx-auto flex max-h-[60px] min-h-[60px] w-auto -translate-x-1/2 items-end bg-sf-transparent-4 transition-all duration-300"
     ref="menuRef"
     :class="dockClass"
     style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"

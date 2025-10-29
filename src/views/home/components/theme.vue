@@ -1,26 +1,29 @@
 <template>
-  <div class="theme-dropdown fixed top-10 right-10 z-30">
+  <div class="theme-dropdown top-10 right-10 fixed z-30">
     <!-- 点击触发按钮 -->
-    <SfMenu :list="list">
-      <div>
-        {{ themeMode }}
-      </div>
-    </SfMenu>
+    <div @click="toggleTheme">
+      <span>
+        {{ themeMode.value === 'dark' ? '深色模式' : '浅色模式' }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useThemeStore } from '@/stores'
-import { ref } from 'vue'
 const themeStore = useThemeStore()
+const { setTheme } = themeStore
 const { themeMode } = storeToRefs(themeStore)
-
-// 主题选项
-const list = ref([
-  { name: '跟随系统', value: 'default' },
-  { name: '暗黑模式', value: 'dark' },
-  { name: '简约白色', value: 'light' },
-])
+const toggleTheme = () => {
+  themeMode.value = themeMode.value === 'dark' ? 'light' : 'dark'
+  setTheme(themeMode.value)
+}
+// // 主题选项
+// const list = ref([
+//   { name: '跟随系统', value: 'default' },
+//   { name: '暗黑模式', value: 'dark' },
+//   { name: '简约白色', value: 'light' },
+// ])
 </script>
 
 <style scoped></style>

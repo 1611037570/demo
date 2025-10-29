@@ -135,7 +135,7 @@ const translateYClass = computed(() => {
 
 <template>
   <div
-    class="search-container group translate fixed left-1/2 z-60 flex h-10 -translate-x-1/2 flex-col items-center transition-all duration-300"
+    class="search-container group translate fixed left-1/2 z-60 flex -translate-x-1/2 flex-col items-center transition-all duration-300"
     :class="[translateYClass]"
   >
     <CurrentTime />
@@ -143,13 +143,13 @@ const translateYClass = computed(() => {
     <transition name="dropdown" appear>
       <div
         v-if="sourceMenuOpen"
-        class="source-dropdown absolute top-full left-3 z-60 mt-1 w-[220px] overflow-hidden rounded-xl border border-blue-100 bg-white shadow-lg"
+        class="source-dropdown left-3 mt-1 rounded-xl border-blue-100 bg-white shadow-lg absolute top-full z-60 w-[220px] overflow-hidden border"
       >
         <div class="p-2">
           <div
             v-for="source in webSource"
             :key="source.type"
-            class="group flex cursor-pointer items-center rounded-md px-3 py-2.5 text-sm transition-all duration-200 hover:bg-blue-50 hover:pl-4"
+            class="group rounded-md px-3 py-2.5 text-sm hover:bg-blue-50 hover:pl-4 flex cursor-pointer items-center transition-all duration-200"
             @click.stop="changeSource(source)"
           >
             <el-image
@@ -157,7 +157,7 @@ const translateYClass = computed(() => {
               :src="source.icon"
               class="mr-2 h-4 w-4 transition-transform duration-200 group-hover:scale-110"
             ></el-image>
-            <span class="transition-colors duration-200 group-hover:text-blue-600">{{
+            <span class="group-hover:text-blue-600 transition-colors duration-200">{{
               source.type
             }}</span>
           </div>
@@ -167,17 +167,17 @@ const translateYClass = computed(() => {
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="translate translate flex h-10 items-center rounded-xl shadow-xl transition-all duration-300"
+      class="translate translate h-10 rounded-xl shadow-xl flex items-center transition-all duration-300"
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
-        searchFocus ? 'bg-sf' : 'bg-sf-3 hover:bg-sf-2',
+        searchFocus ? 'bg-sf-basic' : 'bg-sf-transparent-4 hover:bg-sf-transparent-2',
         searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
-      <div v-if="searchFocus" class="source-selector absolute top-1/2 left-2 z-10 -translate-y-1/2">
+      <div v-if="searchFocus" class="source-selector left-2 absolute top-1/2 z-10 -translate-y-1/2">
         <div
-          class="sf-theme relative flex h-7 cursor-pointer items-center overflow-hidden rounded-lg px-2 text-xs font-medium transition-all duration-300 hover:shadow-md"
+          class="sf-theme h-7 rounded-lg px-2 text-xs font-medium hover:shadow-md relative flex cursor-pointer items-center overflow-hidden transition-all duration-300"
           @click.stop="toggleSourceMenu"
         >
           <div class="search-source-item">
@@ -200,7 +200,7 @@ const translateYClass = computed(() => {
           </div>
         </div>
       </div>
-      <div v-if="searchFocus" class="absolute top-1/2 right-2 z-10 flex -translate-y-1/2">
+      <div v-if="searchFocus" class="right-2 absolute top-1/2 z-10 flex -translate-y-1/2">
         <SfIcon
           v-if="handleValue"
           icon="fluent:dismiss-24-regular"
@@ -222,7 +222,7 @@ const translateYClass = computed(() => {
         :clearable="false"
         @keyup.enter="goSearch(currentSource)"
         @focus="handleFocus"
-        class="translate relative h-10 rounded-lg bg-transparent text-white"
+        class="translate h-10 rounded-lg text-white relative bg-transparent"
         :class="searchFocus ? 'px-22' : ''"
       >
       </SfInput>
@@ -231,7 +231,7 @@ const translateYClass = computed(() => {
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="z-30 mt-1 flex w-[650px] flex-col rounded-xl border border-blue-100 bg-white p-3 shadow-lg"
+      class="mt-1 rounded-xl border-blue-100 bg-white p-3 shadow-lg z-30 flex w-[650px] flex-col border"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />

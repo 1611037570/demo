@@ -1,3 +1,6 @@
+:root {
+  --el-color-primary: var(--sf-color-theme);
+}
 html,
 body,
 #app {
@@ -9,8 +12,12 @@ body {
   font-size: 16px;
   user-select: none;
   /* cursor: url('/src/assets/images/cursorDefault.png'), auto; */
+  color: var(--color-sf-text);
 }
 
+span {
+  transition: color 0.3s !important;
+}
 /* 自定义指针样式 */
 .cursor-pointer,
 button,

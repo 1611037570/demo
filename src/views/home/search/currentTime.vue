@@ -1,9 +1,8 @@
 <template>
-  <div
-    class="z-10 mb-3 cursor-pointer text-5xl font-bold text-white transition-all duration-300"
-    @click="updateTab"
-  >
-    {{ time }}
+  <div class="mb-3 text-5xl font-bold z-10 cursor-pointer" @click="updateTab">
+    <span>
+      {{ time }}
+    </span>
   </div>
 </template>
 
