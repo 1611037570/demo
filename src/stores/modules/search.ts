@@ -81,11 +81,13 @@ export const useSearchStore = defineStore(
       }
       item.url = url
       // 3、打开搜索结果页面
-      window.open(url, openMode.value)
+      open(url)
       // 4、添加搜索历史记录
       addSearchHistory(item)
     }
-
+    const open = (url: string) => {
+      window.open(url, openMode.value)
+    }
     return {
       searchValue,
       handleValue,
@@ -95,6 +97,7 @@ export const useSearchStore = defineStore(
       searchHistoryVisible,
       openMode,
       showAppSource,
+      open,
       addSearchHistory,
       removeSearchHistory,
       clearSearchHistory,
