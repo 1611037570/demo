@@ -1,9 +1,8 @@
 <template>
   <!-- 背景组件 -->
   <Background> </Background>
-  <!-- 提示组件 -->
-  <Tip></Tip>
-
+  <!-- 菜单组件 -->
+  <MenuBar></MenuBar>
   <!-- 搜索组件 -->
   <Search></Search>
 
@@ -25,22 +24,11 @@
   >
     <Quote v-if="searchFocus"></Quote>
   </Transition>
-  <!-- 设置组件 -->
-  <Transition
-    mode="out-in"
-    enter-active-class="transition-all duration-300 linear"
-    leave-active-class="transition-all duration-300 linear"
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
-  >
-    <Setting v-if="tabIndex == 1"></Setting>
-  </Transition>
+
   <!-- dock组件 -->
   <Dock />
   <!-- 版权组件 -->
   <Copyright></Copyright>
-  <!-- 主题组件 -->
-  <Theme></Theme>
 
   <!-- 游戏组件 -->
   <Transition
@@ -50,15 +38,15 @@
     enter-from-class="opacity-0 scale-0"
     leave-to-class="opacity-0 scale-0 "
   >
-    <div v-if="tabIndex == 1" class="fixed bottom-12 left-12 z-20 h-12 w-12" style="zoom: 0.8">
+    <div v-if="tabIndex == 1" class="bottom-12 left-12 h-12 w-12 fixed z-20" style="zoom: 0.8">
       <!-- 冥想组件 -->
-      <Meditation class="absolute bottom-80 left-1/2 -translate-x-1/2"></Meditation>
+      <Meditation class="bottom-80 absolute left-1/2 -translate-x-1/2"></Meditation>
       <!-- 幸运转盘组件 -->
-      <LuckyWheel class="absolute bottom-50 left-1/2 -translate-x-1/2"></LuckyWheel>
+      <LuckyWheel class="bottom-50 absolute left-1/2 -translate-x-1/2"></LuckyWheel>
       <!-- 收入组件 -->
-      <Income class="absolute bottom-33 left-1/2 -translate-x-1/2"></Income>
+      <Income class="bottom-33 absolute left-1/2 -translate-x-1/2"></Income>
       <!-- 木鱼组件 -->
-      <WoodenFish class="absolute bottom-0 left-1/2 -translate-x-1/2"></WoodenFish>
+      <WoodenFish class="bottom-0 absolute left-1/2 -translate-x-1/2"></WoodenFish>
     </div>
   </Transition>
   <!-- 游戏组件 -->
@@ -72,13 +60,11 @@ import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
 import Background from './components/background.vue'
-import Theme from './components/theme.vue'
-import Tip from './components/tip.vue'
+import MenuBar from './menuBar/index.vue'
 // 按需加载组件 - 使用动态导入
 const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
 const Copyright = defineAsyncComponent(() => import('./components/copyright.vue'))
 const Quote = defineAsyncComponent(() => import('./components/quote.vue'))
-const Setting = defineAsyncComponent(() => import('./components/setting.vue'))
 const Dock = defineAsyncComponent(() => import('./dock/index.vue'))
 
 // 游戏相关组件 - 懒加载以减少初始加载体积

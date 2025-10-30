@@ -42,10 +42,10 @@
   --sf-color-text-3: #909399;
   --sf-color-text-disabled: #c0c4cc;
   --sf-color-modal: #f2f2f7;
-  --sf-color-transparent: rgba(255, 255, 255, 0.85);
-  --sf-color-transparent-2: rgba(255, 255, 255, 0.6);
-  --sf-color-transparent-3: rgba(255, 255, 255, 0.4);
-  --sf-color-transparent-4: rgba(255, 255, 255, 0.2);
+  --sf-color-transparent: color-mix(in oklab, oklch(97% 0.014 254.604) 80%, transparent);
+  --sf-color-transparent-2: color-mix(in oklab, oklch(97% 0.014 254.604) 60%, transparent);
+  --sf-color-transparent-3: color-mix(in oklab, oklch(97% 0.014 254.604) 40%, transparent);
+  --sf-color-transparent-4: color-mix(in oklab, oklch(97% 0.014 254.604) 20%, transparent);
 }
 
 /* 深色模式 */

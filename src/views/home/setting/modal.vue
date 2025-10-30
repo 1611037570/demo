@@ -1,9 +1,11 @@
 <template>
   <SfModal v-if="systemVisible" v-model="systemVisible">
-    <SfSetContainer :list="list" v-model="currentTab">
+    <SfSetContainer :list="list" v-model="currentTab" width="500px" height="600px">
       <template v-if="currentTab === 'default'">
         <SfSetBox>
-          <SfSetItem title="自动隐藏dock" type="switch" v-model="autoHideDock" />
+          <SfSetItem title="开启菜单栏" type="switch" v-model="autoHideDock" />
+          <SfSetItem title="自动隐藏菜单栏" type="switch" v-model="autoHideDock" />
+          <SfSetItem title="自动隐藏程序坞" type="switch" v-model="autoHideDock" />
         </SfSetBox>
         <SfSetTitle title="数据管理" />
         <SfSetBox>
@@ -75,14 +77,16 @@
 </template>
 
 <script setup>
-import { useHomeStore, useSearchStore } from '@/stores'
+import { useHomeStore, useSearchStore, useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import ModalSearch from './modalSearch.vue'
 
 const homeStore = useHomeStore()
 const searchStore = useSearchStore()
+const shortcutStore = useShortcutStore()
+const { shortcutList } = storeToRefs(shortcutStore)
 
-const { shortcutList, systemVisible, autoHideDock } = storeToRefs(homeStore)
+const { systemVisible, autoHideDock } = storeToRefs(homeStore)
 const { openMode } = storeToRefs(searchStore)
 // 导入数据列表
 const importDataList = () => {}

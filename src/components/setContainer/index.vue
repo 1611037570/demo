@@ -4,6 +4,14 @@ defineProps({
     type: Array,
     default: () => [],
   },
+  width: {
+    type: String,
+    default: '500px',
+  },
+  height: {
+    type: String,
+    default: '600px',
+  },
 })
 const modelValue = defineModel('modelValue')
 const searchValue = defineModel('searchValue')
@@ -16,7 +24,12 @@ const handleClick = (item) => {
   <div class="flex">
     <div class="mr-4 flex w-[200px] flex-col">
       <div class="mb-4 rounded-xl flex overflow-hidden">
-        <SfInput v-model="searchValue" placeholder="搜索" class="bg-sf-primary text-sf-text">
+        <SfInput
+          v-model="searchValue"
+          placeholder="搜索"
+          class="h-10 bg-sf-primary text-sf-primary"
+          placeholder-class="text-sf-primary"
+        >
           <template #prefix>
             <SfIcon icon="fluent:search-24-regular" class="h-4 w-4" size="4" />
           </template>
@@ -27,7 +40,7 @@ const handleClick = (item) => {
           <div
             v-for="(item, index) in list"
             :key="item.value"
-            class="rounded-lg px-3 py-2 cursor-pointer transition-all duration-200"
+            class="rounded-lg px-3 py-1 h-10 text-sm flex cursor-pointer items-center transition-all duration-200"
             :class="[
               item.value === modelValue ? 'sf-theme' : 'hover:bg-sf-primary-hover',
               {
@@ -41,7 +54,7 @@ const handleClick = (item) => {
         </div>
       </ElScrollbar>
     </div>
-    <ElScrollbar class="flex-1">
+    <ElScrollbar class="flex-1" :style="{ width, height }">
       <slot></slot>
     </ElScrollbar>
   </div>

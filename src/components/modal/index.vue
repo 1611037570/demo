@@ -79,7 +79,7 @@ onMounted(() => {})
 
 <style>
 .body {
-  perspective: 500px;
+  perspective: 1300px;
 }
 
 #element {

@@ -1,11 +1,11 @@
 <script setup>
-import { useHomeStore } from '@/stores'
+import { useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 import AddShortcut from './addShortcut.vue'
 
-const homeStore = useHomeStore()
-const { shortcutList } = storeToRefs(homeStore)
+const shortcutStore = useShortcutStore()
+const { shortcutList } = storeToRefs(shortcutStore)
 
 // 拖拽状态
 const isDrag = ref(false)
@@ -26,7 +26,7 @@ const onUpdate = () => {
 }
 const isInit = ref(false)
 onMounted(async () => {
-  homeStore.initShortcutList()
+  shortcutStore.initShortcutList()
   isInit.value = true
 })
 
@@ -46,7 +46,7 @@ const addVisible = ref(false)
       :style="{
         zoom: zoom,
       }"
-      class="fixed top-41 left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5"
+      class="top-41 fixed left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5"
       v-if="isInit"
       v-model="shortcutList"
       ghostClass="bg-amber-500"

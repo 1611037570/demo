@@ -19,4 +19,11 @@ const modelValue = defineModel({
 :deep(.el-input__wrapper) {
   box-shadow: none !important;
 }
+:deep(.el-input__wrapper) {
+  background-color: transparent !important;
+}
+
+:deep(.el-input__inner::placeholder) {
+  color: var(--color-sf-text) !important;
+}
 </style>

@@ -9,9 +9,10 @@
   "files.associations": {
     "*.json": "jsonc"
   },
+  // 关闭文件夹自动折叠（紧凑文件夹）功能
+  "explorer.compactFolders": false,
   // 文件嵌套设置
   "explorer.fileNesting.enabled": true,
-
   "explorer.fileNesting.patterns": {
     // 嵌套 tsconfig 相关文件
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
@@ -51,6 +52,20 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
+  // i18n Ally 配置
+  // 语言文件路径
+  "i18n-ally.localesPaths": ["src/locales"],
+  // 键值对样式
+  "i18n-ally.keystyle": "nested",
+  //启用框架
+  "i18n-ally.enabledFrameworks": ["vue", "vscode"],
+  //自动解析路径
+  "i18n-ally.enabledParsers": ["ts", "json"],
+  // 源语言
+  "i18n-ally.sourceLanguage": "zh",
+  // 显示语言
+  "i18n-ally.displayLanguage": "zh-CN",
+
   // Prettier 配置
   "prettier.enable": true,
   "prettier.useEditorConfig": true,
@@ -63,9 +78,11 @@
   "cSpell.words": [
     "Addtional",
     "datas",
+    "iconify",
     "Persistedstate",
     "pinia",
     "Stylesheet",
+    "Trae",
     "unplugin",
     "Vite",
     "vueuse"

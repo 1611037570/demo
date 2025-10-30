@@ -35,18 +35,18 @@ const list = [
     <search-title title="搜索历史">
       <template #right> <span @click.stop="clearHistory">清空</span> </template>
     </search-title>
-    <div class="mb-3 flex flex-wrap gap-2.5">
+    <div class="mb-3 gap-2.5 flex flex-wrap">
       <div
         @click="openHistory(item)"
         v-for="(item, index) in searchHistory"
         :key="index"
-        class="group relative flex max-w-48 cursor-pointer rounded-lg bg-blue-50 px-3 py-1 text-xs whitespace-nowrap transition-all duration-200 hover:bg-blue-100"
+        class="group max-w-48 rounded-lg px-3 py-1 text-xs relative flex cursor-pointer bg-sf-theme-hover whitespace-nowrap transition-all duration-200 hover:bg-sf-theme"
       >
-        <div class="flex-1 overflow-hidden text-ellipsis">
+        <div class="flex-1 overflow-hidden text-ellipsis text-sf-text">
           {{ item.value }}
         </div>
         <span
-          class="ml-1.5 cursor-pointer text-gray-400 opacity-70 transition-all duration-200 group-hover:opacity-100 hover:text-red-500"
+          class="ml-1.5 text-gray-400 hover:text-red-500 cursor-pointer opacity-70 transition-all duration-200 group-hover:opacity-100"
           @click.stop="removeHistory(index)"
           >×</span
         >
@@ -54,11 +54,11 @@ const list = [
     </div>
   </template>
   <search-title title="热门搜索"> </search-title>
-  <div class="mb-3 flex flex-wrap gap-3">
+  <div class="mb-3 gap-3 flex flex-wrap">
     <div
       v-for="item in list"
       :key="item.name"
-      class="cursor-pointer rounded-lg bg-blue-50 px-4 py-2 text-sm whitespace-nowrap transition-all duration-200 hover:bg-blue-100 hover:text-blue-700"
+      class="rounded-lg bg-blue-50 px-4 py-2 text-sm hover:bg-blue-100 hover:text-blue-700 cursor-pointer whitespace-nowrap transition-all duration-200"
     >
       {{ item.name }}
     </div>
@@ -66,7 +66,7 @@ const list = [
   <div
     v-for="item in 10"
     :key="item"
-    class="cursor-pointer rounded-lg px-3 py-1.75 text-sm whitespace-nowrap transition-all duration-200 hover:bg-blue-100 hover:text-blue-700"
+    class="rounded-lg px-3 py-1.75 text-sm hover:bg-blue-100 hover:text-blue-700 cursor-pointer whitespace-nowrap transition-all duration-200"
   >
     {{ item }}
   </div>

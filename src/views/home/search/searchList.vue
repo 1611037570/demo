@@ -11,7 +11,7 @@ defineProps({
   <div
     v-for="item in 10"
     :key="item"
-    class="cursor-pointer rounded-lg px-3 py-1.75 text-sm whitespace-nowrap transition-all duration-200 hover:bg-blue-100 hover:text-blue-700"
+    class="rounded-lg px-3 py-1.75 text-sm hover:bg-blue-100 hover:text-blue-700 cursor-pointer whitespace-nowrap text-sf-text transition-all duration-200"
   >
     {{ item }}
   </div>

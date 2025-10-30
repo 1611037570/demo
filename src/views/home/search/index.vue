@@ -129,7 +129,7 @@ const translateYClass = computed(() => {
   if (!init.value) {
     return 'translate-y-0'
   }
-  return tabIndex.value === 0 ? 'translate-y-32' : 'translate-y-12'
+  return tabIndex.value === 0 ? 'translate-y-34' : 'translate-y-12'
 })
 </script>
 
@@ -170,7 +170,7 @@ const translateYClass = computed(() => {
       class="translate translate h-10 rounded-xl shadow-xl flex items-center transition-all duration-300"
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
-        searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-4 hover:bg-sf-transparent-2',
+        searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-2 hover:bg-sf-transparent',
         searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"

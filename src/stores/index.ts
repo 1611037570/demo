@@ -21,3 +21,6 @@ export { useModalStore } from './modules/modal'
 
 // 主题相关store
 export { useThemeStore } from './modules/theme'
+
+// 快捷方式相关store
+export { useShortcutStore } from './modules/shortcut'

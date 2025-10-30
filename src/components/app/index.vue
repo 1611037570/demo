@@ -2,7 +2,7 @@
   <SfMenu :list="menuList">
     <div class="flex cursor-pointer flex-col items-center justify-center" @click="handleClick">
       <div
-        class="flex items-center justify-center rounded-xl bg-amber-200"
+        class="rounded-xl bg-amber-200 flex items-center justify-center"
         :style="{
           width: size + 'px',
           height: size + 'px',
@@ -16,7 +16,7 @@
           }"
         ></div>
       </div>
-      <div class="flex h-6 items-center justify-center truncate text-sm text-white">
+      <div class="h-6 text-sm text-white flex items-center justify-center truncate">
         {{ name }}
       </div>
     </div>
@@ -24,12 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { useHomeStore, useSearchStore } from '@/stores'
+import { useSearchStore, useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
-const homeStore = useHomeStore()
 const searchStore = useSearchStore()
-const { shortcutList } = storeToRefs(homeStore)
+const shortcutStore = useShortcutStore()
+const { shortcutList } = storeToRefs(shortcutStore)
 const { openMode } = storeToRefs(searchStore)
 export interface IconProps {
   /**
