@@ -1,189 +1,229 @@
 <template>
-  <!-- 主容器：合并根样式，移除冗余嵌套 -->
+  <!-- 主容器：使用自定义Snowflake颜色变量 -->
   <div
-    class="bg-white border-slate-100 p-6 shadow-sm hover:shadow-md relative flex flex-col overflow-hidden border transition-all duration-300"
+    class="p-6 shadow-sm hover:shadow-md relative flex flex-col overflow-hidden border border-sf-primary-hover/10 bg-sf-basic transition-all duration-300"
   >
-    <!-- 装饰背景：保留视觉层次，减少定位容器 -->
-    <div class="-top-10 -right-10 w-40 h-40 bg-blue-50 absolute rounded-full opacity-70"></div>
-    <div class="-bottom-10 -left-10 w-40 h-40 bg-purple-50 absolute rounded-full opacity-70"></div>
+    <!-- 装饰背景：增强视觉层次感 -->
+    <div
+      class="-top-10 -right-10 w-40 h-40 blur-sm absolute rounded-full bg-sf-primary-hover/5 opacity-70"
+    ></div>
+    <div
+      class="-bottom-10 -left-10 w-40 h-40 blur-sm absolute rounded-full bg-sf-theme-hover/5 opacity-70"
+    ></div>
 
-    <!-- 个人信息区：用语义化标签，移除多余容器 -->
+    <!-- 个人信息区 -->
     <section class="mb-8 relative flex flex-col items-center">
-      <!-- 头像区域：合并样式，增强视觉焦点 -->
+      <!-- 头像区域：增强动画效果 -->
       <div class="mb-5 group relative">
         <div
-          class="h-28 w-28 from-blue-500 to-purple-600 shadow-lg group-hover:shadow-blue-300/20 ring-white/20 flex items-center justify-center rounded-full bg-gradient-to-br ring-4 transition-all duration-500 group-hover:scale-105"
+          class="h-28 w-28 shadow-lg ring-white/20 flex items-center justify-center rounded-full bg-gradient-to-br from-sf-primary to-sf-theme ring-4 transition-all duration-500 group-hover:scale-105 group-hover:shadow-sf-primary/20"
         >
           <SfIcon icon="ic:round-person" class="text-white" size="36" />
         </div>
       </div>
 
-      <!-- 名称与简介：优化排版间距 -->
-      <h2 class="text-2xl font-bold mb-1 text-slate-800 tracking-tight">亿羊</h2>
-      <p class="text-slate-500 mb-5 max-w-xs text-sm text-center">
+      <!-- 名称与简介 -->
+      <h2 class="text-2xl font-bold mb-1 tracking-tight text-sf-text">亿羊</h2>
+      <p class="mb-5 max-w-xs text-sm text-center text-sf-text-2">
         热爱摄影的前端开发者 | 专注交互体验与视觉呈现
       </p>
 
-      <!-- 技能标签：增强交互反馈 -->
+      <!-- 技能标签：统一动画风格 -->
       <div class="gap-2 mb-6 flex flex-wrap justify-center">
         <span
-          class="px-3 py-1.5 text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-full transition-colors duration-200"
+          class="px-3 py-1.5 text-xs rounded-full bg-sf-primary/5 text-sf-primary transition-all duration-200 hover:scale-105 hover:bg-sf-primary/15"
           >Vue.js</span
         >
         <span
-          class="px-3 py-1.5 text-xs bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-full transition-colors duration-200"
+          class="px-3 py-1.5 text-xs rounded-full bg-sf-theme/5 text-sf-theme transition-all duration-200 hover:scale-105 hover:bg-sf-theme/15"
           >Tailwind CSS</span
         >
         <span
-          class="px-3 py-1.5 text-xs bg-green-50 text-green-700 hover:bg-green-100 rounded-full transition-colors duration-200"
+          class="px-3 py-1.5 text-xs bg-green-50 text-green-700 hover:bg-green-100 rounded-full transition-all duration-200 hover:scale-105"
           >JavaScript</span
         >
         <span
-          class="px-3 py-1.5 text-xs bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-full transition-colors duration-200"
+          class="px-3 py-1.5 text-xs bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-full transition-all duration-200 hover:scale-105"
           >摄影</span
         >
       </div>
 
-      <!-- 统计信息：强化视觉对比 -->
-      <div class="gap-6 border-slate-100 pt-4 flex w-full justify-center border-t">
-        <div class="text-center">
+      <!-- 统计信息 -->
+      <div class="gap-6 pt-4 flex w-full justify-center border-t border-sf-primary-hover/10">
+        <div class="group text-center">
           <p
-            class="text-2xl font-bold from-blue-500 to-purple-500 bg-gradient-to-r bg-clip-text text-transparent"
+            class="text-2xl font-bold bg-gradient-to-r from-sf-primary to-sf-theme bg-clip-text text-transparent transition-transform duration-300 group-hover:scale-105"
           >
             12+
           </p>
-          <p class="text-xs text-slate-500 mt-1">项目经验</p>
+          <p class="text-xs mt-1 text-sf-text-2">项目经验</p>
         </div>
-        <div class="text-center">
+        <div class="group text-center">
           <p
-            class="text-2xl font-bold from-blue-500 to-purple-500 bg-gradient-to-r bg-clip-text text-transparent"
+            class="text-2xl font-bold bg-gradient-to-r from-sf-primary to-sf-theme bg-clip-text text-transparent transition-transform duration-300 group-hover:scale-105"
           >
             3+
           </p>
-          <p class="text-xs text-slate-500 mt-1">工作年限</p>
+          <p class="text-xs mt-1 text-sf-text-2">工作年限</p>
         </div>
-        <div class="text-center">
+        <div class="group text-center">
           <p
-            class="text-2xl font-bold from-blue-500 to-purple-500 bg-gradient-to-r bg-clip-text text-transparent"
+            class="text-2xl font-bold bg-gradient-to-r from-sf-primary to-sf-theme bg-clip-text text-transparent transition-transform duration-300 group-hover:scale-105"
           >
             5k+
           </p>
-          <p class="text-xs text-slate-500 mt-1">技术文章</p>
+          <p class="text-xs mt-1 text-sf-text-2">技术文章</p>
         </div>
       </div>
     </section>
 
-    <!-- 技术社交平台：移除外层div，用section语义化 -->
+    <!-- 技术社交平台 -->
     <section class="mb-8">
-      <h4 class="text-base font-medium text-slate-800 mb-3 flex items-center">
-        <SfIcon icon="lucide:code" class="mr-2 h-4 w-4 text-blue-500" />
+      <h4 class="text-base font-medium mb-3 group flex items-center text-sf-text">
+        <SfIcon
+          icon="lucide:code"
+          class="mr-2 h-4 w-4 text-sf-primary transition-transform duration-300 group-hover:rotate-6"
+        />
         技术平台
       </h4>
-      <!-- 直接用grid布局，无外层div -->
       <div class="gap-3 grid grid-cols-2">
         <a
           v-for="(item, index) in tech.list"
           :key="index"
           @click.prevent="open(item.url)"
-          class="group p-4 rounded-xl bg-white border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/50 flex border transition-all duration-300 hover:translate-y-[-1px]"
+          class="group p-4 rounded-xl bg-white shadow-sm hover:shadow-md hover:-translate-y-1 relative flex overflow-hidden border border-sf-primary-hover/20 transition-all duration-300 hover:border-sf-primary/30 hover:bg-sf-primary/5"
         >
           <SfIcon
             :icon="index === 0 ? 'simple-icons:juejin' : 'simple-icons:github'"
-            class="mr-3 h-5 w-5 text-blue-500 transition-all duration-300 group-hover:scale-110"
+            class="mr-3 h-5 w-5 text-sf-primary transition-all duration-300 group-hover:scale-110"
           />
-          <span class="font-medium text-slate-800 text-sm">{{ item.name }}</span>
+          <span
+            class="font-medium text-sm text-sf-text transition-colors duration-300 group-hover:text-sf-primary"
+            >{{ item.name }}</span
+          >
+          <div
+            class="inset-0 absolute bg-gradient-to-r from-sf-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          ></div>
         </a>
       </div>
     </section>
 
-    <!-- 摄影社交平台：精简结构，用section -->
+    <!-- 摄影社交平台 -->
     <section class="mb-8">
-      <h4 class="text-base font-medium text-slate-800 mb-3 flex items-center justify-center">
-        <SfIcon icon="lucide:camera" class="mr-2 h-4 w-4 text-purple-500" />
+      <h4 class="text-base font-medium mb-3 group flex items-center justify-center text-sf-text">
+        <SfIcon
+          icon="lucide:camera"
+          class="mr-2 h-4 w-4 text-sf-theme transition-transform duration-300 group-hover:scale-110"
+        />
         摄影作品分享
       </h4>
 
-      <!-- 摄影信息：用p标签替代div，减少嵌套 -->
-      <p class="text-sm text-slate-600 mb-2">2023年6月3号 - 至今</p>
-      <p class="text-sm text-slate-600 mb-3">旅拍城市</p>
+      <p class="text-sm mb-2 text-center text-sf-text-2">2023年6月3号 - 至今</p>
+      <p class="text-sm mb-3 text-center text-sf-text-2">旅拍城市</p>
 
-      <!-- 城市列表：用span替代div，优化样式 -->
-      <div class="gap-2 mb-4 flex flex-wrap">
+      <!-- 城市列表：增强动画 -->
+      <div class="gap-2 mb-4 flex flex-wrap justify-center">
         <span
           v-for="item in city"
           :key="item.name"
-          class="px-2.5 py-1 text-sm bg-purple-50 text-purple-700 rounded-full"
+          class="px-2.5 py-1 text-sm rounded-full bg-sf-theme/5 text-sf-theme transition-all duration-200 hover:scale-105 hover:bg-sf-theme/15"
         >
           {{ item.name }}
         </span>
       </div>
 
-      <!-- 摄影平台链接：精简容器 -->
+      <!-- 摄影平台链接 -->
       <div class="gap-3 grid grid-cols-2">
         <a
           v-for="(item, index) in shoot.list"
           :key="index"
           @click.prevent="open(item.url)"
-          class="group p-4 rounded-xl bg-white border-slate-200 shadow-sm hover:shadow-md hover:border-purple-200 hover:bg-purple-50/50 border transition-all duration-300 hover:translate-y-[-1px]"
+          class="group p-4 rounded-xl bg-white shadow-sm hover:shadow-md hover:-translate-y-1 relative flex overflow-hidden border border-sf-theme-hover/20 transition-all duration-300 hover:border-sf-theme/30 hover:bg-sf-theme/5"
         >
           <SfIcon
             :icon="index === 0 ? 'simple-icons:xiaohongshu' : 'simple-icons:tiktok'"
-            class="mr-3 h-5 w-5 text-purple-500 transition-all duration-300 group-hover:scale-110"
+            class="mr-3 h-5 w-5 text-sf-theme transition-all duration-300 group-hover:scale-110"
           />
-          <span class="font-medium text-slate-800 text-sm">{{ item.name }}</span>
+          <span
+            class="font-medium text-sm text-sf-text transition-colors duration-300 group-hover:text-sf-theme"
+            >{{ item.name }}</span
+          >
+          <div
+            class="inset-0 absolute bg-gradient-to-r from-sf-theme/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          ></div>
         </a>
       </div>
     </section>
 
-    <!-- 项目经历：移除外层div，直接用section -->
+    <!-- 项目经历 -->
     <section>
       <h3 class="text-lg font-semibold mb-5 group flex items-center">
         <SfIcon
           icon="lucide:briefcase"
-          class="mr-2 h-5 w-5 text-purple-500 transition-transform duration-300 group-hover:rotate-[-12deg]"
+          class="mr-2 h-5 w-5 text-sf-theme transition-transform duration-300 group-hover:rotate-[-12deg]"
         />
         项目经历
       </h3>
 
-      <!-- 项目分类：直接v-for在section上，无外层div -->
       <section v-for="(category, index) in project" :key="index" class="mb-6">
-        <h4 class="mb-4 text-sm font-medium text-slate-700 pl-1 flex items-center">
+        <h4 class="mb-4 text-sm font-medium pl-1 flex items-center text-sf-text-2">
           <span
-            class="h-1.5 w-1.5 mr-2 from-blue-500 to-purple-500 rounded-full bg-gradient-to-r"
+            class="h-1.5 w-1.5 mr-2 rounded-full bg-gradient-to-r from-sf-primary to-sf-theme"
           ></span>
           {{ category.name }}
         </h4>
 
-        <!-- 项目列表：精简网格容器 -->
+        <!-- 项目列表：增强视觉效果 -->
         <div class="gap-4 grid grid-cols-2">
           <article
             v-for="(item, idx) in category.list"
             :key="idx"
             @click="open(item.url)"
-            class="group rounded-xl border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 cursor-pointer overflow-hidden border transition-all duration-300 hover:translate-y-[-2px]"
+            class="group rounded-xl shadow-sm hover:shadow-md hover:-translate-y-2 cursor-pointer overflow-hidden border border-sf-primary-hover/20 transition-all duration-300 hover:border-sf-primary-hover/40"
           >
-            <!-- 图片占位区：增强视觉细节 -->
+            <!-- 图片占位区 -->
             <div
-              class="h-32 relative overflow-hidden transition-opacity duration-300 group-hover:opacity-90"
-              :style="{
-                backgroundColor: idx % 2 === 0 ? '#e0f2fe' : '#f3e8ff',
-                backgroundImage: `radial-gradient(circle at 30% 30%, rgba(59, 130, 246, ${idx % 2 === 0 ? 0.15 : 0}), transparent 50%)`,
+              class="h-32 relative overflow-hidden transition-all duration-300 group-hover:opacity-90"
+              :class="{
+                'bg-sf-primary-hover/5': idx % 2 === 0,
+                'bg-sf-theme-hover/5': idx % 2 === 1,
+                'project-bg-primary': idx % 2 === 0,
+                'project-bg-theme': idx % 2 === 1,
               }"
             >
-              <!-- 新增装饰图标，强化识别度 -->
+              <!-- 装饰图标 -->
               <SfIcon
                 :icon="idx % 2 === 0 ? 'lucide:layout' : 'lucide:pen-tool'"
-                class="top-3 right-3 h-6 w-6 absolute opacity-30 transition-opacity duration-300 group-hover:opacity-40"
-                :style="{ color: idx % 2 === 0 ? '#3b82f6' : '#9333ea' }"
+                class="top-3 right-3 h-6 w-6 absolute opacity-30 transition-all duration-300 group-hover:scale-110 group-hover:opacity-50"
+                :class="idx % 2 === 0 ? 'text-sf-primary' : 'text-sf-theme'"
               />
+
+              <!-- 悬停时显示的遮罩效果 -->
+              <div
+                class="inset-0 from-black/10 absolute bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              ></div>
             </div>
 
-            <!-- 项目信息：优化间距和排版 -->
+            <!-- 项目信息 -->
             <div class="p-3 bg-white">
-              <h5 class="text-slate-800 font-medium text-sm">{{ item.name }}</h5>
-              <p v-if="item.desc" class="mt-1.5 text-xs text-slate-500 line-clamp-2">
+              <h5
+                class="font-medium text-sm text-sf-text transition-colors duration-300 group-hover:text-sf-primary"
+              >
+                {{ item.name }}
+              </h5>
+              <p
+                v-if="item.desc"
+                class="mt-1.5 text-xs line-clamp-2 text-sf-text-2 transition-colors duration-300 group-hover:text-sf-text"
+              >
                 {{ item.desc }}
               </p>
+              <!-- 链接指示 -->
+              <div v-if="item.url" class="mt-2 flex justify-end">
+                <SfIcon
+                  icon="lucide:external-link"
+                  class="h-3 w-3 group-hover:translate-x-0.5 text-sf-text-3 transition-all duration-300 group-hover:text-sf-primary"
+                />
+              </div>
             </div>
           </article>
         </div>
@@ -286,3 +326,17 @@ const project = [
   },
 ]
 </script>
+<style scoped>
+/* 项目背景渐变效果 */
+.project-bg-primary {
+  background-image: radial-gradient(
+    circle at 30% 30%,
+    var(--color-sf-primary) / 15,
+    transparent 50%
+  );
+}
+
+.project-bg-theme {
+  background-image: radial-gradient(circle at 30% 30%, var(--color-sf-theme) / 15, transparent 50%);
+}
+</style>
