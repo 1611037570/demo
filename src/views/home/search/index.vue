@@ -10,29 +10,8 @@ import SearchRecommend from './searchRecommend.vue'
 const searchStore = useSearchStore()
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
-const { searchFocus, openMode, currentWebIndex } = storeToRefs(searchStore)
-function getTranslate(item) {
-  // 参考url
-  // https://fanyi.baidu.com/mtpe-individual/transText?query=I%20don%27t%20know&lang=en2zh#/
-  // https://fanyi.baidu.com/mtpe-individual/transText#/zh/en/%E4%B8%BA%E4%BB%80%E4%B9%88
-  const BASE_URL = 'https://fanyi.baidu.com/mtpe-individual/transText'
-  const chineseCharRegex = /[\u4e00-\u9fa5\u3400-\u4dbf\u{20000}-\u{2a6df}]/u
-  const fromLang = chineseCharRegex.test(item.value) ? 'en' : 'zh'
-
-  const encodedText = encodeURIComponent(item.value)
-  const hash = `#/auto/${fromLang}/${encodedText}`
-  return BASE_URL + hash
-}
-const searchValue = ref('')
-
-const handleValue = computed(() => {
-  const value = searchValue.value.trim()
-  if (!value) return ''
-  return encodeURIComponent(value)
-})
-const handleFocus = () => {
-  searchFocus.value = true
-}
+const { search } = searchStore
+const { searchFocus, searchValue, currentWebIndex, handleValue } = storeToRefs(searchStore)
 
 // 当前选中的搜索源
 const currentSource = computed(() => {
@@ -42,20 +21,7 @@ const currentSource = computed(() => {
 // 下拉菜单显示状态
 const sourceMenuOpen = ref(false)
 // 实现搜索源的跳转
-const goSearch = (item) => {
-  if (!handleValue.value) return
-  let url
-  item.value = handleValue.value
-  if (item.type === '翻译') {
-    url = getTranslate(item)
-  } else {
-    url = item.url.replace('%s', handleValue.value)
-  }
-  item.url = url
-  window.open(url, openMode.value)
 
-  searchStore.addSearchHistory(item)
-}
 // 切换搜索源
 const changeSource = (source) => {
   currentWebIndex.value = webSource.value.indexOf(source)
@@ -131,6 +97,10 @@ const translateYClass = computed(() => {
   }
   return tabIndex.value === 0 ? 'translate-y-34' : 'translate-y-12'
 })
+
+const handleFocus = () => {
+  searchFocus.value = true
+}
 </script>
 
 <template>
@@ -212,7 +182,7 @@ const translateYClass = computed(() => {
           icon="fluent:search-24-regular"
           class="ml-1 h-6 w-6"
           size="8"
-          @click="goSearch(currentSource)"
+          @click="search(currentSource)"
         />
       </div>
       <SfInput
@@ -220,7 +190,7 @@ const translateYClass = computed(() => {
         placeholder="开始搜索"
         :autofocus="false"
         :clearable="false"
-        @keyup.enter="goSearch(currentSource)"
+        @keyup.enter="search(currentSource)"
         @focus="handleFocus"
         class="translate h-10 rounded-lg text-white relative bg-transparent"
         :class="searchFocus ? 'px-22' : ''"

@@ -28,32 +28,32 @@ const appSource = ref([
   },
   {
     type: '文心一言',
-    url: 'https://chat.baidu.com/useSearchStore?word=%s',
+    url: 'https://chat.baidu.com/search?word=%s',
   },
 
   {
     type: '小红书',
-    url: 'https://www.xiaohongshu.com/useSearchStore?keyword=%s',
+    url: 'https://www.xiaohongshu.com/search_result?keyword=%s',
   },
   {
     type: '抖音',
-    url: 'https://www.douyin.com/useSearchStore/%s',
+    url: 'https://www.douyin.com/search/%s&type=general',
   },
   {
     type: '微博',
-    url: 'https://weibo.com/useSearchStore?keyword=%s',
+    url: 'https://s.weibo.com/weibo?q=%s',
   },
   {
     type: '哔哩哔哩',
-    url: 'https://www.bilibili.com/useSearchStore?keyword=%s',
+    url: 'https://search.bilibili.com/all?keyword=%s&search_source=1',
   },
   {
     type: 'github',
-    url: 'https://github.com/useSearchStore?q=%s&type=repositories',
+    url: 'https://github.com/search?q=%s&type=repositories',
   },
   {
     type: '稀土掘金',
-    url: 'https://juejin.cn/useSearchStore?query=%s',
+    url: 'https://juejin.cn/search?query=%s',
   },
 ])
 
