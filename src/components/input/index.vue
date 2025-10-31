@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="modelValue" v-bind="$attrs" class="text-sf-text">
+  <el-input v-model="modelValue" v-bind="$attrs" class="text-sf-text" spellcheck="false">
     <template #prefix>
       <slot name="prefix"></slot>
     </template>

@@ -46,7 +46,7 @@ const addVisible = ref(false)
       :style="{
         zoom: zoom,
       }"
-      class="top-41 fixed left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5"
+      class="top-41 gap-5 fixed left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5"
       v-if="isInit"
       v-model="shortcutList"
       ghostClass="bg-amber-500"

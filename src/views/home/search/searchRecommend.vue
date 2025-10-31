@@ -16,7 +16,7 @@ const { showAppSource } = storeToRefs(searchStore)
   <SearchShortcut />
 
   <SearchTitle
-    title="应用内搜索"
+    title="直达"
     info="通过你输入搜索词直接打开应用内搜索。"
     v-if="showAppSource"
     icon="fluent:apps-24-filled"

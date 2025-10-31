@@ -1,23 +1,28 @@
 <template>
   <div
-    class="translate bottom-0 rounded-xl p-2.5 fixed left-1/2 z-20 mx-auto flex max-h-[60px] min-h-[60px] w-auto -translate-x-1/2 items-end bg-sf-transparent-4 transition-all duration-300"
-    ref="menuRef"
+    class="bottom-0 fixed left-1/2 z-20 flex -translate-x-1/2 flex-col items-center transition-all duration-300"
     :class="dockClass"
-    style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
-    @mousemove="handleMouseMove"
-    @mouseleave="handleMouseLeave"
   >
-    <template v-for="(i, index) in list" :key="i.name">
-      <div class="menu-item">
-        <Component
-          v-if="i.component"
-          :is="i.component"
-          class="cursor-pointer"
-          :style="{ zoom: 'var(--i) !important' }"
-        />
-      </div>
-      <div class="gap" v-if="index !== list.length - 1"></div>
-    </template>
+    <div
+      class="translate rounded-xl p-2.5 flex max-h-[60px] min-h-[60px] w-auto items-end bg-sf-transparent-4 transition-all duration-300"
+      ref="menuRef"
+      style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
+      @mousemove="handleMouseMove"
+      @mouseleave="handleMouseLeave"
+    >
+      <template v-for="(i, index) in list" :key="i.name">
+        <div class="menu-item">
+          <Component
+            v-if="i.component"
+            :is="i.component"
+            class="cursor-pointer"
+            :style="{ zoom: 'var(--i) !important' }"
+          />
+        </div>
+        <div class="gap" v-if="index !== list.length - 1"></div>
+      </template>
+    </div>
+    <Copyright />
   </div>
 </template>
 
@@ -28,6 +33,8 @@ import { computed, onMounted, ref } from 'vue'
 
 import { useHomeStore } from '@/stores'
 import list from './dock.data'
+
+import Copyright from './copyright.vue'
 
 // 原始样式相关状态保留
 const init = ref(false)
@@ -55,9 +62,9 @@ const { height: windowHeight } = useWindowSize()
 const dockClass = computed(() => {
   if (!init.value) return 'translate-y-[100px]'
   if (autoHideDock.value) {
-    return dockVisible.value ? 'translate-y-[-46px]' : 'translate-y-[100px]'
+    return dockVisible.value ? 'translate-y-[-10px]' : 'translate-y-[100px]'
   }
-  return 'translate-y-[-46px]'
+  return 'translate-y-[-10px]'
 })
 
 // DOM元素引用

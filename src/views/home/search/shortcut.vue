@@ -18,7 +18,7 @@ const matchShortcut = computed(() => {
 
 <template>
   <SearchTitle
-    title="你的快捷方式"
+    title="快捷方式"
     info="快捷方式是你已添加网站的链接，你可以通过输入快捷方式名直接打开。"
     icon="material-symbols:article-shortcut-rounded"
     iconClass=" text-emerald-400"

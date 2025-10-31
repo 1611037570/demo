@@ -2,6 +2,7 @@
 import { webSource } from '@/datas/search.data'
 import { useEventListener } from '@/hooks'
 import { useHomeStore, useSearchStore } from '@/stores'
+import { useIntervalFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import CurrentTime from './currentTime.vue'
@@ -20,7 +21,6 @@ const currentSource = computed(() => {
 
 // 下拉菜单显示状态
 const sourceMenuOpen = ref(false)
-// 实现搜索源的跳转
 
 // 切换搜索源
 const changeSource = (source) => {
@@ -87,6 +87,7 @@ const clearSearch = () => {
 }
 // 监听点击外部事件
 useEventListener(document, 'click', handleOutsideClick)
+
 const init = ref(false)
 setTimeout(() => {
   init.value = true
@@ -101,6 +102,29 @@ const translateYClass = computed(() => {
 const handleFocus = () => {
   searchFocus.value = true
 }
+
+// 计数变量，初始值 0
+const count = ref(0)
+const target = '开始搜索...'
+const placeholder = ref('')
+// 定义定时器逻辑：每 1000ms 计数+1，到60停止
+const { pause } = useIntervalFn(
+  () => {
+    // 每次执行先累加计数
+    placeholder.value += target[count.value]
+    count.value++
+    // 核心逻辑：计数达到60时停止定时器
+    if (count.value >= target.length) {
+      // 调用 pause 方法停止（用 ?. 避免初始状态下的 null 调用错误）
+      pause()
+      return // 停止后直接返回，避免后续无效操作
+    }
+  },
+  140,
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <template>
@@ -141,7 +165,7 @@ const handleFocus = () => {
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
         searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-2 hover:bg-sf-transparent',
-        searchFocus ? 'w-[610px]' : 'w-[230px] hover:w-[610px]',
+        searchFocus ? 'w-[590px]' : 'w-[230px] hover:w-[590px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
@@ -179,7 +203,7 @@ const handleFocus = () => {
       </div>
       <SfInput
         v-model="searchValue"
-        placeholder="开始搜索"
+        :placeholder="placeholder"
         :autofocus="false"
         :clearable="false"
         @keyup.enter="search(currentSource)"
@@ -193,7 +217,7 @@ const handleFocus = () => {
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="mt-3 rounded-2xl border-blue-100 p-3 shadow-lg z-30 flex w-[610px] transform flex-col border bg-sf-primary transition-all duration-300"
+      class="mt-3 rounded-2xl border-blue-100 p-3 shadow-lg z-30 flex w-[590px] transform flex-col border bg-sf-primary transition-all duration-300"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />

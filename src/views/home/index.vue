@@ -27,8 +27,6 @@
 
   <!-- dock组件 -->
   <Dock />
-  <!-- 版权组件 -->
-  <Copyright></Copyright>
 
   <!-- 游戏组件 -->
   <Transition
@@ -63,7 +61,6 @@ import Background from './components/background.vue'
 import MenuBar from './menuBar/index.vue'
 // 按需加载组件 - 使用动态导入
 const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
-const Copyright = defineAsyncComponent(() => import('./components/copyright.vue'))
 const Quote = defineAsyncComponent(() => import('./components/quote.vue'))
 const Dock = defineAsyncComponent(() => import('./dock/index.vue'))
 

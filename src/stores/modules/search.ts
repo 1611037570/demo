@@ -20,6 +20,7 @@ export const useSearchStore = defineStore(
 
     const searchValue = ref('')
 
+    const hotSource = ref('百度')
     const handleValue = computed(() => {
       const value = searchValue.value.trim()
       if (!value) return ''
@@ -89,6 +90,7 @@ export const useSearchStore = defineStore(
       window.open(url, openMode.value)
     }
     return {
+      hotSource,
       searchValue,
       handleValue,
       currentWebIndex,
@@ -106,7 +108,7 @@ export const useSearchStore = defineStore(
   },
   {
     persist: {
-      pick: ['searchHistory', 'searchHistoryVisible'],
+      pick: ['searchHistory', 'searchHistoryVisible', 'hotSource'],
     },
   },
 )

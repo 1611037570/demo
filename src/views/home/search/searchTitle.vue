@@ -20,7 +20,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="mb-3 flex h-[32px] w-full items-center justify-between">
+  <div class="mb-3 flex w-full items-center justify-between">
     <div class="font-bold flex h-full items-center text-[15px] text-sf-text">
       <SfIcon v-if="icon" :icon="icon" class="mr-2" :class="iconClass" size="5" />
       <div class="mr-2">

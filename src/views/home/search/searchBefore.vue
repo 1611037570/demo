@@ -6,7 +6,7 @@ import SearchList from './searchList.vue'
 import SearchTitle from './searchTitle.vue'
 
 const searchStore = useSearchStore()
-const { searchHistory, searchHistoryVisible, openMode } = storeToRefs(searchStore)
+const { searchHistory, searchHistoryVisible, openMode, hotSource } = storeToRefs(searchStore)
 const openHistory = (item) => {
   window.open(item.url, openMode.value)
 }
@@ -19,22 +19,20 @@ const clearHistory = () => {
   searchStore.clearSearchHistory()
 }
 
-const list = [
+const hotList = [
   {
     name: '百度',
+    value: '百度',
   },
   {
     name: '抖音',
+    value: '抖音',
   },
   {
     name: '微博',
+    value: '微博',
   },
 ]
-
-const hotSource = ref('百度')
-const updateHotSource = (source) => {
-  hotSource.value = source
-}
 </script>
 
 <template>
@@ -59,19 +57,10 @@ const updateHotSource = (source) => {
       </Item>
     </div>
   </template>
+
   <SearchTitle title="热门搜索" icon="bxs:hot" iconClass="text-red-400">
     <template #right>
-      <div class="p-1 flex items-center rounded-full bg-sf-modal">
-        <div
-          v-for="item in list"
-          :key="item.name"
-          :class="{ 'bg-sf-primary': item.name === hotSource }"
-          @click="updateHotSource(item.name)"
-          class="py-1 px-2 rounded-full hover:bg-sf-primary-hover"
-        >
-          {{ item.name }}
-        </div>
-      </div>
+      <SfTab :list="hotList" v-model="hotSource" />
     </template>
   </SearchTitle>
   <SearchList />

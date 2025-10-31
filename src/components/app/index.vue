@@ -1,24 +1,26 @@
 <template>
-  <SfMenu :list="menuList">
-    <div class="flex cursor-pointer flex-col items-center justify-center" @click="handleClick">
+  <SfMenu
+    :list="menuList"
+    class="flex cursor-pointer flex-col items-center justify-center"
+    @click="handleClick"
+  >
+    <div
+      class="rounded-xl bg-amber-200 flex items-center justify-center"
+      :style="{
+        width: size + 'px',
+        height: size + 'px',
+      }"
+    >
       <div
-        class="rounded-xl bg-amber-200 flex items-center justify-center"
+        class=""
         :style="{
-          width: size + 'px',
-          height: size + 'px',
+          width: iconSize + 'px',
+          height: iconSize + 'px',
         }"
-      >
-        <div
-          class=""
-          :style="{
-            width: iconSize + 'px',
-            height: iconSize + 'px',
-          }"
-        ></div>
-      </div>
-      <div class="h-6 text-sm text-white flex items-center justify-center truncate">
-        {{ name }}
-      </div>
+      ></div>
+    </div>
+    <div class="h-6 text-sm flex items-center justify-center truncate">
+      {{ name }}
     </div>
   </SfMenu>
 </template>
