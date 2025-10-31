@@ -137,17 +137,17 @@ const handleFocus = () => {
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="translate translate h-10 rounded-xl shadow-xl flex items-center transition-all duration-300"
+      class="translate translate h-10 rounded-3xl shadow-3xl flex items-center transition-all duration-300"
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
         searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-2 hover:bg-sf-transparent',
-        searchFocus ? 'w-[650px]' : 'w-[230px] hover:w-[650px]',
+        searchFocus ? 'w-[610px]' : 'w-[230px] hover:w-[610px]',
       ]"
       style="backdrop-filter: blur(10px) saturate(1.5)"
     >
       <div v-if="searchFocus" class="source-selector left-2 absolute top-1/2 z-10 -translate-y-1/2">
         <div
-          class="sf-theme h-7 rounded-lg px-2 text-xs font-medium hover:shadow-md relative flex cursor-pointer items-center overflow-hidden transition-all duration-300"
+          class="sf-theme h-7 rounded-xl px-2 text-xs font-medium hover:shadow-md relative flex cursor-pointer items-center overflow-hidden transition-all duration-300"
           @click.stop="toggleSourceMenu"
         >
           <div class="search-source-item">
@@ -170,20 +170,12 @@ const handleFocus = () => {
           </div>
         </div>
       </div>
-      <div v-if="searchFocus" class="right-2 absolute top-1/2 z-10 flex -translate-y-1/2">
-        <SfIcon
-          v-if="handleValue"
-          icon="fluent:dismiss-24-regular"
-          class="h-6 w-6"
-          size="8"
-          @click.stop="clearSearch"
-        />
-        <SfIcon
-          icon="fluent:search-24-regular"
-          class="ml-1 h-6 w-6"
-          size="8"
-          @click="search(currentSource)"
-        />
+      <div
+        v-if="searchFocus"
+        class="right-3 absolute top-1/2 z-10 flex -translate-y-1/2 items-center"
+      >
+        <SfIcon v-if="handleValue" icon="carbon:close-outline" size="6" @click.stop="clearSearch" />
+        <SfIcon icon="mynaui:search" class="ml-1" size="7" @click="search(currentSource)" />
       </div>
       <SfInput
         v-model="searchValue"
@@ -201,7 +193,7 @@ const handleFocus = () => {
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="mt-1 rounded-xl border-blue-100 p-3 shadow-lg z-30 flex w-[650px] flex-col border bg-sf-primary"
+      class="mt-3 rounded-2xl border-blue-100 p-3 shadow-lg z-30 flex w-[610px] transform flex-col border bg-sf-primary transition-all duration-300"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />

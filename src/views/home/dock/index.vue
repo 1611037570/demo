@@ -22,9 +22,9 @@
 </template>
 
 <script setup>
-import { useWindowSize } from '@vueuse/core'
+import { useThrottleFn, useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { useHomeStore } from '@/stores'
 import list from './dock.data'
@@ -35,14 +35,14 @@ setTimeout(() => {
   init.value = true
 }, 1)
 
-// 核心常量（仅添加预计算比例因子优化）
+// 核心常量
 const SCALE_RANGE = 200
 const MAX_SCALE = 1.55
 const MIN_SCALE = 1
 const SCALE_DIFF = MAX_SCALE - MIN_SCALE
 const HALF_RANGE = SCALE_RANGE / 2
 const PI = Math.PI
-const SCALE_FACTOR = PI / SCALE_RANGE // 预计算比例因子（仅保留此优化）
+const SCALE_FACTOR = PI / SCALE_RANGE
 
 // 状态管理
 const menuRef = ref(null)
@@ -60,42 +60,37 @@ const dockClass = computed(() => {
   return 'translate-y-[-46px]'
 })
 
-// DOM元素引用（仅保存元素列表，不缓存位置）
+// DOM元素引用
 let elements = []
 
-// 初始化：仅获取一次元素列表
+// 初始化：获取元素列表并设置节流事件
 onMounted(() => {
   if (menuRef.value) {
     elements = Array.from(menuRef.value.querySelectorAll('.menu-item, .gap'))
   }
 
-  // 全局鼠标监听（保持原始逻辑）
-  const handleWindowMouseMove = (e) => {
+  // 使用useThrottleFn处理全局鼠标移动（自动关联生命周期）
+  const throttledWindowMouseMove = useThrottleFn((e) => {
     if (!autoHideDock.value) return
     dockVisible.value = windowHeight.value - e.clientY < 300
-  }
+  }, 30) // 30ms节流间隔
 
-  window.addEventListener('mousemove', handleWindowMouseMove, { passive: true })
-  onUnmounted(() => {
-    window.removeEventListener('mousemove', handleWindowMouseMove)
-  })
+  window.addEventListener('mousemove', throttledWindowMouseMove, { passive: true })
 })
 
-// 仅优化缩放计算中的比例因子使用
+// 缩放计算
 const getScale = (mouseX, element) => {
   const rect = element.getBoundingClientRect()
-  const elemCenter = rect.x + rect.width / 2 // 元素中心X坐标
-  const distance = Math.abs(mouseX - elemCenter) // 鼠标到元素中心的水平距离
+  const elemCenter = rect.x + rect.width / 2
+  const distance = Math.abs(mouseX - elemCenter)
 
-  // 超出范围直接返回最小缩放
   if (distance >= HALF_RANGE) return MIN_SCALE
 
-  // 使用预计算的SCALE_FACTOR替代实时计算 (ratio * PI)
   return Math.sin((HALF_RANGE - distance) * SCALE_FACTOR) * SCALE_DIFF + MIN_SCALE
 }
 
-// 鼠标移动处理（保持原始逻辑）
-const handleMouseMove = (e) => {
+// 使用useThrottleFn处理dock内部鼠标移动（自动清理）
+const throttledMouseMove = useThrottleFn((e) => {
   requestAnimationFrame(() => {
     if (!elements.length) return
     const mouseX = e.clientX
@@ -103,9 +98,13 @@ const handleMouseMove = (e) => {
       elements[i].style.setProperty('--i', getScale(mouseX, elements[i]))
     }
   })
+}, 16) // 约60fps间隔
+
+const handleMouseMove = (e) => {
+  throttledMouseMove(e)
 }
 
-// 鼠标离开重置（保持原始逻辑）
+// 鼠标离开重置
 const handleMouseLeave = () => {
   requestAnimationFrame(() => {
     for (let i = 0; i < elements.length; i++) {
@@ -116,7 +115,6 @@ const handleMouseLeave = () => {
 </script>
 
 <style scoped>
-/* 保留原始样式定义 */
 .menu-item {
   min-width: calc(var(--i, 1) * 40px);
   min-height: calc(var(--i, 1) * 40px);
@@ -129,7 +127,7 @@ const handleMouseLeave = () => {
 }
 .menu-item,
 .gap {
-  transform: translateZ(0); /* 开启GPU加速 */
+  transform: translateZ(0);
   will-change: transform, width, height, margin-bottom;
   transition: all 450ms cubic-bezier(0.4, 1.6, 0.05, 0.95);
 }

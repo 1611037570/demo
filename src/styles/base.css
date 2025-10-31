@@ -24,7 +24,7 @@ button,
 switch,
 .el-switch__core,
 .el-switch__action {
-  cursor: url('/src/assets/images/cursorPointer.png'), pointer !important;
+  /* cursor: url('/src/assets/images/cursorPointer.png'), pointer !important; */
 }
 /* 插入光标样式 */
 input,

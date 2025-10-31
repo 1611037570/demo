@@ -17,14 +17,18 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SfApp: typeof import('@components/app/index.vue')['default']
     SfIcon: typeof import('@components/icon/index.vue')['default']
     SfInput: typeof import('@components/input/index.vue')['default']
+    SfMenu: typeof import('@components/menu/index.vue')['default']
     SfModal: typeof import('@components/modal/index.vue')['default']
     SfSetBox: typeof import('@components/setBox/index.vue')['default']
     SfSetContainer: typeof import('@components/setContainer/index.vue')['default']
     SfSetItem: typeof import('@components/setItem/index.vue')['default']
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
+    SfTooltip: typeof import('@components/tooltip/index.vue')['default']
   }
 }

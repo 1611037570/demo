@@ -2,26 +2,32 @@
 import { appSource } from '@/datas/search.data'
 import { useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import Item from './item.vue'
 import SearchList from './searchList.vue'
 import SearchTitle from './searchTitle.vue'
+import SearchShortcut from './shortcut.vue'
+
 const searchStore = useSearchStore()
 const { search } = searchStore
 const { showAppSource } = storeToRefs(searchStore)
 </script>
 
 <template>
-  <SearchTitle title="应用内搜索" v-if="showAppSource" />
-  <div class="gap-2 flex flex-wrap" v-if="showAppSource">
-    <div
-      v-for="item in appSource"
-      :key="item.type"
-      class="rounded-lg bg-blue-300 px-2 py-1 text-white hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-md flex transform cursor-pointer items-center justify-center text-[13px] transition-all duration-200"
-      @click="search(item)"
-    >
-      {{ item.type }}
-    </div>
-  </div>
+  <SearchShortcut />
 
+  <SearchTitle
+    title="应用内搜索"
+    info="通过你输入搜索词直接打开应用内搜索。"
+    v-if="showAppSource"
+    icon="fluent:apps-24-filled"
+    iconClass="text-pink-300"
+  />
+  <div class="gap-3 mb-3 flex flex-wrap" v-if="showAppSource">
+    <Item v-for="item in appSource" :key="item.type" @click="search(item)">
+      {{ item.type }}
+    </Item>
+  </div>
+  <SearchTitle title="关键词推荐" icon="fluent:align-left-24-filled" iconClass="text-sf-theme" />
   <SearchList :list="appSource" />
 </template>
 

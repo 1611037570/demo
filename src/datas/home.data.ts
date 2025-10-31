@@ -43,15 +43,6 @@ export const list = [
     url: 'https://fanyi.baidu.com/',
   },
   {
-    name: '云顶之弈',
-    url: 'https://lol.qq.com/tft/#/index',
-  },
-  {
-    name: '攻略中心',
-    url: 'https://101.qq.com/#/hero-rank-5v5',
-  },
-
-  {
     name: '哔哩哔哩',
     url: 'https://www.bilibili.com/',
   },
@@ -70,5 +61,6 @@ export const list = [
   {
     name: 'element-plus',
     url: 'https://element-plus.org/zh-CN/component/overview.html',
+    icon: 'logos:element',
   },
 ]
