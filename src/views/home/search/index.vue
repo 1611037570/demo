@@ -12,7 +12,8 @@ const searchStore = useSearchStore()
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
 const { search } = searchStore
-const { searchFocus, searchValue, currentWebIndex, handleValue } = storeToRefs(searchStore)
+const { searchFocus, searchValue, currentWebIndex, handleValue, currentIndex } =
+  storeToRefs(searchStore)
 
 // 当前选中的搜索源
 const currentSource = computed(() => {
@@ -123,6 +124,12 @@ const { pause } = useIntervalFn(
   140,
   {
     immediate: true,
+  },
+)
+watch(
+  () => currentIndex.value,
+  () => {
+    currentIndex.value = -1
   },
 )
 </script>

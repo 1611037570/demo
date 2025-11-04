@@ -1,20 +1,59 @@
 <script setup>
-defineProps({
+import { useSearchStore } from '@/stores'
+import { useEventListener } from '@vueuse/core'
+const searchStore = useSearchStore()
+const { searchValue, currentIndex } = storeToRefs(searchStore)
+
+const { list, update } = defineProps({
   list: {
     type: Array,
-    default: () => [],
+    default: () => ['123', '456', '789', '012', '345', '678', '901', '234', '567', '890'],
+  },
+  update: {
+    type: Boolean,
+    default: false,
   },
 })
+
 const style = ['#E63946', '#FB8500', '#FFB703']
-const currentIndex = ref(-1)
+
+const listLength = computed(() => list.length)
+
+// 切换选中项的函数
+const setCurrentIndex = (index) => {
+  currentIndex.value = index
+  if (update) {
+    searchValue.value = list[index]
+  }
+}
+
+// 处理键盘事件
+const handleKeydown = (event) => {
+  console.log('event.key', event.key)
+
+  let newIndex = currentIndex.value
+  if (event.key === 'ArrowUp') {
+    event.preventDefault()
+    newIndex = currentIndex.value <= 0 ? listLength.value - 1 : currentIndex.value - 1
+    setCurrentIndex(newIndex)
+  } else if (event.key === 'ArrowDown') {
+    event.preventDefault()
+    newIndex = currentIndex.value >= listLength.value - 1 ? 0 : currentIndex.value + 1
+    setCurrentIndex(newIndex)
+  }
+}
+
+// 使用vueuse的useEventListener自动管理事件监听生命周期
+useEventListener(document, 'keydown', handleKeydown)
 </script>
 
 <template>
   <div
-    v-for="(item, index) in 10"
+    v-for="(item, index) in list"
     :key="item"
     class="rounded-lg px-2 py-1.5 text-sm hover:bg-blue-100 hover:text-blue-700 flex cursor-pointer items-center whitespace-nowrap text-sf-text transition-all duration-200"
-    :class="{ 'bg-blue-100 text-blue-700': currentIndex === index }"
+    :class="{ 'bg-blue-100 text-sf-theme': currentIndex === index }"
+    @click="setCurrentIndex(index)"
   >
     <div class="flex flex-1 items-center overflow-hidden">
       <div
@@ -29,7 +68,9 @@ const currentIndex = ref(-1)
         {{ item }}
       </div>
     </div>
-    <div>123213</div>
+    <div class="flex items-center">
+      {{ index === currentIndex ? '回车搜索' : '123123213' }}
+    </div>
   </div>
 </template>
 

@@ -4,7 +4,7 @@ import Item from './item.vue'
 import SearchTitle from './searchTitle.vue'
 const shortcutStore = useShortcutStore()
 const searchStore = useSearchStore()
-const { searchValue } = storeToRefs(searchStore)
+const { searchValue, shortcutVisible } = storeToRefs(searchStore)
 const { open } = searchStore
 const { shortcutList } = storeToRefs(shortcutStore)
 // 匹配的快捷键
@@ -18,17 +18,18 @@ const matchShortcut = computed(() => {
 
 <template>
   <SearchTitle
+    v-if="shortcutVisible"
     title="快捷方式"
     info="快捷方式是你已添加网站的链接，你可以通过输入快捷方式名直接打开。"
     icon="material-symbols:article-shortcut-rounded"
     iconClass=" text-emerald-400"
   />
-  <div v-if="matchShortcut.length" class="gap-3 mb-3 flex flex-wrap">
+  <div v-if="matchShortcut.length && shortcutVisible" class="gap-3 mb-3 flex flex-wrap">
     <Item v-for="item in matchShortcut" :key="item.name" @click="open(item.url)">
       {{ item.name }}
     </Item>
   </div>
-  <div v-else class="mb-3 text-sm text-center">暂无快捷方式</div>
+  <div v-else-if="shortcutVisible" class="mb-3 text-sm text-center">暂无快捷方式</div>
 </template>
 
 <style lang="scss" scoped></style>

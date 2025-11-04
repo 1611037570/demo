@@ -12,17 +12,25 @@ export const useSearchStore = defineStore(
     const searchHistory = ref([])
     // 打开方式
     const openMode = ref<OpenMode>('_blank')
-    // 搜索历史
+    // 是否显示搜索历史
     const searchHistoryVisible = ref(true)
+    // 是否显示热门搜索
+    const hotSourceVisible = ref(true)
     // 是否显示应用内搜索
-    const showAppSource = ref(true)
+    const appSourceVisible = ref(true)
+    // 是否显示快捷方式
+    const shortcutVisible = ref(true)
+    // 当前web索引
     const currentWebIndex = ref(0)
-
+    // 当前搜索值
     const searchValue = ref('')
-
+    // 当前搜索索引
+    const currentIndex = ref(-1)
+    // 当前热门搜索源
     const hotSource = ref('百度')
+    // 搜索值处理
     const handleValue = computed(() => {
-      const value = searchValue.value.trim()
+      const value = String(searchValue.value).trim()
       if (!value) return ''
       return encodeURIComponent(value)
     })
@@ -84,7 +92,9 @@ export const useSearchStore = defineStore(
       // 3、打开搜索结果页面
       open(url)
       // 4、添加搜索历史记录
-      addSearchHistory(item)
+      if (searchHistoryVisible.value) {
+        addSearchHistory(item)
+      }
     }
     const open = (url: string) => {
       window.open(url, openMode.value)
@@ -97,8 +107,11 @@ export const useSearchStore = defineStore(
       searchFocus,
       searchHistory,
       searchHistoryVisible,
+      hotSourceVisible,
       openMode,
-      showAppSource,
+      appSourceVisible,
+      shortcutVisible,
+      currentIndex,
       open,
       addSearchHistory,
       removeSearchHistory,

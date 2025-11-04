@@ -9,20 +9,19 @@ import SearchShortcut from './shortcut.vue'
 
 const searchStore = useSearchStore()
 const { search } = searchStore
-const { showAppSource } = storeToRefs(searchStore)
+const { appSourceVisible } = storeToRefs(searchStore)
 </script>
 
 <template>
   <SearchShortcut />
-
   <SearchTitle
     title="直达"
     info="通过你输入搜索词直接打开应用内搜索。"
-    v-if="showAppSource"
+    v-if="appSourceVisible"
     icon="fluent:apps-24-filled"
     iconClass="text-pink-300"
   />
-  <div class="gap-3 mb-3 flex flex-wrap" v-if="showAppSource">
+  <div class="gap-3 mb-3 flex flex-wrap" v-if="appSourceVisible">
     <Item v-for="item in appSource" :key="item.type" @click="search(item)">
       {{ item.type }}
     </Item>

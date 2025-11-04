@@ -6,7 +6,8 @@ import SearchList from './searchList.vue'
 import SearchTitle from './searchTitle.vue'
 
 const searchStore = useSearchStore()
-const { searchHistory, searchHistoryVisible, openMode, hotSource } = storeToRefs(searchStore)
+const { searchHistory, searchHistoryVisible, openMode, hotSource, hotSourceVisible } =
+  storeToRefs(searchStore)
 const openHistory = (item) => {
   window.open(item.url, openMode.value)
 }
@@ -58,12 +59,12 @@ const hotList = [
     </div>
   </template>
 
-  <SearchTitle title="热门搜索" icon="bxs:hot" iconClass="text-red-400">
+  <SearchTitle title="热门搜索" icon="bxs:hot" iconClass="text-red-400" v-if="hotSourceVisible">
     <template #right>
       <SfTab :list="hotList" v-model="hotSource" />
     </template>
   </SearchTitle>
-  <SearchList />
+  <SearchList v-if="hotSourceVisible" />
 </template>
 
 <style scoped>
