@@ -55,10 +55,10 @@ const handleOutsideClick = (e) => {
 
 // 监听tab切换
 useEventListener(document, 'keydown', (e) => {
-  if (!searchFocus.value) return
+  // tab事件
   if (e.key === 'Tab') {
+    if (!searchFocus.value) return
     e.preventDefault()
-
     // 获取容器元素
     const sourceSelector = document.querySelector('.source-selector .search-source-item')
     if (sourceSelector) {
@@ -108,7 +108,6 @@ const handleFocus = () => {
 const count = ref(0)
 const target = '开始搜索...'
 const placeholder = ref('')
-// 定义定时器逻辑：每 1000ms 计数+1，到60停止
 const { pause } = useIntervalFn(
   () => {
     // 每次执行先累加计数
@@ -126,8 +125,9 @@ const { pause } = useIntervalFn(
     immediate: true,
   },
 )
+// 监听搜索输入变化，重置当前索引
 watch(
-  () => currentIndex.value,
+  () => searchValue.value,
   () => {
     currentIndex.value = -1
   },
@@ -144,7 +144,7 @@ watch(
     <transition name="dropdown" appear>
       <div
         v-if="sourceMenuOpen"
-        class="source-dropdown left-3 mt-1 rounded-xl border-blue-100 bg-white shadow-lg absolute top-full z-60 w-[220px] overflow-hidden border"
+        class="source-dropdown mt-3 left-0 rounded-xl border-blue-100 bg-white shadow-lg absolute top-full z-90 w-[220px] overflow-hidden border"
       >
         <div class="p-2">
           <div
@@ -168,7 +168,7 @@ watch(
     <!-- 搜索框和按钮 -->
     <!-- 黑夜主题暂未启用 :class="[searchFocus ? 'bg-[#1e1e1ee6] ' : 'group-hover:bg-[#0f0f0f99] bg-[#00000059]']" -->
     <div
-      class="translate translate h-10 rounded-3xl shadow-3xl flex items-center transition-all duration-300"
+      class="translate translate h-10 rounded-3xl shadow-3xl relative flex items-center transition-all duration-300"
       :class="[
         // searchFocus ? 'bg-[#ffffffe6]' : 'bg-[#ffffff40] hover:bg-[#fff9]',
         searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-2 hover:bg-sf-transparent',
@@ -206,7 +206,12 @@ watch(
         class="right-3 absolute top-1/2 z-10 flex -translate-y-1/2 items-center"
       >
         <SfIcon v-if="handleValue" icon="carbon:close-outline" size="6" @click.stop="clearSearch" />
-        <SfIcon icon="mynaui:search" class="ml-1" size="7" @click="search(currentSource)" />
+        <SfIcon
+          icon="mynaui:search"
+          class="ml-1 hover:text-sf-theme"
+          size="7"
+          @click="search(currentSource)"
+        />
       </div>
       <SfInput
         v-model="searchValue"
@@ -224,12 +229,13 @@ watch(
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
-      class="mt-3 rounded-2xl border-blue-100 p-3 shadow-lg z-30 flex w-[590px] transform flex-col border bg-sf-primary transition-all duration-300"
+      class="mt-3 rounded-2xl border-blue-100 p-3 shadow-lg left-0 absolute top-full z-30 flex w-[590px] transform flex-col border bg-sf-primary transition-all duration-300"
     >
       <!-- 搜索建议 -->
       <SearchRecommend v-if="handleValue" />
       <!-- 搜索历史 -->
       <SearchBefore v-else />
+      <div class="mt-3 text-xs text-center">了解搜索框功能</div>
     </div>
   </div>
 </template>

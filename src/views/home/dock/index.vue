@@ -4,7 +4,7 @@
     :class="dockClass"
   >
     <div
-      class="translate rounded-xl p-2.5 flex max-h-[60px] min-h-[60px] w-auto items-end bg-sf-transparent-4 transition-all duration-300"
+      class="translate rounded-xl p-2.5 flex max-h-[60px] min-h-[60px] w-auto items-end bg-sf-transparent-2 transition-all duration-300"
       ref="menuRef"
       style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
       @mousemove="handleMouseMove"
@@ -22,10 +22,13 @@
         <div class="gap" v-if="index !== list.length - 1"></div>
       </template>
     </div>
-    <Copyright />
   </div>
 </template>
+background-color:
+<!-- color-mix(in srgb, oklch(97% 0.014 254.604) 80%, transparent);
 
+border-color:
+color-mix(in srgb, oklch(93.2% 0.032 255.585) 40%, transparent);-->
 <script setup>
 import { useThrottleFn, useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
@@ -33,8 +36,6 @@ import { computed, onMounted, ref } from 'vue'
 
 import { useHomeStore } from '@/stores'
 import list from './dock.data'
-
-import Copyright from './copyright.vue'
 
 // 原始样式相关状态保留
 const init = ref(false)

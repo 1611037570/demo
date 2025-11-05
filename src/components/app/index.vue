@@ -65,6 +65,28 @@ const menuList = computed(() => {
       fn: () => {},
     },
     {
+      name: '分享',
+      fn: () => {
+        const data: any = {
+          ...shortcutList.value[props.index],
+        }
+        // 需要过滤掉id
+        delete data.id
+        const json = JSON.stringify(data, null, 2)
+        const blob = new Blob([json], {
+          type: 'application/json; charset=utf-8',
+        })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = data.name + '——快捷方式分享.json'
+        a.click()
+        // 清理资源
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      },
+    },
+    {
       name: '删除',
       fn: () => {
         console.log('删除')

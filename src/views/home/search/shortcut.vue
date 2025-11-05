@@ -1,18 +1,27 @@
 <script setup>
 import { useSearchStore, useShortcutStore } from '@/stores'
+import { getStrMatch } from '@/utils'
 import Item from './item.vue'
 import SearchTitle from './searchTitle.vue'
 const shortcutStore = useShortcutStore()
 const searchStore = useSearchStore()
 const { searchValue, shortcutVisible } = storeToRefs(searchStore)
-const { open } = searchStore
 const { shortcutList } = storeToRefs(shortcutStore)
+const { open } = searchStore
 // 匹配的快捷键
 const matchShortcut = computed(() => {
+  // 没有输入内容
   if (!searchValue.value) return []
 
   // 找到所有匹配的快捷键
-  return shortcutList.value.filter((item) => item.name.includes(searchValue.value))
+  return shortcutList.value.filter((item) => {
+    // 名称匹配
+    const name = getStrMatch(item.name, searchValue.value)
+    if (name) return true
+    // 拼音匹配
+    const pinyin = getStrMatch(item.pinyin, searchValue.value)
+    if (pinyin) return true
+  })
 })
 </script>
 
@@ -20,7 +29,7 @@ const matchShortcut = computed(() => {
   <SearchTitle
     v-if="shortcutVisible"
     title="快捷方式"
-    info="快捷方式是你已添加网站的链接，你可以通过输入快捷方式名直接打开。"
+    info="快捷方式已添加的网站链接，支持输入拼音、名称查找。"
     icon="material-symbols:article-shortcut-rounded"
     iconClass=" text-emerald-400"
   />
@@ -29,7 +38,7 @@ const matchShortcut = computed(() => {
       {{ item.name }}
     </Item>
   </div>
-  <div v-else-if="shortcutVisible" class="mb-3 text-sm text-center">暂无快捷方式</div>
+  <div v-else-if="shortcutVisible" class="mb-3 text-sm text-center">暂无匹配的快捷方式</div>
 </template>
 
 <style lang="scss" scoped></style>

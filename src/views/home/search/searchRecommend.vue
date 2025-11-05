@@ -15,8 +15,8 @@ const { appSourceVisible } = storeToRefs(searchStore)
 <template>
   <SearchShortcut />
   <SearchTitle
-    title="直达"
-    info="通过你输入搜索词直接打开应用内搜索。"
+    title="外站直达"
+    info="通过你输入搜索词直接打开外站搜索。"
     v-if="appSourceVisible"
     icon="fluent:apps-24-filled"
     iconClass="text-pink-300"

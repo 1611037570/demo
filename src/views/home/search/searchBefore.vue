@@ -39,7 +39,12 @@ const hotList = [
 <template>
   <template v-if="searchHistoryVisible && searchHistory.length">
     <search-title title="搜索历史" icon="tabler:history" iconClass="text-sf-theme">
-      <template #right> <span @click.stop="clearHistory">清空全部</span> </template>
+      <template #right>
+        <div @click.stop="clearHistory" class="flex items-center">
+          <SfIcon icon="material-symbols:delete-outline" class="mr-1.5" size="4" />
+          清空全部
+        </div>
+      </template>
     </search-title>
     <div class="mb-3 gap-2 flex flex-wrap">
       <Item @click="openHistory(item)" v-for="(item, index) in searchHistory" :key="index">

@@ -6,8 +6,10 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 const themeStore = useThemeStore()
 const { initTheme } = themeStore
 initTheme()
+// https://cdn.jsdelivr.net/npm/pinyin@4.0.0/lib/umd/pinyin.min.js
+// https://www.bootcdn.cn/
+// https://www.jsdelivr.com/?query=vue
 </script>
-
 <template>
   <ElConfigProvider :locale="zhCn">
     <Suspense>

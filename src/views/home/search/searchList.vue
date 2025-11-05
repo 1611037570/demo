@@ -38,12 +38,16 @@ const handleKeydown = (event) => {
     setCurrentIndex(newIndex)
   } else if (event.key === 'ArrowDown') {
     event.preventDefault()
-    newIndex = currentIndex.value >= listLength.value - 1 ? 0 : currentIndex.value + 1
+    let index = currentIndex.value + 1
+    if (index >= listLength.value) {
+      index = 0
+    }
+    newIndex = index
+    console.log('newIndex', newIndex)
     setCurrentIndex(newIndex)
   }
 }
 
-// 使用vueuse的useEventListener自动管理事件监听生命周期
 useEventListener(document, 'keydown', handleKeydown)
 </script>
 

@@ -35,6 +35,20 @@ const handleAdd = () => {
   return
 }
 const addVisible = ref(false)
+
+const menuList = computed(() => [
+  {
+    name: '添加',
+    fn: () => {},
+  },
+  {
+    name: '导入',
+    fn: () => {
+      
+
+    },
+  },
+])
 </script>
 
 <template>
@@ -66,6 +80,7 @@ const addVisible = ref(false)
         name="添加"
         type="custom"
         :class="{ 'shake-element': isDrag }"
+        menuList="menuList"
         @click="handleAdd"
       ></SfApp>
     </VueDraggable>

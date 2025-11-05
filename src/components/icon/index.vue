@@ -1,7 +1,17 @@
 <template>
-  <div class="flex cursor-pointer items-center justify-center" :class="[`w-${size}`, `h-${size}`]">
-    <Icon :icon="icon" width="100%" height="100%" />
-    <span v-if="text">{{ text }}</span>
+  <div
+    class="relative flex cursor-pointer items-center justify-center overflow-hidden transition-all duration-300"
+    :style="{
+      width: `calc(var(--spacing) * ${size})`,
+      height: `calc(var(--spacing) * ${size})`,
+    }"
+  >
+    <Icon
+      :icon="icon"
+      width="100%"
+      height="100%"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+    />
   </div>
 </template>
 
@@ -15,11 +25,6 @@ export interface IconProps {
   icon?: string
 
   /**
-   * 按钮文本
-   */
-  text?: string
-
-  /**
    * 图标大小
    */
   size?: number | string
@@ -28,7 +33,6 @@ export interface IconProps {
 
 withDefaults(defineProps<IconProps>(), {
   icon: '',
-  text: '',
   size: 16,
 })
 </script>
