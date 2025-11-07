@@ -16,12 +16,11 @@
             : '按tab或点击锁定，计算结果将持续显示'
         "
       >
-        <div
-          class="flex-center sf-theme-element h-7 rounded-xl px-2 text-xs font-medium hover:shadow-md overflow-hidden transition-all duration-300"
+        <SfIcon
           @click="expressionsLock = !expressionsLock"
-        >
-          {{ expressionsLock ? '解锁' : '固定' }}
-        </div>
+          size="6"
+          :icon="expressionsLock ? 'stash:lock-closed' : 'stash:lock-opened'"
+        />
       </SfTooltip>
       <div
         v-else
