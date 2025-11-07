@@ -68,8 +68,11 @@
 
 /* 自定义工具类 */
 @layer utilities {
-  .sf-theme {
-    @apply bg-sf-theme text-sf-text hover:bg-sf-theme-hover;
+  .flex-center {
+    @apply flex cursor-pointer items-center justify-center;
+  }
+  .sf-theme-element {
+    @apply cursor-pointer bg-sf-theme text-sf-primary hover:bg-sf-theme-hover hover:text-sf-theme;
   }
   .sf-primary {
     @apply bg-sf-primary text-sf-text hover:bg-sf-primary-hover;

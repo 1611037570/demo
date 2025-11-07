@@ -1,9 +1,11 @@
 <template>
-  <el-tooltip :effect="themeMode" :content="info" placement="top">
-    <slot>
-      <SfIcon icon="mingcute:question-line" size="4" />
-    </slot>
-  </el-tooltip>
+  <div>
+    <el-tooltip :effect="themeMode" :content="info" placement="top">
+      <slot>
+        <SfIcon icon="mingcute:question-line" size="4" />
+      </slot>
+    </el-tooltip>
+  </div>
 </template>
 
 <script setup>

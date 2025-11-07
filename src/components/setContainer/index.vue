@@ -40,9 +40,9 @@ const handleClick = (item) => {
           <div
             v-for="(item, index) in list"
             :key="item.value"
-            class="rounded-lg px-3 py-1 h-10 text-sm flex cursor-pointer items-center transition-all duration-200"
+            class="rounded-lg px-3 py-1 h-10 text-sm transition-all duration-200 flex items-center"
             :class="[
-              item.value === modelValue ? 'sf-theme' : 'hover:bg-sf-primary-hover',
+              item.value === modelValue ? 'sf-theme-element' : 'hover:bg-sf-primary-hover',
               {
                 'border-gray-200 border-b': index !== list.length - 1, // 最后一个item不添加下边框
               },

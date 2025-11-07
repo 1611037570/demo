@@ -11,7 +11,6 @@ import { useCurrentTime } from '@/hooks'
 import { useHomeStore, useSearchStore } from '@/stores'
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
-console.log('useCurrentTime', useCurrentTime)
 
 const homeStore = useHomeStore()
 const { time } = useCurrentTime()

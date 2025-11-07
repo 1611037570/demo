@@ -1,9 +1,10 @@
 <script setup>
+import { useFileDialog } from '@/hooks'
 import { useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 import AddShortcut from './addShortcut.vue'
-
+const { click, fileList } = useFileDialog()
 const shortcutStore = useShortcutStore()
 const { shortcutList } = storeToRefs(shortcutStore)
 
@@ -44,8 +45,13 @@ const menuList = computed(() => [
   {
     name: '导入',
     fn: () => {
-      
-
+      click({
+        accept: '.json',
+        maxCount: 1,
+        duplicate: true,
+      }).then((res) => {
+        console.log(res)
+      })
     },
   },
 ])
@@ -76,13 +82,14 @@ const menuList = computed(() => [
         :value="item.url"
         :class="{ 'shake-element': isDrag }"
       ></SfApp>
-      <SfApp
-        name="添加"
-        type="custom"
-        :class="{ 'shake-element': isDrag }"
-        menuList="menuList"
-        @click="handleAdd"
-      ></SfApp>
+      <SfMenu :list="menuList">
+        <SfApp
+          name="添加"
+          type="custom"
+          :class="{ 'shake-element': isDrag }"
+          @click="handleAdd"
+        ></SfApp>
+      </SfMenu>
     </VueDraggable>
   </div>
 </template>

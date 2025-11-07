@@ -28,6 +28,20 @@ export const useSearchStore = defineStore(
     const currentIndex = ref(-1)
     // 当前热门搜索源
     const hotSource = ref('百度')
+
+    // 表达式标记
+    const expressionsFlag = ref(false)
+    // 表达式计算结果
+    const expressionsResult = ref('')
+    // 表达式锁定
+    const expressionsLock = ref(false)
+    // 表达式可见
+    const expressionsVisible = computed(() => {
+      return expressionsFlag.value || expressionsLock.value
+    })
+
+    // 下拉菜单显示状态
+    const webSourceListVisible = ref(false)
     // 搜索值处理
     const handleValue = computed(() => {
       const value = String(searchValue.value).trim()
@@ -112,6 +126,11 @@ export const useSearchStore = defineStore(
       appSourceVisible,
       shortcutVisible,
       currentIndex,
+      expressionsFlag,
+      expressionsResult,
+      expressionsLock,
+      expressionsVisible,
+      webSourceListVisible,
       open,
       addSearchHistory,
       removeSearchHistory,
