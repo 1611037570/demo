@@ -1,12 +1,12 @@
 <template>
-  <div class="mx-auto max-w-2xl p-6">
+  <div class="max-w-2xl p-6 mx-auto">
     <!-- 项目运行时间卡片 -->
     <div
-      class="mb-8 rounded-xl border border-blue-100 bg-blue-50 p-6 text-center shadow-sm transition-all duration-300 hover:shadow-md"
+      class="mb-8 rounded-xl border-blue-100 bg-blue-50 p-6 shadow-sm hover:shadow-md border text-center transition-all duration-300"
     >
       <h3 class="mb-2 text-lg font-medium text-blue-600">项目已运行</h3>
       <p
-        class="text-2xl font-bold text-blue-600 transition-colors duration-200 hover:text-blue-700"
+        class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors duration-200"
       >
         {{ runTimeDescription }}
       </p>
@@ -19,28 +19,28 @@
     <!-- 项目历程时间线 -->
     <div class="relative">
       <!-- 时间线垂直轴 -->
-      <div class="absolute top-0 bottom-0 left-4 w-px bg-blue-100"></div>
+      <div class="top-0 bottom-0 left-4 bg-blue-100 absolute w-px"></div>
 
       <!-- 时间线条目 -->
-      <div v-for="item in timeList" :key="item.time" class="group relative ml-12">
+      <div v-for="item in timeList" :key="item.time" class="group ml-12 relative">
         <!-- 时间线圆点 -->
-        <div class="absolute -left-12 mt-1.5 flex items-center justify-center">
+        <div class="-left-12 mt-1.5 absolute flex items-center justify-center">
           <div
-            class="h-8 w-8 rounded-full border-4 border-white bg-blue-500 shadow-sm transition-transform duration-200 group-hover:scale-110"
+            class="h-8 w-8 border-white bg-blue-500 shadow-sm rounded-full border-4 transition-transform duration-200 group-hover:scale-110"
           ></div>
         </div>
 
         <!-- 时间戳和类型标签 -->
-        <div class="group mb-2 flex items-center justify-between pt-1">
+        <div class="group mb-2 pt-1 flex items-center justify-between">
           <div
-            class="text-lg font-semibold text-blue-600 transition-colors duration-200 group-hover:text-blue-700"
+            class="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors duration-200"
           >
             {{ item.time }}
           </div>
           <div
             v-if="item.type && typeMap[item.type]"
             :class="[
-              'rounded-full border px-2 py-1 text-xs',
+              'px-2 py-1 text-xs rounded-full border',
               typeMap[item.type].textColor,
               typeMap[item.type].bgColor,
               typeMap[item.type].borderColor,
@@ -52,22 +52,22 @@
 
         <!-- 描述内容 -->
         <div
-          class="rounded-lg border border-blue-50 bg-white p-4 text-gray-600 shadow-sm transition-all duration-300 group-hover:border-blue-200"
+          class="rounded-lg border-blue-50 bg-white p-4 text-gray-600 shadow-sm group-hover:border-blue-200 border transition-all duration-300"
         >
           {{ item.desc }}
-        </div>
 
-        <!-- 图片展示 -->
-        <div v-if="item.img && item.img.length" class="mt-4">
-          <ElImage
-            v-for="(img, imgIndex) in item.img"
-            :key="imgIndex"
-            :src="img"
-            class="mx-auto w-full max-w-md cursor-pointer rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg"
-            :preview-src-list="item.img"
-            fit="contain"
-            lazy
-          />
+          <!-- 图片展示 -->
+          <div v-if="item.img && item.img.length" class="mt-4">
+            <ElImage
+              v-for="(img, imgIndex) in item.img"
+              :key="imgIndex"
+              :src="img"
+              class="max-w-md rounded-lg shadow-md hover:shadow-lg mx-auto w-full cursor-pointer transition-shadow duration-300"
+              :preview-src-list="item.img"
+              fit="contain"
+              lazy
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -76,6 +76,7 @@
 
 <script setup>
 import startImg from '@/assets/images/start.jpg'
+import v1Img from '@/assets/images/v1.0.png'
 import dayjs from 'dayjs'
 
 // 项目开始时间
@@ -187,6 +188,7 @@ const timeList = [
     desc: '起始页1.0页面上线',
     time: '2020-11-22',
     type: 'optimize',
+    img: [v1Img],
   },
   {
     desc: '梦开始的地方，[nannan.work]域名启用',

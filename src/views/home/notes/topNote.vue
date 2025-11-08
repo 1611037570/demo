@@ -1,13 +1,34 @@
 <script setup>
 import { useNoteStore } from '@/stores'
+import { computed, ref } from 'vue'
 const noteStore = useNoteStore()
-const { topNoteList } = storeToRefs(noteStore)
+const { topNoteList, autoCollapse, currentIndex, noteVisible } = storeToRefs(noteStore)
 const expand = ref(false)
+
+// 计算卡片容器的位置类
+const containerClasses = computed(() => {
+  // 如果启用了自动收缩，根据展开状态决定位置
+  if (autoCollapse.value) {
+    return expand.value ? 'translate-x-[0%]' : 'translate-x-[-70%]'
+  }
+  // 未启用自动收缩时，始终显示
+  return 'translate-x-[0%]'
+})
+// 选择便签项并保存其索引
+const select = (item) => {
+  // 遍历noteList找到匹配id的项的索引
+  const index = noteStore.noteList.findIndex((note) => note.id === item.id)
+  // 如果找到匹配项，设置currentIndex
+  if (index !== -1) {
+    currentIndex.value = index
+    noteVisible.value = true
+  }
+}
 </script>
 <template>
   <div
     class="top-0 left-0 gap-3 py-20 pl-12 fixed z-50 flex w-[340px] transform flex-col transition-all duration-300"
-    :class="[expand ? 'translate-x-[0%]' : 'translate-x-[-70%]']"
+    :class="[containerClasses]"
     @mouseenter="expand = true"
     @mousemove="expand = true"
     @mouseleave="expand = false"
@@ -16,6 +37,7 @@ const expand = ref(false)
       v-for="item in topNoteList"
       :key="item.id"
       class="p-3 rounded-lg bg-white w-[240px] cursor-pointer"
+      @click="select(item)"
     >
       <SfIcon
         v-if="item.todo"
@@ -34,4 +56,4 @@ const expand = ref(false)
     </div>
   </div>
 </template>
-<style lang="scss" scoped></style>
+<style scoped></style>

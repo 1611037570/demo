@@ -1,5 +1,5 @@
 <template>
-  <SfModal v-if="aboutVisible" v-model="aboutVisible">
+  <SfModal v-if="aboutVisible" v-model="aboutVisible" title="关于">
     <SfSetContainer :list="list" v-model="activeTab" class="h-[600px]">
       <div class="h-1 w-[500px]"></div>
       <ModalProject v-if="activeTab === 'project'" />

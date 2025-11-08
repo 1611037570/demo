@@ -1,5 +1,7 @@
+import { getUUID } from '@/utils'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+
 const default_data = {
   value: '00',
   // 创建时间
@@ -21,24 +23,46 @@ const default_data = {
 export const useNoteStore = defineStore(
   'note',
   () => {
+    const noteVisible: any = ref(false)
+    // 自动收缩
+    const autoCollapse = ref(true)
     // 便签列表
     const noteList = ref([])
     // 当前选中的便签索引
     const currentIndex = ref(null)
-    // 置顶列表
+    // 置顶列表：同时包含置顶项和待办项，待办项排在最前面
     const topNoteList = computed(() => {
-      return noteList.value.filter((item) => item?.top)
+      const list = noteList.value
+        .filter((item: any) => item?.top || item?.todo)
+        // 排序逻辑：待办项排在前面
+        .sort((a, b) => {
+          // 如果a是待办而b不是待办，a排在前面
+          if (a?.todo && !b?.todo) return -1
+          // 如果b是待办而a不是待办，b排在前面
+          if (!a?.todo && b?.todo) return 1
+          // 其他情况保持原有顺序
+          return 0
+        })
+      return list
     })
     // 添加便签
     function addNote() {
-      noteList.value.push(default_data)
+      noteList.value.push({
+        ...default_data,
+        id: getUUID(),
+      })
     }
-    return { noteList, addNote, topNoteList, currentIndex }
+    function delNote() {
+      const index = currentIndex.value
+      currentIndex.value = null
+      noteList.value.splice(index, 1)
+    }
+    return { noteList, addNote, topNoteList, currentIndex, noteVisible, autoCollapse, delNote }
   },
   {
     persist: {
       storage: localStorage,
-      pick: ['noteList'],
+      pick: ['noteList', 'autoCollapse'],
     },
   },
 )
