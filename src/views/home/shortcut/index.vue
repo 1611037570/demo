@@ -27,7 +27,6 @@ const onUpdate = () => {
 }
 const isInit = ref(false)
 onMounted(async () => {
-  shortcutStore.initShortcutList()
   isInit.value = true
 })
 

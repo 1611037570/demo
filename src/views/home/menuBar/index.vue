@@ -6,9 +6,7 @@ import Tip from './tip.vue'
 </script>
 
 <template>
-  <div
-    class="top-0 left-0 right-0 gap-3 border-blue-100/40 py-1 px-2 fixed z-20 flex items-center justify-between bg-sf-transparent-2"
-  >
+  <div class="top-12 right-12 gap-3 fixed z-20 flex items-center">
     <Tip />
     <div class="gap-3 flex items-center">
       <I18n />

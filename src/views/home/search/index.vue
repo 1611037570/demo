@@ -29,14 +29,10 @@ setTimeout(() => {
 }, 1)
 
 const searchContainer = useTemplateRef('searchContainer')
-onClickOutside(
-  searchContainer, // 目标元素：点击该元素及其子孙元素不会触发回调
-  () => {
-    // 外部点击触发的逻辑：清空结果、错误提示等
-    console.log('点击了非输入框区域')
-    searchFocus.value = false
-  },
-)
+onClickOutside(searchContainer, () => {
+  console.log('点击了非输入框区域')
+  searchFocus.value = false
+})
 </script>
 
 <template>
@@ -51,7 +47,6 @@ onClickOutside(
 
     <!-- 搜索框和按钮 -->
     <SearchInput />
-
     <!-- 搜索结果/历史区域 -->
     <div
       v-if="searchFocus"
@@ -80,43 +75,6 @@ onClickOutside(
 </template>
 
 <style scoped>
-/* 下拉菜单过渡动画 */
-.dropdown-enter-active,
-.dropdown-leave-active {
-  transition: all 0.3s ease;
-  transform-origin: top left;
-}
-
-.dropdown-enter-from,
-.dropdown-leave-to {
-  opacity: 0;
-  transform: scale(0.95) translateY(-4px);
-}
-
-/* 确保Tab切换时也有过渡效果 */
-.source-dropdown {
-  transition: all 0.3s ease;
-}
-/* 定义完整的上下滑动切换动画 */
-@keyframes tabSlideTransition {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  51% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 :deep(.el-input__wrapper) {
   background-color: transparent !important;
 }

@@ -74,6 +74,7 @@ useEventListener(document, 'keydown', handleKeydown)
     </div>
     <div class="flex items-center">
       {{ index === currentIndex ? '回车搜索' : '123123213' }}
+      <div @click="addTag(index)">加入便签</div>
     </div>
   </div>
 </template>

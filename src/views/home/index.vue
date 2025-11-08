@@ -27,33 +27,17 @@
 
   <!-- dock组件 -->
   <Dock />
-
   <!-- 游戏组件 -->
-  <Transition
-    mode="out-in"
-    enter-active-class="transition-all duration-300 linear"
-    leave-active-class="transition-all duration-300 linear"
-    enter-from-class="opacity-0 scale-0"
-    leave-to-class="opacity-0 scale-0 "
-  >
-    <div v-if="tabIndex == 1" class="bottom-12 left-12 h-12 w-12 fixed z-20" style="zoom: 0.8">
-      <!-- 冥想组件 -->
-      <Meditation class="bottom-80 absolute left-1/2 -translate-x-1/2"></Meditation>
-      <!-- 幸运转盘组件 -->
-      <LuckyWheel class="bottom-50 absolute left-1/2 -translate-x-1/2"></LuckyWheel>
-      <!-- 收入组件 -->
-      <Income class="bottom-33 absolute left-1/2 -translate-x-1/2"></Income>
-      <!-- 木鱼组件 -->
-      <WoodenFish class="bottom-0 absolute left-1/2 -translate-x-1/2"></WoodenFish>
-    </div>
-  </Transition>
-  <!-- 游戏组件 -->
-  <!-- <game></game> -->
+  <Game />
+  <!-- 置顶便签组件 -->
+  <TopNote />
+  <!-- 便签组件 -->
+  <Notes />
   <SettingModal />
 </template>
 
 <script setup>
-import { useHomeStore, useSearchStore } from '@/stores'
+import { useHomeStore, useSearchStore, useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
@@ -65,24 +49,24 @@ const Quote = defineAsyncComponent(() => import('./components/quote.vue'))
 const Dock = defineAsyncComponent(() => import('./dock/index.vue'))
 
 // 游戏相关组件 - 懒加载以减少初始加载体积
-const Income = defineAsyncComponent(() => import('./games/income.vue'))
-// const game = defineAsyncComponent(() => import('./games/index.vue'))
-const LuckyWheel = defineAsyncComponent(() => import('./games/luckyWheel.vue'))
-const Meditation = defineAsyncComponent(() => import('./games/meditation.vue'))
-const WoodenFish = defineAsyncComponent(() => import('./games/woodenFish.vue'))
+const Game = defineAsyncComponent(() => import('./games/index.vue'))
 
 // 主要功能组件 - 懒加载
 const Search = defineAsyncComponent(() => import('./search/index.vue'))
 const Shortcut = defineAsyncComponent(() => import('./shortcut/index.vue'))
+const TopNote = defineAsyncComponent(() => import('./notes/topNote.vue'))
+const Notes = defineAsyncComponent(() => import('./notes/index.vue'))
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
 const searchStore = useSearchStore()
 const { searchFocus } = storeToRefs(searchStore)
+const shortcutStore = useShortcutStore()
 
 import { getWeatherData } from '@/services'
 getWeatherData('hello').then((res) => {
   console.log('getWeatherData res', res)
 })
+shortcutStore.initShortcutList()
 
 // getBaiduSearchData('hello', false).then((res) => {
 //   console.log('getBaiduSearchData res', res)

@@ -24,3 +24,6 @@ export { useThemeStore } from './modules/theme'
 
 // 快捷方式相关store
 export { useShortcutStore } from './modules/shortcut'
+
+// 便签相关store
+export { useNoteStore } from './modules/note'

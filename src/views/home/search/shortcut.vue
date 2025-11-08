@@ -5,7 +5,7 @@ import Item from './item.vue'
 import SearchTitle from './searchTitle.vue'
 const shortcutStore = useShortcutStore()
 const searchStore = useSearchStore()
-const { searchValue, shortcutVisible } = storeToRefs(searchStore)
+const { shortcutVisible, searchValue, h } = storeToRefs(searchStore)
 const { shortcutList } = storeToRefs(shortcutStore)
 const { open } = searchStore
 // 匹配的快捷键

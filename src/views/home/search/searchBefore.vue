@@ -37,6 +37,64 @@ const hotList = [
 </script>
 
 <template>
+  <search-title title="市场行情" icon="tabler:history" iconClass="text-sf-theme" />
+
+  <div class="gap-3 pb-2 flex">
+    <!-- 上证指数卡片 -->
+    <div
+      style="background: rgb(245 247 250)"
+      class="rounded-lg p-3 shadow-sm border-neutral-100 hover:shadow-md flex-1 cursor-pointer border transition-all duration-200 hover:border-sf-theme/30"
+    >
+      <div class="mb-2 flex items-center justify-between">
+        <h3 class="text-sm font-medium flex items-center text-sf-text">
+          <SfIcon icon="fa-solid:chart-line" class="mr-1.5 text-sf-theme" size="3.5" />
+          <span>上证指数</span>
+        </h3>
+        <span class="font-medium px-2 py-0.5 rounded-full bg-sf-theme/5 text-[10px] text-sf-theme"
+          >实时</span
+        >
+      </div>
+      <div class="mb-0.5 flex items-end justify-between">
+        <span class="font-bold text-[clamp(1rem,2vw,1.25rem)] text-sf-text" id="sh-index"
+          >3,085.67</span
+        >
+        <span
+          class="text-danger text-xs font-medium flex items-center transition-transform hover:scale-105"
+        >
+          <SfIcon icon="fa-solid:caret-down" class="mr-1" size="2.5" />
+          <span>0.07%</span>
+        </span>
+      </div>
+      <p class="text-xs text-sf-text-secondary">+37.82 · 成交量 2.83亿</p>
+    </div>
+
+    <!-- 深证成指卡片 -->
+    <div
+      class="bg-white rounded-lg p-3 shadow-sm border-neutral-100 hover:shadow-md flex-1 cursor-pointer border transition-all duration-200 hover:border-sf-theme/30"
+    >
+      <div class="mb-2 flex items-center justify-between">
+        <h3 class="text-sm font-medium flex items-center text-sf-text">
+          <SfIcon icon="fa-solid:chart-line" class="mr-1.5 text-sf-theme" size="3.5" />
+          <span>深证成指</span>
+        </h3>
+        <span class="font-medium px-2 py-0.5 rounded-full bg-sf-theme/5 text-[10px] text-sf-theme"
+          >实时</span
+        >
+      </div>
+      <div class="mb-0.5 flex items-end justify-between">
+        <span class="font-bold text-[clamp(1rem,2vw,1.25rem)] text-sf-text" id="sz-index"
+          >10,123.45</span
+        >
+        <span
+          class="text-success text-xs font-medium flex items-center transition-transform hover:scale-105"
+        >
+          <SfIcon icon="fa-solid:caret-up" class="mr-1" size="2.5" />
+          <span>0.15%</span>
+        </span>
+      </div>
+      <p class="text-xs text-sf-text-secondary">+42.18 · 成交量 3.65亿</p>
+    </div>
+  </div>
   <template v-if="searchHistoryVisible && searchHistory.length">
     <search-title title="搜索历史" icon="tabler:history" iconClass="text-sf-theme">
       <template #right>

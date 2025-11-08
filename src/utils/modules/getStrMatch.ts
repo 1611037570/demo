@@ -7,9 +7,10 @@
  * @returns 符合顺序匹配规则返回 true，否则返回 false
  */
 export function getStrMatch(mainStr: string, queryStr: string) {
-  // 边界处理
-  if (queryStr === '') return false
-
+  // 边界处理：空查询串或空主串，不可能匹配
+  if (!queryStr || !mainStr) return false
+  console.log('mainStr', mainStr)
+  console.log('queryStr', queryStr)
   const mainLen = mainStr.length
   const queryLen = queryStr.length
 
