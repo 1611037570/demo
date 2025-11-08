@@ -16,7 +16,7 @@
       >
         <!-- 标题和关闭按钮 -->
         <div class="mb-3 relative flex items-center justify-between">
-          <div class="text-2xl font-bold w-full text-center">123</div>
+          <div class="text-2xl font-bold w-full text-center">{{ title }}</div>
           <div
             class="right-0 absolute top-1/2 -translate-y-1/2 transform cursor-pointer"
             @click="modeValue = false"
@@ -32,6 +32,13 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+const props = defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+})
+
 const mask = useTemplateRef('mask')
 const modeValue = defineModel()
 

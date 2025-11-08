@@ -1,15 +1,11 @@
 <script setup>
 import { useNoteStore } from '@/stores'
+import NoteList from './components/noteList.vue'
 const noteStore = useNoteStore()
-const { noteList } = storeToRefs(noteStore)
+
+const { noteList, currentIndex } = storeToRefs(noteStore)
 
 const noteVisible = ref(true)
-const flag = ref(false)
-
-const currentIndex = ref(null)
-const setCurrentIndex = (index) => {
-  currentIndex.value = index
-}
 
 function switchStatus(key) {
   noteList.value[currentIndex.value][key] = !noteList.value[currentIndex.value][key]
@@ -17,27 +13,9 @@ function switchStatus(key) {
 </script>
 
 <template>
-  <SfModal v-model="noteVisible" v-if="noteVisible">
+  <SfModal v-model="noteVisible" v-if="noteVisible" title="便签">
     <div class="flex h-[500px] w-[600px]">
-      <div class="mr-3 flex w-[200px] flex-col">
-        1
-        <div @click="noteStore.addNote()">add</div>
-        <div
-          v-for="(item, index) in noteList"
-          :key="index"
-          @click="setCurrentIndex(index)"
-          class="p-2 flex hover:bg-sf-theme-hover hover:text-sf-theme"
-          :class="{ 'bg-sf-theme text-sf-theme': currentIndex === index }"
-        >
-          <SfIcon
-            icon="pajamas:todo-done"
-            size="5"
-            boxSize="8"
-            class="rounded-lg mr-2 bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
-          />
-          <div>{{ item.value }}</div>
-        </div>
-      </div>
+      <NoteList />
       <div class="flex flex-1 flex-col">
         <div class="gap-3 mb-3 flex" v-if="currentIndex != null">
           <SfTooltip info="固定在起始页">
@@ -91,7 +69,19 @@ function switchStatus(key) {
             />
           </SfTooltip>
         </div>
-        <div class="bg-pink-400 w-full flex-1"></div>
+        <div class="w-full">
+          <!-- v-model="textarea" -->
+
+          <SfInput
+            class="bg-pink-400 rounded-xl p-1 flex-1"
+            v-model="textarea"
+            maxlength="200"
+            style="width: 240px"
+            placeholder="Please input"
+            show-word-limit
+            type="textarea"
+          />
+        </div>
       </div>
     </div>
   </SfModal>

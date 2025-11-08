@@ -23,6 +23,8 @@ export const useNoteStore = defineStore(
   () => {
     // 便签列表
     const noteList = ref([])
+    // 当前选中的便签索引
+    const currentIndex = ref(null)
     // 置顶列表
     const topNoteList = computed(() => {
       return noteList.value.filter((item) => item?.top)
@@ -31,7 +33,7 @@ export const useNoteStore = defineStore(
     function addNote() {
       noteList.value.push(default_data)
     }
-    return { noteList, addNote, topNoteList }
+    return { noteList, addNote, topNoteList, currentIndex }
   },
   {
     persist: {
