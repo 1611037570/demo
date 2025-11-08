@@ -30,7 +30,7 @@ background-color:
 border-color:
 color-mix(in srgb, oklch(93.2% 0.032 255.585) 40%, transparent);-->
 <script setup>
-import { useThrottleFn, useWindowSize } from '@vueuse/core'
+import { useEventListener, useThrottleFn, useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
 
@@ -76,16 +76,15 @@ onMounted(() => {
   if (menuRef.value) {
     elements = Array.from(menuRef.value.querySelectorAll('.menu-item, .gap'))
   }
-
-  // 使用useThrottleFn处理全局鼠标移动（自动关联生命周期）
-  const throttledWindowMouseMove = useThrottleFn((e) => {
-    if (!autoHideDock.value) return
-    dockVisible.value = windowHeight.value - e.clientY < 300
-  }, 30) // 30ms节流间隔
-
-  window.addEventListener('mousemove', throttledWindowMouseMove, { passive: true })
 })
+// 使用useThrottleFn处理全局鼠标移动
+const throttledWindowMouseMove = useThrottleFn((e) => {
+  if (!autoHideDock.value) return
+  dockVisible.value = windowHeight.value - e.clientY < 300
+}, 30) // 30ms节流间隔
 
+// 使用useEventListener自动管理事件监听器的生命周期
+useEventListener(window, 'mousemove', throttledWindowMouseMove, { passive: true })
 // 缩放计算
 const getScale = (mouseX, element) => {
   const rect = element.getBoundingClientRect()
