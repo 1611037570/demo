@@ -1,10 +1,10 @@
 <template>
-  <div class="mx-auto max-w-2xl p-6">
+  <div class="max-w-2xl p-6 mx-auto">
     <!-- 页面标题 -->
-    <h3 class="mb-6 text-center text-xl font-semibold text-blue-600">API服务支持</h3>
+    <h3 class="mb-6 text-xl font-semibold text-blue-600 text-center">API服务支持</h3>
 
     <!-- 描述信息 -->
-    <div class="mb-8 text-center text-gray-600">
+    <div class="mb-8 text-gray-600 text-center">
       以下是项目使用的API服务，点击服务名称或功能标签可查看详细文档
     </div>
 
@@ -13,31 +13,31 @@
       <div
         v-for="item in apiList"
         :key="item.name"
-        class="group overflow-hidden rounded-xl border border-blue-50 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg"
+        class="group rounded-xl border-blue-50 bg-white p-6 shadow-sm hover:shadow-lg overflow-hidden border transition-all duration-300"
       >
         <!-- 背景装饰元素 -->
         <div
-          class="absolute -top-12 -right-12 -z-10 h-48 w-48 rounded-full bg-blue-50 opacity-50 transition-transform duration-500 group-hover:scale-110"
+          class="-top-12 -right-12 h-48 w-48 bg-blue-50 absolute -z-10 rounded-full opacity-50 transition-transform duration-500 group-hover:scale-110"
         ></div>
 
         <!-- API服务标题 -->
         <div
-          class="flex cursor-pointer items-center gap-2 text-lg font-semibold text-blue-600 transition-all duration-200 hover:text-blue-700"
+          class="gap-2 text-lg font-semibold text-blue-600 hover:text-blue-700 flex cursor-pointer items-center transition-all duration-200"
           @click="openApi(item.url)"
         >
           {{ item.name }}
           <span
-            class="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-600 opacity-0 transition-all duration-200 group-hover:opacity-100"
+            class="bg-blue-100 px-2 py-0.5 text-xs text-blue-600 rounded-full opacity-0 transition-all duration-200 group-hover:opacity-100"
             >查看文档</span
           >
         </div>
 
         <!-- API功能标签列表 -->
-        <div class="mt-5 flex flex-wrap gap-3">
+        <div class="mt-5 gap-3 flex flex-wrap">
           <span
             v-for="support in item.support"
             :key="support.name"
-            class="group flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-50 px-4 py-2 text-sm text-blue-700 transition-all duration-200 hover:bg-blue-100"
+            class="group gap-1.5 bg-blue-50 px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 flex cursor-pointer items-center rounded-full transition-all duration-200"
             @click="openApi(support.url)"
           >
             {{ support.name }}
@@ -62,6 +62,10 @@
 <script setup>
 // API服务列表数据
 const apiList = [
+  {
+    name: '虚拟机',
+    url: 'https://www.3v.do/',
+  },
   {
     name: 'roll',
     url: 'https://www.mxnzp.com/doc/list',

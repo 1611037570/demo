@@ -15,10 +15,13 @@
 </template>
 
 <script setup>
+import { useHomeStore } from '@/stores'
 import Income from './income.vue'
 import LuckyWheel from './luckyWheel.vue'
 import Meditation from './meditation.vue'
 import WoodenFish from './woodenFish.vue'
+const homeStore = useHomeStore()
+const { tabIndex } = storeToRefs(homeStore)
 </script>
 
 <style scoped></style>

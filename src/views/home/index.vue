@@ -34,6 +34,8 @@
   <!-- 便签组件 -->
   <Notes />
   <SettingModal />
+  <!-- 便签弹窗组件 -->
+  <StickyNotes />
 </template>
 
 <script setup>
@@ -43,6 +45,7 @@ import { storeToRefs } from 'pinia'
 // 基础组件 - 页面加载时需要的组件
 import Background from './components/background.vue'
 import MenuBar from './menuBar/index.vue'
+import StickyNotes from './notes/StickyNotes.vue'
 // 按需加载组件 - 使用动态导入
 const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
 const Quote = defineAsyncComponent(() => import('./components/quote.vue'))

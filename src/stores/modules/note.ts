@@ -30,6 +30,8 @@ export const useNoteStore = defineStore(
     const noteList = ref([])
     // 当前选中的便签索引
     const currentIndex = ref(null)
+    // 选中的便签墙id
+    const selectedWallId = ref('')
     // 置顶列表：同时包含置顶项和待办项，待办项排在最前面
     const topNoteList = computed(() => {
       const list = noteList.value

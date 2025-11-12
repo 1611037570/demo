@@ -7,6 +7,7 @@ export const useHomeStore = defineStore(
     const systemVisible = ref(false)
     const autoHideDock = ref(false)
     const tabIndex = ref(0)
+    const aboutVisible = ref(false)
 
     const switchTab = () => {
       tabIndex.value = tabIndex.value == 0 ? 1 : 0
@@ -17,6 +18,7 @@ export const useHomeStore = defineStore(
       switchTab,
       systemVisible,
       autoHideDock,
+      aboutVisible,
     }
   },
   {

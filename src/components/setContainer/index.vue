@@ -21,7 +21,7 @@ const handleClick = (item) => {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex h-full">
     <div class="mr-4 flex w-[200px] flex-col">
       <div class="mb-4 rounded-xl flex overflow-hidden">
         <SfInput
@@ -40,7 +40,7 @@ const handleClick = (item) => {
           <div
             v-for="(item, index) in list"
             :key="item.value"
-            class="rounded-lg px-3 py-1 h-10 text-sm transition-all duration-200 flex items-center"
+            class="rounded-lg px-3 py-1 h-10 text-sm flex items-center transition-all duration-200"
             :class="[
               item.value === modelValue ? 'sf-theme-element' : 'hover:bg-sf-primary-hover',
               {
@@ -54,8 +54,10 @@ const handleClick = (item) => {
         </div>
       </ElScrollbar>
     </div>
-    <ElScrollbar class="flex-1" :style="{ width, height }">
-      <slot></slot>
+    <ElScrollbar :style="{ width, height }">
+      <div :style="{ width, height }">
+        <slot></slot>
+      </div>
     </ElScrollbar>
   </div>
 </template>

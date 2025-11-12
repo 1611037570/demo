@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/80 backdrop-blur-md"
+    class="h-10 w-10 rounded-lg bg-white/80 backdrop-blur-md flex items-center justify-center"
     @click="openAbout"
   >
     <ElImage
@@ -14,9 +14,10 @@
 
 <script setup>
 import snowIcon from '@/assets/images/snow.svg'
-import Modal from './modal.vue'
-
-const aboutVisible = ref(false)
+import { useHomeStore } from '@/stores'
+import Modal from '@/views/home/about/modal.vue'
+const homeStore = useHomeStore()
+const { aboutVisible } = storeToRefs(homeStore)
 
 const openAbout = () => {
   aboutVisible.value = true

@@ -1,7 +1,6 @@
 <template>
   <SfModal v-if="aboutVisible" v-model="aboutVisible" title="关于">
     <SfSetContainer :list="list" v-model="activeTab" class="h-[600px]">
-      <div class="h-1 w-[500px]"></div>
       <ModalProject v-if="activeTab === 'project'" />
       <ModalApi v-else-if="activeTab === 'api'" />
       <ModalMe v-else-if="activeTab === 'me'" />
@@ -12,12 +11,14 @@
 </template>
 
 <script setup>
+import { useHomeStore } from '@/stores'
 import ModalApi from './modalApi.vue'
 import ModalDonation from './modalDonation.vue'
 import ModalMe from './modalMe.vue'
 import ModalProject from './modalProject.vue'
 import ModalTech from './modalTech.vue'
-const aboutVisible = ref(true)
+const homeStore = useHomeStore()
+const { aboutVisible } = storeToRefs(homeStore)
 
 const list = [
   { name: '关于项目', value: 'project' },
