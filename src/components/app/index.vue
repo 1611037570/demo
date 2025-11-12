@@ -4,22 +4,40 @@
     class="flex cursor-pointer flex-col items-center justify-center"
     @click="handleClick"
   >
+    <!-- <ElImage
+      class="rounded-xl"
+      v-if="item && item.img"
+      :src="item.img"
+      :style="{
+        width: size + 'px',
+        height: size + 'px',
+      }"
+    /> -->
     <div
-      class="rounded-xl bg-amber-200 flex items-center justify-center"
+      class="rounded-xl flex-c bg-sf-primary"
       :style="{
         width: size + 'px',
         height: size + 'px',
       }"
     >
-      <div
-        class=""
+      <ElImage
+        v-if="item && item.img"
+        :src="item.img"
         :style="{
           width: iconSize + 'px',
           height: iconSize + 'px',
         }"
-      ></div>
+      />
+      <SfIcon
+        v-if="item && item.icon"
+        :icon="item.icon"
+        :style="{
+          width: iconSize + 'px',
+          height: iconSize + 'px',
+        }"
+      />
     </div>
-    <div class="h-6 text-sm flex items-center justify-center truncate">
+    <div class="h-6 text-sm flex items-center justify-center truncate text-sf-primary">
       {{ name }}
     </div>
   </SfMenu>
@@ -47,6 +65,7 @@ export interface IconProps {
   type?: 'custom' | 'default'
   index?: number
   value?: any
+  item?: any
 }
 
 const props = withDefaults(defineProps<IconProps>(), {

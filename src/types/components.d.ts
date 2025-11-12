@@ -29,5 +29,6 @@ declare module 'vue' {
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
     SfTab: typeof import('@components/tab/index.vue')['default']
     SfTooltip: typeof import('@components/tooltip/index.vue')['default']
+    SfViewContainer: typeof import('@components/viewContainer/index.vue')['default']
   }
 }

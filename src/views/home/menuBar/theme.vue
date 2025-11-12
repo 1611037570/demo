@@ -1,8 +1,12 @@
 <template>
   <div class="text-sf-text" @click="toggleTheme">
-    <span>
-      {{ themeMode === 'dark' ? '浅色' : '深色' }}
-    </span>
+    <SfTooltip :info="themeMode === 'dark' ? '切换为浅色主题' : '切换为暗黑主题'">
+      <SfIcon
+        :icon="themeMode === 'dark' ? 'twemoji:sun' : 'ri:moon-clear-fill'"
+        size="8"
+        style="color: #f3d776"
+      />
+    </SfTooltip>
   </div>
 </template>
 

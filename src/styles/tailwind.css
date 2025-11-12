@@ -68,8 +68,8 @@
 
 /* 自定义工具类 */
 @layer utilities {
-  .flex-center {
-    @apply flex cursor-pointer items-center justify-center;
+  .flex-c {
+    @apply flex items-center justify-center;
   }
   .sf-theme-element {
     @apply cursor-pointer bg-sf-theme text-sf-primary hover:bg-sf-theme-hover hover:text-sf-theme;

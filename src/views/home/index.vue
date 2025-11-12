@@ -34,8 +34,6 @@
   <!-- 便签组件 -->
   <Notes />
   <SettingModal />
-  <!-- 便签弹窗组件 -->
-  <StickyNotes />
 </template>
 
 <script setup>
@@ -44,21 +42,18 @@ import { storeToRefs } from 'pinia'
 
 // 基础组件 - 页面加载时需要的组件
 import Background from './components/background.vue'
+import Dock from './dock/index.vue'
 import MenuBar from './menuBar/index.vue'
-import StickyNotes from './notes/StickyNotes.vue'
+import Search from './search/index.vue'
+
 // 按需加载组件 - 使用动态导入
-const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
 const Quote = defineAsyncComponent(() => import('./components/quote.vue'))
-const Dock = defineAsyncComponent(() => import('./dock/index.vue'))
-
-// 游戏相关组件 - 懒加载以减少初始加载体积
+const SettingModal = defineAsyncComponent(() => import('./setting/modal.vue'))
 const Game = defineAsyncComponent(() => import('./games/index.vue'))
-
-// 主要功能组件 - 懒加载
-const Search = defineAsyncComponent(() => import('./search/index.vue'))
 const Shortcut = defineAsyncComponent(() => import('./shortcut/index.vue'))
 const TopNote = defineAsyncComponent(() => import('./notes/topNote.vue'))
 const Notes = defineAsyncComponent(() => import('./notes/modal.vue'))
+
 const homeStore = useHomeStore()
 const { tabIndex } = storeToRefs(homeStore)
 const searchStore = useSearchStore()

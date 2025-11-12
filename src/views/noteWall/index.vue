@@ -1,52 +1,53 @@
 <template>
-  <!-- 便签墙 - 简化样式配置 -->
-  <div
-    class="inset-0 font-sans bg-gray-100 text-gray-800 fixed z-1000 h-full min-h-screen w-full overflow-hidden"
-    style="
-      background-image:
-        linear-gradient(0deg, #eee 1px, transparent 0),
-        linear-gradient(90deg, #eee 1px, transparent 0);
-      background-size: 30px 30px;
-    "
-  >
-    <!-- 便签卡片渲染 -->
-    <NoteCard
-      v-for="card in cards"
-      v-model:topId="topId"
-      :key="card.id"
-      :color="card.color"
-      :card-style="getCardStyle(card)"
-    />
-  </div>
-
-  <!-- 生成按钮 -->
-  <button
-    class="add-cards-btn px-8 py-4 text-lg font-semibold text-gray-800 bg-white bg-opacity-95 border-gray-200 shadow-lg hover:bg-white hover:shadow-xl fixed top-1/2 left-1/2 z-[999999] -translate-x-1/2 -translate-y-1/2 transform cursor-pointer rounded-full border transition-all duration-200 outline-none hover:scale-105 active:scale-95"
-    @click="generateCards"
-    :disabled="isGenerating"
-  >
-    {{ isGenerating ? `生成中...` : `生成${TOTAL_CARDS}个便签` }}
-  </button>
-
-  <!-- 加载指示器 -->
-  <div
-    class="gap-4 text-gray-800 bg-white bg-opacity-95 p-5 rounded-2xl shadow-xl backdrop-blur-sm fixed top-1/2 left-1/2 z-[1000001] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center"
-    :class="{ hidden: !showLoading, flex: showLoading }"
-  >
+  <SfViewContainer title="许愿墙">
+    <!-- 便签墙 - 简化样式配置 -->
     <div
-      class="w-10 h-10 border-gray-200 animate-spin rounded-full border-4 border-t-[#28c840]"
-    ></div>
-    <span class="text-base">{{ loadingText }}</span>
-  </div>
+      ref="noteWallContainer"
+      class="font-sans bg-gray-100 text-gray-800 relative h-full w-full overflow-hidden"
+      style="
+        background-image:
+          linear-gradient(0deg, #eee 1px, transparent 0),
+          linear-gradient(90deg, #eee 1px, transparent 0);
+        background-size: 30px 30px;
+      "
+    >
+      <!-- 便签卡片渲染 -->
+      <Card
+        v-for="card in cards"
+        v-model:topId="topId"
+        :key="card.id"
+        :color="card.color"
+        :card-style="getCardStyle(card)"
+      />
+      <!-- 生成按钮 -->
+      <button
+        class="add-cards-btn px-8 py-4 text-lg font-semibold text-gray-800 bg-white bg-opacity-95 border-gray-200 shadow-lg hover:bg-white hover:shadow-xl fixed top-1/2 left-1/2 z-[999999] -translate-x-1/2 -translate-y-1/2 transform cursor-pointer rounded-full border transition-all duration-200 outline-none hover:scale-105 active:scale-95"
+        @click="generateCards"
+        :disabled="isGenerating"
+      >
+        {{ isGenerating ? `生成中...` : `生成${TOTAL_CARDS}个便签` }}
+      </button>
+      <!-- 加载指示器 -->
+      <div
+        class="gap-4 text-gray-800 bg-white bg-opacity-95 p-5 rounded-2xl shadow-xl backdrop-blur-sm fixed top-1/2 left-1/2 z-[1000001] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center"
+        :class="{ hidden: !showLoading, flex: showLoading }"
+      >
+        <div
+          class="w-10 h-10 border-gray-200 animate-spin rounded-full border-4 border-t-[#28c840]"
+        ></div>
+        <span class="text-base">{{ loadingText }}</span>
+      </div>
+    </div>
+  </SfViewContainer>
 </template>
 
 <script setup>
-import { useDebounceFn, useEventListener, useWindowSize } from '@vueuse/core'
+import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { nextTick, ref, shallowRef } from 'vue'
-import NoteCard from './NoteCard.vue'
+import Card from './card.vue'
 
 // ================================= 核心配置常量（可直接调整）=================================
-const TOTAL_CARDS = 500 // 便签总生成数量
+const TOTAL_CARDS = 200 // 便签总生成数量
 const BATCH_SIZE = 50 // 每批渲染数量（避免一次性渲染卡顿）
 const MAX_COLLISION_RETRIES = 15 // 碰撞重试上限（防止无限循环）
 
@@ -65,27 +66,38 @@ const isGenerating = ref(false) // 生成状态锁
 const showLoading = ref(false) // 加载指示器显示状态
 const loadingText = ref(`生成中... 0/${TOTAL_CARDS}`) // 加载提示文本
 const topId = ref('') // 置顶便签ID
+const noteWallContainer = ref(null) // 便签墙容器引用
+const containerSize = ref({ width: 0, height: 0 }) // 容器尺寸
 
 // ================================= 视口相关计算 =================================
-// 获取窗口尺寸（不含滚动条）
-const { width: windowWidth, height: windowHeight } = useWindowSize({
-  includeScrollbar: false,
+// 使用ResizeObserver监听容器大小变化
+useResizeObserver(noteWallContainer, (entries) => {
+  if (entries[0]) {
+    const { width, height } = entries[0].contentRect
+    containerSize.value = { width, height }
+  }
 })
 
 /**
- * 获取视口边界信息（便签可放置的有效区域）
+ * 获取容器边界信息（便签可放置的有效区域）
  * @returns {Object} 有效区域参数
  * - maxLeft: 左边界最大可放置坐标
  * - maxTop: 上边界最大可放置坐标
- * - centerX: 视口水平中心
- * - centerY: 视口垂直中心
+ * - centerX: 容器水平中心
+ * - centerY: 容器垂直中心
  */
-const getViewportValidArea = () => ({
-  maxLeft: windowWidth.value - CARD_WIDTH - CARD_MARGIN,
-  maxTop: windowHeight.value - CARD_HEIGHT - CARD_MARGIN,
-  centerX: windowWidth.value / 2 - CARD_WIDTH / 2,
-  centerY: windowHeight.value / 2 - CARD_HEIGHT / 2,
-})
+const getViewportValidArea = () => {
+  // 如果容器尺寸未初始化，使用默认值
+  const width = containerSize.value.width || 800
+  const height = containerSize.value.height || 600
+
+  return {
+    maxLeft: width - CARD_WIDTH - CARD_MARGIN,
+    maxTop: height - CARD_HEIGHT - CARD_MARGIN,
+    centerX: width / 2 - CARD_WIDTH / 2,
+    centerY: height / 2 - CARD_HEIGHT / 2,
+  }
+}
 
 // ================================= 碰撞检测与位置计算 =================================
 /**
@@ -270,8 +282,7 @@ const handleWindowResize = useDebounceFn(() => {
   })
 }, 200)
 
-// 监听窗口 resize 事件
-useEventListener('resize', handleWindowResize, { passive: true })
+// 容器大小变化时重新计算便签位置（通过ResizeObserver自动触发）
 
 // ================================= 便签样式计算 =================================
 /**

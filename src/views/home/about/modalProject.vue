@@ -30,31 +30,37 @@
           ></div>
         </div>
 
-        <!-- 时间戳和类型标签 -->
-        <div class="group mb-2 pt-1 flex items-center justify-between">
+        <!-- 时间戳 -->
+        <div class="group mb-2 pt-1">
           <div
             class="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors duration-200"
           >
             {{ item.time }}
           </div>
-          <div
-            v-if="item.type && typeMap[item.type]"
-            :class="[
-              'px-2 py-1 text-xs rounded-full border',
-              typeMap[item.type].textColor,
-              typeMap[item.type].bgColor,
-              typeMap[item.type].borderColor,
-            ]"
-          >
-            {{ typeMap[item.type].name }}
-          </div>
         </div>
 
         <!-- 描述内容 -->
         <div
-          class="rounded-lg border-blue-50 bg-white p-4 text-gray-600 shadow-sm group-hover:border-blue-200 border transition-all duration-300"
+          class="rounded-lg border-blue-50 bg-white p-4 shadow-sm group-hover:border-blue-200 border transition-all duration-300"
         >
-          {{ item.desc }}
+          <div v-for="(listItem, listIndex) in item.list" :key="listIndex" class="mb-2 last:mb-0">
+            <div class="flex items-center">
+              <span class="text-gray-600 hover:text-blue-600 transition-colors duration-200">{{
+                listItem.desc
+              }}</span>
+              <div
+                v-if="listItem.type && typeMap[listItem.type]"
+                :class="[
+                  'ml-2 px-2 py-0.5 text-xs rounded-full border transition-all duration-200',
+                  typeMap[listItem.type].textColor,
+                  typeMap[listItem.type].bgColor,
+                  typeMap[listItem.type].borderColor,
+                ]"
+              >
+                {{ typeMap[listItem.type].name }}
+              </div>
+            </div>
+          </div>
 
           <!-- 图片展示 -->
           <div v-if="item.img && item.img.length" class="mt-4">
@@ -76,7 +82,8 @@
 
 <script setup>
 import startImg from '@/assets/images/start.jpg'
-import v1Img from '@/assets/images/v1.0.png'
+import version1 from '@/assets/images/version1.png'
+import version2 from '@/assets/images/version2.png'
 import dayjs from 'dayjs'
 
 // 项目开始时间
@@ -145,56 +152,86 @@ const typeMap = {
 // 项目发展时间线数据
 const timeList = [
   {
-    desc: '将起始页、雪花组件库、简历生成器合并为一个项目',
+    version: '5.0',
     time: '2025-11-22',
-    type: 'frame',
+    list: [{ desc: 'UI玻璃化', type: 'frame' }],
   },
   {
-    desc: '使用雪花组件库，重构项目',
-    time: '2021-11-22',
-    type: 'frame',
+    version: '4.2',
+    time: '2025-07-18',
+    list: [{ desc: '新增简历系统，快速制作属于自己的简历。', type: 'frame' }],
   },
   {
-    desc: '新增摄影时光机，记录所拍照片。',
+    version: '未标注版本',
+    time: '2024-11-22',
+    list: [{ desc: '项目使用vue3 + vite + typescript 重构', type: 'frame' }],
+  },
+  {
+    version: '2.2',
     time: '2023-07-18',
-    type: 'new',
+    list: [{ desc: '上线修图', type: 'new' }],
   },
   {
-    desc: 'TypeScript重构项目',
+    version: '2.2',
+    time: '2022-11-22',
+    list: [{ desc: '上线便利贴，轻松记录。', type: 'new' }],
+  },
+  {
+    version: '2.1',
     time: '2022-07-18',
-    type: 'frame',
+    list: [{ desc: '上线娱乐小组件，摸鱼神器。', type: 'new' }],
   },
   {
-    desc: '使用Vite2重构项目',
-    time: '2022-01-01',
-    type: 'frame',
-  },
-  {
-    desc: '使用Vue3Cli重构项目',
+    version: '2.0',
     time: '2021-11-22',
-    type: 'frame',
+    img: [version2],
+    list: [{ desc: 'UI苹果化', type: 'optimize' }],
   },
   {
-    desc: '使用Vue2Cli重构项目',
-    time: '2021-07-18',
-    type: 'frame',
+    version: '1.1',
+    time: '2020-12-07',
+    list: [
+      { desc: '快捷方式右键菜单', type: 'new' },
+      { desc: '快捷方式自动获取icon', type: 'new' },
+    ],
   },
   {
-    desc: '引入Vue.js重构项目',
-    time: '2021-01-01',
-    type: 'frame',
-  },
-  {
-    desc: '起始页1.0页面上线',
+    version: '1.0',
     time: '2020-11-22',
-    type: 'optimize',
-    img: [v1Img],
+    img: [version1],
+    list: [
+      { desc: 'UI美化', type: 'optimize' },
+      { desc: '系统设置', type: 'new' },
+      { desc: '搜索栏设置', type: 'new' },
+    ],
   },
   {
-    desc: '梦开始的地方，[nannan.work]域名启用',
+    version: '0.4',
+    time: '2020-10-30',
+    list: [
+      { desc: '快捷方式添加', type: 'new' },
+      { desc: '快捷方式拖拽排序', type: 'new' },
+    ],
+  },
+  {
+    version: '0.3',
+    time: '2020-10-08',
+    list: [{ desc: '搜索栏快捷键', type: 'new' }],
+  },
+  {
+    version: '0.2',
+    time: '2020-09-30',
+    list: [
+      { desc: '搜索栏自定义搜索源', type: 'new' },
+      { desc: '搜索栏历史记录', type: 'new' },
+      { desc: '搜索栏一键翻译', type: 'new' },
+    ],
+  },
+  {
+    version: '0.1',
     time: '2020-09-03',
     img: [startImg],
-    type: 'new',
+    list: [{ desc: '梦开始的地方，[nannan.work]站点启用', type: 'new' }],
   },
 ]
 </script>

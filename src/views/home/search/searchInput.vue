@@ -24,7 +24,7 @@
       </SfTooltip>
       <SfTooltip v-else :info="currentSource.type">
         <div
-          class="flex-center sf-theme-element h-7 rounded-xl px-2 text-xs font-medium hover:shadow-md overflow-hidden transition-all duration-300"
+          class="flex-c sf-theme-element h-7 rounded-xl px-2 text-xs font-medium hover:shadow-md overflow-hidden transition-all duration-300"
           @click.stop="toggleSourceMenu"
         >
           <div class="flex items-center justify-center">

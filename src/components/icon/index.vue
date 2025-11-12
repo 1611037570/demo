@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-center relative cursor-pointer overflow-hidden transition-all duration-300"
+    class="flex-c relative cursor-pointer overflow-hidden transition-all duration-300"
     :style="{
       width: `calc(var(--spacing) * ${boxSize || size})`,
       height: `calc(var(--spacing) * ${boxSize || size})`,

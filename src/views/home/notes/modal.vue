@@ -2,7 +2,7 @@
 import { useNoteStore } from '@/stores'
 import NoteList from './components/noteList.vue'
 const noteStore = useNoteStore()
-const { addNote, delNote } = noteStore
+const { delNote } = noteStore
 
 const { noteList, currentIndex, noteVisible } = storeToRefs(noteStore)
 
@@ -20,6 +20,51 @@ function del() {
     delNote()
   })
 }
+const noteStatusList = computed(() => {
+  if (currentIndex.value == null) {
+    return []
+  }
+  const item = currentNote.value
+  return [
+    {
+      info: item.top ? '取消置顶' : '固定在起始页',
+      fn: () => switchStatus('top'),
+      value: item.top,
+      disabled: item.todo,
+      icon: 'ic:round-push-pin',
+    },
+    {
+      info: item.todo ? '取消待办' : '设为待办',
+      fn: () => switchStatus('todo'),
+      value: item.todo,
+      icon: 'pajamas:todo-add',
+    },
+    {
+      info: item.md ? '取消Markdown' : '设为Markdown',
+      fn: () => switchStatus('md'),
+      value: item.md,
+      icon: 'ph:file-md-duotone',
+    },
+    {
+      info: '设置背景颜色',
+      value: item.bgColor,
+      fn: () => switchStatus('bgColor'),
+      icon: 'fluent-mdl2:color-solid',
+    },
+    {
+      info: '分享到便签墙',
+      value: item.bgColor,
+      fn: () => switchStatus('bgColor'),
+      icon: 'icon-park-outline:send-one',
+    },
+    {
+      info: '删除',
+      value: item.del,
+      fn: () => del(),
+      icon: 'ic:round-delete',
+    },
+  ]
+})
 </script>
 
 <template>
@@ -28,50 +73,12 @@ function del() {
       <NoteList />
       <div class="flex flex-1 flex-col" v-if="currentIndex != null">
         <div class="gap-3 mb-3 flex">
-          <SfTooltip info="固定在起始页" v-if="!currentNote.todo">
+          <SfTooltip :info="item.info" v-for="item in noteStatusList" :key="item.info">
             <SfIcon
-              icon="ic:round-push-pin"
+              :icon="item.icon"
               size="5"
-              @click="switchStatus('top')"
-              :class="{ 'bg-sf-theme-hover text-sf-theme': currentNote.top }"
-              boxSize="8"
-              class="rounded-lg bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
-            />
-          </SfTooltip>
-          <SfTooltip :info="currentNote.todo ? '取消待办' : '设为待办'" v-if="currentIndex != null">
-            <SfIcon
-              @click="switchStatus('todo')"
-              icon="pajamas:todo-add"
-              :class="{ 'bg-sf-theme-hover text-sf-theme': currentNote.todo }"
-              size="5"
-              boxSize="8"
-              class="rounded-lg bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
-            />
-          </SfTooltip>
-
-          <SfTooltip info="设为Markdown" v-if="currentIndex != null">
-            <SfIcon
-              @click="switchStatus('md')"
-              icon="ph:file-md-duotone"
-              :class="{ 'bg-sf-theme-hover text-sf-theme': currentNote.md }"
-              size="5"
-              boxSize="8"
-              class="rounded-lg bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
-            />
-          </SfTooltip>
-          <SfTooltip info="设置背景颜色" v-if="currentIndex != null">
-            <SfIcon
-              icon="fluent-mdl2:color-solid"
-              size="5"
-              boxSize="8"
-              class="rounded-lg bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
-            />
-          </SfTooltip>
-          <SfTooltip info="删除" v-if="currentIndex != null">
-            <SfIcon
-              @click="del"
-              icon="material-symbols:delete-outline"
-              size="5"
+              @click="item.fn()"
+              :class="{ 'bg-sf-theme-hover text-sf-theme': item.value }"
               boxSize="8"
               class="rounded-lg bg-sf-primary-hover hover:bg-sf-theme-hover hover:text-sf-theme"
             />

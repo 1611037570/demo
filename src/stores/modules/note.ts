@@ -27,17 +27,19 @@ export const useNoteStore = defineStore(
     // 自动收缩
     const autoCollapse = ref(true)
     // 便签列表
-    const noteList = ref([])
+    const noteList: any = ref([])
     // 当前选中的便签索引
     const currentIndex = ref(null)
     // 选中的便签墙id
     const selectedWallId = ref('')
+    const stickyNoteWallVisible = ref(false)
+
     // 置顶列表：同时包含置顶项和待办项，待办项排在最前面
     const topNoteList = computed(() => {
       const list = noteList.value
         .filter((item: any) => item?.top || item?.todo)
         // 排序逻辑：待办项排在前面
-        .sort((a, b) => {
+        .sort((a: any, b: any) => {
           // 如果a是待办而b不是待办，a排在前面
           if (a?.todo && !b?.todo) return -1
           // 如果b是待办而a不是待办，b排在前面
@@ -59,7 +61,16 @@ export const useNoteStore = defineStore(
       currentIndex.value = null
       noteList.value.splice(index, 1)
     }
-    return { noteList, addNote, topNoteList, currentIndex, noteVisible, autoCollapse, delNote }
+    return {
+      noteList,
+      addNote,
+      topNoteList,
+      currentIndex,
+      noteVisible,
+      autoCollapse,
+      delNote,
+      stickyNoteWallVisible,
+    }
   },
   {
     persist: {

@@ -1,19 +1,20 @@
 <template>
-  <div class="flex h-full w-full">
-    <div class="h-full w-1/2 bg-amber-100">
-      <Builder />
-    </div>
-    <div class="h-full w-1/2 bg-amber-400">
-      -amber-400">
-      <ElButton type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
-        打印表单PDF
-      </ElButton>
-      <!-- 表单容器 -->
-      <div ref="formContainer">
-        <Preview />
+  <SfViewContainer title="在线简历制作">
+    <div class="flex h-full w-full">
+      <div class="bg-amber-100 h-full w-1/2">
+        <Builder />
+      </div>
+      <div class="bg-amber-400 h-full w-1/2">
+        <ElButton type="primary" @click="printPDF" :loading="isLoading" icon="el-icon-download">
+          打印表单PDF
+        </ElButton>
+        <!-- 表单容器 -->
+        <div ref="formContainer">
+          <Preview />
+        </div>
       </div>
     </div>
-  </div>
+  </SfViewContainer>
 </template>
 
 <script setup>

@@ -43,6 +43,7 @@ const menuList = computed(() => [
   },
   {
     name: '导入',
+
     fn: () => {
       click({
         accept: '.json',
@@ -79,12 +80,16 @@ const menuList = computed(() => [
         :index="index"
         :name="item.name"
         :value="item.url"
+        :item="item"
         :class="{ 'shake-element': isDrag }"
       ></SfApp>
       <SfMenu :list="menuList">
         <SfApp
           name="添加"
           type="custom"
+          :item="{
+            icon: 'ic:round-add',
+          }"
           :class="{ 'shake-element': isDrag }"
           @click="handleAdd"
         ></SfApp>

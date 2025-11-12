@@ -1,7 +1,7 @@
 vue
 <template>
   <div
-    class="icon bg-sf-transparent-4"
+    class="icon bg-sf-primary"
     @click="backgroundVisible = true"
     style="backdrop-filter: blur(10px) saturate(1.5)"
   >
