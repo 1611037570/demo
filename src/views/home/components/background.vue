@@ -12,14 +12,15 @@
           : searchFocus || tabIndex == 1
             ? 'scale(1.1)'
             : 'scale(1)',
-      backgroundImage: `url(${bg})`,
+      backgroundImage: `url(${bg1})`,
     }"
   ></div>
 </template>
 
 <script setup>
 // background-image: url('https://cn.bing.com/th?id=OHR.SunbeamsForest_ZH-CN5358008117_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
-import bg from '@/assets/images/background.jpg'
+// https://convertio.co/zh/download/f6fd6966623acbcef28ae90b08ca0be62189ed/
+import bg1 from '@/assets/images/background1.webp'
 import { useHomeStore, useSearchStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 const searchStore = useSearchStore()

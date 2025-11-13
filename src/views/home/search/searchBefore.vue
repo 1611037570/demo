@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import Item from './item.vue'
 import SearchList from './searchList.vue'
 import SearchTitle from './searchTitle.vue'
+import FixedList from './fixedList.vue'
 
 const searchStore = useSearchStore()
 const { searchHistory, searchHistoryVisible, openMode, hotSource, hotSourceVisible } =
@@ -37,7 +38,8 @@ const hotList = [
 </script>
 
 <template>
-  <search-title title="市场行情" icon="tabler:history" iconClass="text-sf-theme" />
+  <FixedList />
+  <SearchTitle title="市场行情" icon="tabler:history" iconClass="text-sf-theme" />
 
   <div class="gap-3 pb-2 flex">
     <!-- 上证指数卡片 -->

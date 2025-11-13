@@ -83,8 +83,8 @@
 
 <script setup>
 import startImg from '@/assets/images/start.jpg'
-import version1 from '@/assets/images/version1.png'
-import version2 from '@/assets/images/version2.png'
+import version1 from '@/assets/images/version1.webp'
+import version2 from '@/assets/images/version2.webp'
 import dayjs from 'dayjs'
 function goMe() {
   window.open('/my', '_blank')

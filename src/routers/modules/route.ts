@@ -1,8 +1,9 @@
+import Home from '@views/home/index.vue'
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@views/home/index.vue'),
+    component: Home,
   },
   {
     path: '/resume',

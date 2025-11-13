@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { useDebounceFn, useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '@vueuse/core'
 import { nextTick, ref, shallowRef } from 'vue'
 import Card from './card.vue'
 
@@ -264,25 +264,6 @@ const createBatchCards = (startId, endId, centerX, centerY) => {
 const triggerBatchVisible = (batchCards) => {
   batchCards.forEach((card) => (card.visible = true))
 }
-
-// ================================= 窗口 resize 处理 =================================
-/**
- * 窗口大小变化时重新计算便签位置（防抖优化）
- */
-const handleWindowResize = useDebounceFn(() => {
-  if (cards.value.length === 0) return
-
-  const { centerX, centerY } = getViewportValidArea()
-
-  // 重新计算每个便签的安全位置（排除自身）
-  cards.value = cards.value.map((currentCard) => {
-    const otherCards = cards.value.filter((card) => card.id !== currentCard.id)
-    const newSafePosition = getSafeCardPosition(otherCards)
-    return { ...currentCard, centerX, centerY, ...newSafePosition }
-  })
-}, 200)
-
-// 容器大小变化时重新计算便签位置（通过ResizeObserver自动触发）
 
 // ================================= 便签样式计算 =================================
 /**
