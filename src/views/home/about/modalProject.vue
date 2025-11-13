@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-2xl p-6 mx-auto">
+    <div class="mb-4 text-2xl font-bold text-blue-600" @click="goMe">小羊</div>
     <!-- 项目运行时间卡片 -->
     <div
       class="mb-8 rounded-xl border-blue-100 bg-blue-50 p-6 shadow-sm hover:shadow-md border text-center transition-all duration-300"
@@ -85,6 +86,9 @@ import startImg from '@/assets/images/start.jpg'
 import version1 from '@/assets/images/version1.png'
 import version2 from '@/assets/images/version2.png'
 import dayjs from 'dayjs'
+function goMe() {
+  window.open('/my', '_blank')
+}
 
 // 项目开始时间
 const startTime = '2020-09-03'

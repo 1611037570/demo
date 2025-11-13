@@ -20,8 +20,10 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SfApp: typeof import('@components/app/index.vue')['default']
     SfIcon: typeof import('@components/icon/index.vue')['default']
     SfInput: typeof import('@components/input/index.vue')['default']
+    SfMenu: typeof import('@components/menu/index.vue')['default']
     SfModal: typeof import('@components/modal/index.vue')['default']
     SfSetBox: typeof import('@components/setBox/index.vue')['default']
     SfSetContainer: typeof import('@components/setContainer/index.vue')['default']
@@ -29,6 +31,5 @@ declare module 'vue' {
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
     SfTab: typeof import('@components/tab/index.vue')['default']
     SfTooltip: typeof import('@components/tooltip/index.vue')['default']
-    SfViewContainer: typeof import('@components/viewContainer/index.vue')['default']
   }
 }

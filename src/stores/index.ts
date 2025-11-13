@@ -1,6 +1,3 @@
-// 背景相关store
-export { useBackgroundStore } from './modules/background'
-
 // 游戏相关store
 export { useGameStore } from './modules/game'
 

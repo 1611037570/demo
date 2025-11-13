@@ -1,22 +1,26 @@
 <template>
-  <div class="flex min-h-screen flex-col items-center justify-center bg-gray-50">
-    <div class="h-16 w-16 animate-spin rounded-full border-b-2 border-blue-500"></div>
-    <p class="mt-4 font-medium text-blue-600">正在加载中...</p>
+  <div class="flex-c min-h-screen flex-col bg-sf-primary">
+    <div class="loading-spinner h-16 w-16 rounded-full border-l"></div>
+    <p class="mt-6 text-lg font-medium text-sf-text">正在加载中...</p>
   </div>
 </template>
 
 <script setup></script>
 
 <style scoped>
-.animate-spin {
-  animation: spin 1s linear infinite;
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0);
+  border-left-color: var(--sf-color-text);
+  border-top-color: var(--sf-color-text);
+  border-right-color: var(--sf-color-text);
+  animation: spin 1.2s linear infinite;
 }
 
 @keyframes spin {
-  from {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }

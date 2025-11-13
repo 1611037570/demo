@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <el-tooltip :effect="themeMode" :content="info" placement="top">
       <slot>
         <SfIcon icon="mingcute:question-line" size="4" />

@@ -1,10 +1,8 @@
-import HomeView from '@views/home/index.vue'
-
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('@views/home/index.vue'),
   },
   {
     path: '/resume',
@@ -20,6 +18,11 @@ const routes = [
     path: '/noteWall',
     name: 'noteWall',
     component: () => import('@views/noteWall/index.vue'),
+  },
+  {
+    path: '/my',
+    name: 'my',
+    component: () => import('@views/my/index.vue'),
   },
   // 捕获所有不存在的路由并重定向到主页
   {

@@ -2,7 +2,7 @@ vue
 <template>
   <div
     class="icon bg-sf-primary"
-    @click="backgroundVisible = true"
+    @click="goImage"
     style="backdrop-filter: blur(10px) saturate(1.5)"
   >
     <span></span>
@@ -13,15 +13,13 @@ vue
     <span></span>
     <span></span>
     <span></span>
-    <sf-modal v-if="backgroundVisible" v-model="backgroundVisible">暂未开发</sf-modal>
   </div>
 </template>
 
 <script setup>
-import { useBackgroundStore } from '@/stores'
-import { storeToRefs } from 'pinia'
-const backgroundStore = useBackgroundStore()
-const { backgroundVisible } = storeToRefs(backgroundStore)
+function goImage() {
+  window.open('/image', '_blank')
+}
 </script>
 
 <style scoped>
