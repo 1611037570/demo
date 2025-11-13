@@ -43,9 +43,16 @@
 
 <script setup>
 import { useResizeObserver } from '@vueuse/core'
+import { getRandomItem } from '@/utils'
+
 import { nextTick, ref, shallowRef } from 'vue'
 import Card from './card.vue'
+import { colors, list ,fixedList} from './data'
 
+/**
+ * 算法优化。
+ * 1、先根据TOTAL_CARDS创建数组，创建过程每个元素都添加fixedList，再添加list，当数量不够后，从list中随机添加。
+ */
 // ================================= 核心配置常量（可直接调整）=================================
 const TOTAL_CARDS = 200 // 便签总生成数量
 const BATCH_SIZE = 50 // 每批渲染数量（避免一次性渲染卡顿）
@@ -245,12 +252,41 @@ const createBatchCards = (startId, endId, centerX, centerY) => {
   const batchCards = []
   // 已存在的便签（用于碰撞检测）
   const existingCards = [...cards.value, ...batchCards]
+  
+  // 用于存储所有便签的内容池
+  const contentPool = []
+  let currentFixedIndex = 0
+  let currentListIndex = 0
 
   for (let cardId = startId; cardId < endId; cardId++) {
     const safePosition = getSafeCardPosition(existingCards)
+    
+    // 根据要求创建便签数据
+    let content = ''
+    
+    // 首先使用fixedList中的内容（如果还有剩余）
+    if (currentFixedIndex < fixedList.length) {
+      content = fixedList[currentFixedIndex]
+      currentFixedIndex++
+    }
+    // 然后使用list中的内容（如果还有剩余）
+    else if (currentListIndex < list.length) {
+      content = list[currentListIndex]
+      currentListIndex++
+    }
+    // 当内容不足时，从list中随机选择
+    else {
+      content = getRandomItem(list)
+    }
+    
+    // 随机选择颜色
+    const color = getRandomItem(colors)
+    
     batchCards.push({
       ...createSingleCard(cardId, centerX, centerY),
       ...safePosition,
+      content,
+      color
     })
   }
 
