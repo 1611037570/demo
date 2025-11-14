@@ -77,7 +77,15 @@ export default {
     breaklineNumber: 100,
     breaklineChar: '|',
     // 跳过的问题
-    skipQuestions: ['scope', 'customScope', 'footerPrefixesSelect', 'customFooterPrefix', 'footer'],
+    skipQuestions: [
+      'scope',
+      'customScope',
+      'body',
+      'breaking',
+      'footerPrefixesSelect',
+      'customFooterPrefix',
+      'footer',
+    ],
     issuePrefixes: [],
     customIssuePrefixAlign: 'top',
     emptyIssuePrefixAlias: 'skip',
