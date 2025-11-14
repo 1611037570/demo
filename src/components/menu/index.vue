@@ -4,7 +4,6 @@ import MenuList from './MenuList.vue'
 import useClick from './hooks/useClick'
 import useWindowSize from './hooks/useWindowSize'
 import type { MenuEmits, MenuProps } from './types'
-
 // emit 事件
 const emit = defineEmits<MenuEmits>()
 // props 数据
@@ -139,7 +138,7 @@ const menuPositron = computed(() => {
       >
         <MenuList
           v-if="open"
-          class="menu-container"
+          class="fixed z-999999999 overflow-hidden"
           :style="[menuPositron, menuContainerStyle]"
           :list="list"
           :nameKey="nameKey"
@@ -149,10 +148,4 @@ const menuPositron = computed(() => {
     </Teleport>
   </div>
 </template>
-<style scoped>
-.menu-container {
-  position: fixed;
-  overflow: hidden;
-  z-index: 999999999;
-}
-</style>
+<style scoped></style>
