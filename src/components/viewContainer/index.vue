@@ -57,12 +57,15 @@
 <script setup>
 const router = useRouter()
 const route = useRoute()
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: '',
   },
 })
+
+// 更新HTML标题
+useTitle(computed(() => props.title))
 
 const list = computed(() => {
   const items = [
@@ -75,8 +78,8 @@ const list = computed(() => {
       url: '/resume',
     },
     {
-      name: '便签墙',
-      url: '/noteWall',
+      name: '留言板',
+      url: '/messageBoard',
     },
   ]
   // 过滤当前路由匹配的菜单项

@@ -3,8 +3,6 @@
     <SfSetContainer :list="list" v-model="currentTab" width="500px" height="600px">
       <template v-if="currentTab === 'default'">
         <SfSetBox>
-          <SfSetItem title="开启菜单栏" type="switch" v-model="autoHideDock" />
-          <SfSetItem title="自动隐藏菜单栏" type="switch" v-model="autoHideDock" />
           <SfSetItem title="自动隐藏程序坞" type="switch" v-model="autoHideDock" />
         </SfSetBox>
         <SfSetTitle title="数据管理" />

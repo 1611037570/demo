@@ -1,13 +1,13 @@
 <template>
   <div
-    class="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-gray-100 transition-colors hover:bg-gray-50"
+    class="h-20 w-20 border-gray-200 bg-gray-100 hover:bg-gray-50 relative flex cursor-pointer items-center justify-center rounded-full border transition-colors"
     @click="toggleMeditation"
   >
     <!-- 冥想模式（呼吸引导动画+计时） -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center">
+    <div class="inset-0 absolute flex flex-col items-center justify-center">
       <!-- 呼吸圆圈动画 -->
       <div
-        class="absolute rounded-full bg-blue-200 transition-all duration-4000 ease-in-out"
+        class="bg-blue-200 ease-in-out absolute rounded-full transition-all duration-4000"
         :style="{
           width: `${breathSize}%`,
           height: `${breathSize}%`,
@@ -17,7 +17,7 @@
       ></div>
 
       <!-- 状态显示（非激活时显示"冥想"，激活时显示时间和状态） -->
-      <div v-if="!isActive" class="relative z-10 font-medium text-gray-600">冥想</div>
+      <div v-if="!isActive" class="font-medium text-gray-600 relative z-10">冥想</div>
 
       <div v-else class="relative z-10 flex flex-col items-center">
         <span class="font-medium text-blue-700"> {{ Math.ceil(remainingTime) }}s </span>

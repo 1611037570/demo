@@ -6,8 +6,10 @@ type OpenMode = '_blank' | '_self'
 export const useSearchStore = defineStore(
   'search',
   () => {
+    // 首次自动聚焦搜索框
+    const autoFocus = ref<boolean>(false)
     // 搜索框是否聚焦
-    const searchFocus = ref(false)
+    const searchFocus = ref<boolean>(false)
     // 搜索历史
     const searchHistory = ref([])
     // 打开方式
@@ -114,6 +116,7 @@ export const useSearchStore = defineStore(
       window.open(url, openMode.value)
     }
     return {
+      autoFocus,
       hotSource,
       searchValue,
       handleValue,
@@ -140,7 +143,7 @@ export const useSearchStore = defineStore(
   },
   {
     persist: {
-      pick: ['searchHistory', 'searchHistoryVisible', 'hotSource'],
+      pick: ['autoFocus', 'searchHistory', 'searchHistoryVisible', 'hotSource'],
     },
   },
 )

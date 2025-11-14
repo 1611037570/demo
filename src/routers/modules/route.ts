@@ -16,9 +16,9 @@ const routes = [
     component: () => import('@views/image/index.vue'),
   },
   {
-    path: '/noteWall',
-    name: 'noteWall',
-    component: () => import('@views/noteWall/index.vue'),
+    path: '/messageBoard',
+    name: 'messageBoard',
+    component: () => import('@views/messageBoard/index.vue'),
   },
   {
     path: '/my',

@@ -73,7 +73,7 @@
     <SfInput
       v-model="searchValue"
       :placeholder="placeholder"
-      :autofocus="false"
+      :autofocus="autoFocus"
       :clearable="false"
       @keyup.enter="getResult"
       @focus="handleFocus"
@@ -94,6 +94,7 @@ import { evaluate, parse } from 'mathjs'
 const searchStore = useSearchStore()
 const { search } = searchStore
 const {
+  autoFocus,
   searchFocus,
   searchValue,
   currentWebIndex,

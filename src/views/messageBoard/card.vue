@@ -19,13 +19,16 @@ import { colors, list } from './data'
 const id = useId()
 const topId = defineModel('topId')
 function handleClick() {
-  console.log('id:', id)
+  console.log('id:', id, props.item)
   topId.value = id
 }
 const props = defineProps({
   cardStyle: {
     type: Object,
     required: true,
+  },
+  item: {
+    type: Object,
   },
 })
 
@@ -34,7 +37,7 @@ const zIndex = Math.floor(Math.random() * 10)
 const backgroundColor = getRandomItem(colors)
 const cardStyle1 = computed(() => {
   return {
-    background: backgroundColor,
+    background: props.item.type === 'fixed' ? 'red' : backgroundColor,
     zIndex: topId.value === id ? 9999999 : zIndex,
   }
 })

@@ -1,10 +1,13 @@
 <template>
   <!-- 木鱼容器 -->
-  <div class="flex h-20 w-20 flex-col items-center justify-center" @mousedown="downWoodenFish">
+  <div
+    class="h-20 w-20 relative flex flex-col items-center justify-center"
+    @mousedown="downWoodenFish"
+  >
     <!-- 木鱼图标 -->
     <div
-      class="flex min-h-15 min-w-15 cursor-pointer items-center justify-center rounded-lg transition-all duration-300 ease-out"
-      :class="isKnocking ? 'scale-95 bg-amber-600' : 'bg-amber-700'"
+      class="min-h-15 min-w-15 rounded-lg ease-out flex cursor-pointer items-center justify-center transition-all duration-300"
+      :class="isKnocking ? 'bg-amber-600 scale-95' : 'bg-amber-700'"
     >
       <Icon
         icon="mdi:fish"
@@ -16,19 +19,19 @@
     <div class="w-auto whitespace-nowrap">功德：{{ fishCount }}</div>
     <!-- 功德+1动画效果 -->
     <div
-      class="left-1/2-translate-x-1/2 absolute text-xl font-bold text-amber-300 transition-all duration-500 ease-linear"
+      class="left-1/2-translate-x-1/2 text-xl font-bold text-amber-300 absolute transition-all duration-500 ease-linear"
       :class="showAdd ? 'bottom-12' : 'bottom-0'"
     >
       {{ showAdd ? '+1' : '' }}
     </div>
     <!-- 木鱼棒 -->
     <div
-      class="absolute top-4 left-10 flex h-4 w-15 items-center justify-center rounded-full bg-amber-800 transition-all duration-100"
+      class="top-4 left-10 h-4 w-15 bg-amber-800 absolute flex items-center justify-center rounded-full transition-all duration-100"
       :style="{ rotate: isKnocking ? '0deg' : '40deg' }"
     >
-      <div class="h-1 w-12 rounded-full bg-amber-600"></div>
+      <div class="h-1 w-12 bg-amber-600 rounded-full"></div>
       <div
-        class="absolute top-1/2 -left-2 h-6 w-6 -translate-y-1/2 rounded-full bg-amber-900"
+        class="-left-2 h-6 w-6 bg-amber-900 absolute top-1/2 -translate-y-1/2 rounded-full"
       ></div>
     </div>
   </div>

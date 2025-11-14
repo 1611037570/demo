@@ -21,10 +21,14 @@ function del() {
   })
 }
 const noteStatusList = computed(() => {
-  if (currentIndex.value == null) {
+  console.log('currentIndex.value 1 ', currentIndex.value)
+  if (currentIndex.value == -1) {
+    console.log('currentIndex.value 2 ', currentIndex.value)
     return []
   }
   const item = currentNote.value
+  console.log('item', item)
+
   return [
     {
       info: item.top ? '取消置顶' : '固定在起始页',
@@ -71,7 +75,7 @@ const noteStatusList = computed(() => {
   <SfModal v-model="noteVisible" v-if="noteVisible" title="便签">
     <div class="flex h-[500px] w-[600px]">
       <NoteList />
-      <div class="flex flex-1 flex-col" v-if="currentIndex != null">
+      <div class="flex flex-1 flex-col" v-if="currentIndex != -1">
         <div class="gap-3 mb-3 flex">
           <SfTooltip :info="item.info" v-for="item in noteStatusList" :key="item.info">
             <SfIcon

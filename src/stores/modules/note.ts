@@ -1,8 +1,9 @@
 import { getUUID } from '@/utils'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-
-const default_data = {
+// 从types目录导入NoteItem接口
+import type { NoteItem } from '@/types/note'
+const note_data: NoteItem = {
   value: '00',
   // 创建时间
   createTime: Date.now(),
@@ -23,16 +24,13 @@ const default_data = {
 export const useNoteStore = defineStore(
   'note',
   () => {
-    const noteVisible: any = ref(false)
+    const noteVisible = ref<boolean>(false)
     // 自动收缩
-    const autoCollapse = ref(true)
+    const autoCollapse = ref<boolean>(true)
     // 便签列表
-    const noteList: any = ref([])
+    const noteList = ref<NoteItem[]>([])
     // 当前选中的便签索引
-    const currentIndex = ref(null)
-    // 选中的便签墙id
-    const selectedWallId = ref('')
-    const stickyNoteWallVisible = ref(false)
+    const currentIndex = ref<number>(-1)
 
     // 置顶列表：同时包含置顶项和待办项，待办项排在最前面
     const topNoteList = computed(() => {
@@ -52,13 +50,13 @@ export const useNoteStore = defineStore(
     // 添加便签
     function addNote() {
       noteList.value.push({
-        ...default_data,
+        ...note_data,
         id: getUUID(),
       })
     }
     function delNote() {
       const index = currentIndex.value
-      currentIndex.value = null
+      currentIndex.value = -1
       noteList.value.splice(index, 1)
     }
     return {
@@ -69,7 +67,6 @@ export const useNoteStore = defineStore(
       noteVisible,
       autoCollapse,
       delNote,
-      stickyNoteWallVisible,
     }
   },
   {

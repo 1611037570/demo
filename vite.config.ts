@@ -14,7 +14,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // 组件自动导入工具
 import Components from 'unplugin-vue-components/vite'
 // Vite配置定义函数
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 // 静态资源压缩插件
 import viteCompression from 'vite-plugin-compression'
 // HTML处理插件
@@ -32,25 +32,35 @@ import { SnowFlakeComponentResolver } from './src/components/componentsResolver'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 
 // Vite配置导出
-export default ({ mode }: { mode: string }) =>
-  defineConfig({
+export default ({ mode }: { mode: string }) => {
+  // 从环境文件加载环境变量
+  const env = loadEnv(mode, process.cwd())
+  // 从环境变量中提取配置项
+  const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_APP_TITLE } = env
+  return defineConfig({
     // 基础路径配置
-    base: './',
+    base: VITE_BASE_URL,
+    // 开发服务器配置
+    server: {
+      port: Number(VITE_PORT), // 端口号
+      host: true, // 允许外部访问
+      open: true, // 自动打开浏览器
+      hmr: true, // 启用服务端渲染
+    },
     plugins: [
       // Vue 3 插件配置
       vue(),
       // Tailwind CSS插件配置
       tailwindcss(),
-
       // HTML插件配置
       createHtmlPlugin({
         minify: true, // 开启HTML压缩
-        // inject: {
-        //   data: {
-        //     // 从环境变量中读取标题配置
-        //     title: process.env.VITE_APP_TITLE,
-        //   },
-        // },
+        // 注入 HTML 变量（HTML 中通过 <%= 变量名 %> 使用）
+        inject: {
+          data: {
+            title: VITE_APP_TITLE, // 静态变量
+          },
+        },
       }),
       // 自动导入配置
       AutoImport({
@@ -95,12 +105,7 @@ export default ({ mode }: { mode: string }) =>
         '@views': fileURLToPath(new URL('./src/views', import.meta.url)), // 视图目录别名
       },
     },
-    // 开发服务器配置
-    server: {
-      host: true, // 允许外部访问
-      open: true, // 自动打开浏览器
-      hmr: true, // 启用服务端渲染
-    },
+
     // esbuild配置
     esbuild: {
       drop: mode === 'production' ? ['console', 'debugger'] : [], // 移除打印信息
@@ -161,3 +166,4 @@ export default ({ mode }: { mode: string }) =>
       },
     },
   })
+}

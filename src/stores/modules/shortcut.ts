@@ -28,6 +28,10 @@ export const useShortcutStore = defineStore(
         pinyin: item?.pinyin || getPinyin(item.name),
       }))
     }
+
+    const fixedList = computed(() => {
+      return shortcutList.value.filter((item: any) => item.top)
+    })
     const addShortcut = (item: any) => {
       shortcutList.value.push({
         ...default_data,
@@ -39,6 +43,7 @@ export const useShortcutStore = defineStore(
       shortcutList,
       initShortcutList,
       addShortcut,
+      fixedList,
     }
   },
   {

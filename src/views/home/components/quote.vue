@@ -1,20 +1,20 @@
 <template>
   <div
-    class="group group fixed bottom-48 left-1/2 z-20 -translate-x-1/2 transform cursor-pointer rounded-xl border border-gray-100 p-4 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50 hover:shadow-md"
+    class="group group bottom-48 rounded-xl border-gray-100 p-4 text-white shadow-sm hover:-translate-y-1 hover:from-gray-50 hover:to-blue-50 hover:shadow-md fixed left-1/2 z-90 -translate-x-1/2 transform cursor-pointer border transition-all duration-300 hover:bg-gradient-to-br"
   >
     <!-- 按钮区域 - 顶部居中，鼠标经过时显示 -->
     <div
-      class="absolute top-2 left-1/2 flex -translate-x-1/2 -translate-y-2 transform gap-2 whitespace-nowrap opacity-0 transition-all duration-300 group-hover:-translate-y-6 group-hover:opacity-100"
+      class="top-2 -translate-y-2 gap-2 group-hover:-translate-y-6 absolute left-1/2 flex -translate-x-1/2 transform whitespace-nowrap opacity-0 transition-all duration-300 group-hover:opacity-100"
     >
       <div
         @click.stop="updateQuote"
-        class="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-600 shadow-md hover:bg-blue-200"
+        class="gap-1 bg-blue-100 px-3 py-1 text-sm text-blue-600 shadow-md hover:bg-blue-200 flex items-center rounded-full"
       >
         <sf-icon icon="lucide:refresh-cw" class="h-4 w-4" />
         刷新
       </div>
       <div
-        class="flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-600 shadow-md hover:bg-amber-200"
+        class="gap-1 bg-amber-100 px-3 py-1 text-sm text-amber-600 shadow-md hover:bg-amber-200 flex items-center rounded-full"
         @click.stop="toggleFavorite"
       >
         <sf-icon
@@ -26,7 +26,7 @@
       </div>
     </div>
     <p
-      class="relative z-10 py-2 text-center text-sm leading-relaxed italic group-hover:text-blue-600"
+      class="py-2 text-sm leading-relaxed group-hover:text-blue-600 relative z-10 text-center italic"
       @click="copyQuote"
     >
       {{ quote }}

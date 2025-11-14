@@ -20,22 +20,7 @@
         height: size + 'px',
       }"
     >
-      <ElImage
-        v-if="item && item.img"
-        :src="item.img"
-        :style="{
-          width: iconSize + 'px',
-          height: iconSize + 'px',
-        }"
-      />
-      <SfIcon
-        v-if="item && item.icon"
-        :icon="item.icon"
-        :style="{
-          width: iconSize + 'px',
-          height: iconSize + 'px',
-        }"
-      />
+      <SfMixImg :type="item.imgType" :value="item.imgValue" :size="iconSize" />
     </div>
     <div class="h-6 text-sm flex items-center justify-center truncate text-sf-primary">
       {{ name }}
@@ -103,6 +88,15 @@ const menuList = computed(() => {
         // 清理资源
         document.body.removeChild(a)
         URL.revokeObjectURL(url)
+      },
+    },
+    {
+      name: props.item.top ? '取消固定' : '固定到搜索栏',
+      fn: () => {
+        console.log('固定')
+        if (props.index === -1) return
+        shortcutList.value[props.index].top = !props.item.top
+        ElMessage.success(props.item.top ? '取消固定成功' : '固定成功')
       },
     },
     {
