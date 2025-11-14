@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
 import MenuList from './MenuList.vue'
-import { defaultMenuProps } from './data'
 import useClick from './hooks/useClick'
 import useWindowSize from './hooks/useWindowSize'
 import type { MenuEmits, MenuProps } from './types'
@@ -9,10 +8,29 @@ import type { MenuEmits, MenuProps } from './types'
 // emit 事件
 const emit = defineEmits<MenuEmits>()
 // props 数据
-const { model, stopPropagation, preventDefault, beforeCreateFn, fnKey, list } = withDefaults(
-  defineProps<MenuProps>(),
-  defaultMenuProps,
-)
+const {
+  list = () => [
+    {
+      name: '下班',
+      fn: () => {
+        console.log('我到点下班啦！~ ')
+      },
+    },
+    {
+      name: '吃啥',
+      fn: () => {
+        console.log('这餐吃炸鸡~ ')
+      },
+    },
+  ],
+  model = 'contextmenu',
+  stopPropagation = true,
+  preventDefault = true,
+  beforeCreateFn = () => true,
+  menuContainerStyle = {},
+  nameKey = 'name',
+  fnKey = 'fn',
+} = defineProps<MenuProps>()
 
 // 菜单元素
 const menuContainer = useTemplateRef('menuContainer')
