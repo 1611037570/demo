@@ -27,8 +27,6 @@ const noteStatusList = computed(() => {
     return []
   }
   const item = currentNote.value
-  console.log('item', item)
-
   return [
     {
       info: item.top ? '取消置顶' : '固定在起始页',
