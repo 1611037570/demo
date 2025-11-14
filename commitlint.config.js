@@ -6,8 +6,7 @@
  */
 /** @type { import('cz-git').UserConfig } */
 export default {
-  // @see: https://commitlint.js.org/#/reference-rules
-  // extends: ['@commitlint/config-conventional'],
+  extends: ['@commitlint/config-conventional'],
   rules: {
     // 提交类型枚举，git提交type必须是以下类型
     'type-enum': [
@@ -50,33 +49,29 @@ export default {
       confirmCommit: '是否提交或修改commit ?',
     },
     types: [
-      { value: 'feat', name: 'feat:     新增功能', emoji: ':sparkles:' },
-      { value: 'fix', name: 'fix:      修复缺陷', emoji: ':bug:' },
-      { value: 'docs', name: 'docs:     文档更新', emoji: ':memo:' },
+      { value: 'feat', name: 'feat:     新增功能' },
+      { value: 'fix', name: 'fix:      修复缺陷' },
+      { value: 'docs', name: 'docs:     文档更新' },
       {
         value: 'style',
         name: 'style:    代码格式（不影响功能，例如空格、分号等格式修正）',
-        emoji: ':lipstick:',
       },
       {
         value: 'refactor',
         name: 'refactor: 代码重构（不包括 bug 修复、功能新增）',
-        emoji: ':recycle:',
       },
-      { value: 'perf', name: 'perf:     性能优化', emoji: ':zap:' },
-      { value: 'test', name: 'test:     测试相关', emoji: ':white_check_mark:' },
+      { value: 'perf', name: 'perf:     性能优化' },
+      { value: 'test', name: 'test:     测试相关' },
       {
         value: 'build',
         name: 'build:    构建相关',
-        emoji: ':package:',
       },
-      { value: 'ci', name: 'ci:       修改 CI 配置、脚本', emoji: ':ferris_wheel:' },
+      { value: 'ci', name: 'ci:       修改 CI 配置、脚本' },
 
-      { value: 'revert', name: 'revert:   回滚 commit', emoji: ':rewind:' },
+      { value: 'revert', name: 'revert:   回滚 commit' },
       {
         value: 'chore',
         name: 'chore:    对构建过程或辅助工具和库的更改（不影响源文件、测试用例）',
-        emoji: ':hammer:',
       },
     ],
     useEmoji: true,
