@@ -26,6 +26,7 @@ declare module 'vue' {
     SfApp: typeof import('@components/app/index.vue')['default']
     SfIcon: typeof import('@components/icon/index.vue')['default']
     SfInput: typeof import('@components/input/index.vue')['default']
+    SfLogin: typeof import('@components/login/index.vue')['default']
     SfMenu: typeof import('@components/menu/index.vue')['default']
     SfMixImg: typeof import('@components/mixImg/index.vue')['default']
     SfModal: typeof import('@components/modal/index.vue')['default']

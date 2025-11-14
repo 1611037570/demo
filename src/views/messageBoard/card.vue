@@ -7,7 +7,7 @@
     <div
       class="font-semibold text-black/72 p-4 text-base flex h-full w-full flex-1 items-center justify-center text-center break-words whitespace-normal"
     >
-      {{ message }}
+      {{ item.content }}
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 <script setup>
 import { getRandomItem } from '@/utils'
 import { useId } from 'vue'
-import { colors, list } from './data'
+import { colors } from './data'
 const id = useId()
 const topId = defineModel('topId')
 function handleClick() {
@@ -32,13 +32,12 @@ const props = defineProps({
   },
 })
 
-const message = getRandomItem(list)
 const zIndex = Math.floor(Math.random() * 10)
 const backgroundColor = getRandomItem(colors)
 const cardStyle1 = computed(() => {
   return {
     background: props.item.type === 'fixed' ? 'red' : backgroundColor,
-    zIndex: topId.value === id ? 9999999 : zIndex,
+    zIndex: topId.value === id ? 9999999 : props.item.type === 'fixed' ? 50 : zIndex,
   }
 })
 </script>

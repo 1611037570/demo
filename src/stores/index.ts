@@ -24,3 +24,6 @@ export { useShortcutStore } from './modules/shortcut'
 
 // 便签相关store
 export { useNoteStore } from './modules/note'
+
+// 用户相关store
+export { useUserStore } from './modules/user'

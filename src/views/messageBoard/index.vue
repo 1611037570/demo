@@ -1,5 +1,15 @@
 <template>
-  <SfViewContainer title="许愿墙">
+  <SfViewContainer title="留言板">
+    <template #right>
+      <!-- 生成按钮 -->
+      <button
+        class="add-cards-btn px-2 py-1 text-lg font-semibold text-gray-800 bg-white bg-opacity-95 border-gray-200 shadow-lg hover:bg-white hover:shadow-xl transform cursor-pointer rounded-full border transition-all duration-200 outline-none hover:scale-105 active:scale-95"
+        @click="generateCards"
+        :disabled="isGenerating"
+      >
+        {{ isGenerating ? `生成中...` : `重新获取` }}
+      </button>
+    </template>
     <!-- 便签墙 - 简化样式配置 -->
     <div
       ref="noteWallContainer"
@@ -20,14 +30,7 @@
         :color="card.color"
         :card-style="getCardStyle(card)"
       />
-      <!-- 生成按钮 -->
-      <button
-        class="add-cards-btn px-8 py-4 text-lg font-semibold text-gray-800 bg-white bg-opacity-95 border-gray-200 shadow-lg hover:bg-white hover:shadow-xl fixed top-1/2 left-1/2 z-[999999] -translate-x-1/2 -translate-y-1/2 transform cursor-pointer rounded-full border transition-all duration-200 outline-none hover:scale-105 active:scale-95"
-        @click="generateCards"
-        :disabled="isGenerating"
-      >
-        {{ isGenerating ? `生成中...` : `生成${TOTAL_CARDS}个便签` }}
-      </button>
+
       <!-- 加载指示器 -->
       <div
         class="gap-4 text-gray-800 bg-white bg-opacity-95 p-5 rounded-2xl shadow-xl backdrop-blur-sm fixed top-1/2 left-1/2 z-[1000001] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center"
@@ -43,21 +46,21 @@
 </template>
 
 <script setup>
-import { getRandomItem } from '@/utils'
+import { getRandomItem, getUUID } from '@/utils'
 import { useResizeObserver } from '@vueuse/core'
 
 import { nextTick, ref, shallowRef } from 'vue'
 import Card from './card.vue'
+import {
+  BATCH_SIZE,
+  CARD_HEIGHT,
+  CARD_MARGIN,
+  CARD_WIDTH,
+  MAX_COLLISION_RETRIES,
+  MAX_ROTATE_ANGLE,
+  TOTAL_CARDS,
+} from './config'
 import { colors, fixedList, list } from './data'
-
-// 核心配置
-const TOTAL_CARDS = 200
-const BATCH_SIZE = 50
-const MAX_COLLISION_RETRIES = 15
-const CARD_WIDTH = 220
-const CARD_HEIGHT = 140
-const CARD_MARGIN = 16
-const MAX_ROTATE_ANGLE = 20
 
 const waitForNextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve))
 
@@ -70,6 +73,10 @@ const topId = ref('')
 const noteWallContainer = ref(null)
 const containerSize = ref({ width: 0, height: 0 })
 
+// 持久化索引，用于追踪fixedList和list的使用位置
+let fixedIdx = 0,
+  listIdx = 0
+
 // 监听容器大小
 useResizeObserver(noteWallContainer, (entries) => {
   if (entries[0]) {
@@ -80,8 +87,8 @@ useResizeObserver(noteWallContainer, (entries) => {
 
 // 获取有效区域
 const getViewportValidArea = () => {
-  const width = containerSize.value.width || 800
-  const height = containerSize.value.height || 600
+  const width = containerSize.value.width
+  const height = containerSize.value.height
   return {
     maxLeft: width - CARD_WIDTH - CARD_MARGIN,
     maxTop: height - CARD_HEIGHT - CARD_MARGIN,
@@ -106,8 +113,11 @@ const getSafeCardPosition = (existingCards) => {
   const { maxLeft, maxTop } = getViewportValidArea()
   let retries = 0
   let pos = generateRandomPosition(maxLeft, maxTop)
-  
-  while (retries < MAX_COLLISION_RETRIES && existingCards.some(card => isCardCollided(pos, card))) {
+
+  while (
+    retries < MAX_COLLISION_RETRIES &&
+    existingCards.some((card) => isCardCollided(pos, card))
+  ) {
     pos = generateRandomPosition(maxLeft, maxTop)
     retries++
   }
@@ -116,7 +126,7 @@ const getSafeCardPosition = (existingCards) => {
 
 // 创建便签
 const createSingleCard = (id, centerX, centerY) => ({
-  id,
+  id: getUUID(),
   angle: (Math.random() - 0.5) * MAX_ROTATE_ANGLE,
   centerX,
   centerY,
@@ -128,11 +138,12 @@ const createSingleCard = (id, centerX, centerY) => ({
 // 生成便签
 const generateCards = async () => {
   if (isGenerating.value) return
-  
+
   isGenerating.value = true
   cards.value = []
   showLoading.value = true
   loadingText.value = `生成中... 0/${TOTAL_CARDS}`
+  resetIndices()
 
   try {
     const { centerX, centerY } = getViewportValidArea()
@@ -144,7 +155,7 @@ const generateCards = async () => {
 
       cards.value = [...cards.value, ...currentBatch]
       await nextTick()
-      currentBatch.forEach(card => card.visible = true)
+      currentBatch.forEach((card) => (card.visible = true))
 
       loadingText.value = `生成中... ${endId}/${TOTAL_CARDS}`
       await waitForNextFrame()
@@ -161,7 +172,10 @@ const generateCards = async () => {
     setTimeout(() => (showLoading.value = false), 1500)
   }
 }
-
+onMounted(async () => {
+  await nextTick()
+  setTimeout(() => generateCards(), 1000)
+})
 const calculateBatchRange = (batchIndex) => {
   const startId = batchIndex * BATCH_SIZE
   return [startId, Math.min(startId + BATCH_SIZE, TOTAL_CARDS)]
@@ -170,12 +184,13 @@ const calculateBatchRange = (batchIndex) => {
 const createBatchCards = (startId, endId, centerX, centerY) => {
   const batchCards = []
   const existingCards = [...cards.value, ...batchCards]
-  let fixedIdx = 0, listIdx = 0
 
   for (let cardId = startId; cardId < endId; cardId++) {
-    let content = '', type = 'random'
-    
+    let content = '',
+      type = 'random'
+
     if (fixedIdx < fixedList.length) {
+      console.log(fixedList, 'fixedIdx', fixedIdx)
       content = fixedList[fixedIdx]
       type = 'fixed'
       fixedIdx++
@@ -197,18 +212,22 @@ const createBatchCards = (startId, endId, centerX, centerY) => {
   return batchCards
 }
 
-
+// 重置索引（在生成新的便签集时使用）
+const resetIndices = () => {
+  fixedIdx = 0
+  listIdx = 0
+}
 
 // 计算便签样式
 const getCardStyle = (card) => {
   const offsetX = card.targetLeft - card.centerX
   const offsetY = card.targetTop - card.centerY
-  
+
   return {
     left: `${card.centerX}px`,
     top: `${card.centerY}px`,
     opacity: card.visible ? 1 : 0,
-    transform: card.visible 
+    transform: card.visible
       ? `scale(1) rotate(${card.angle}deg) translate(${offsetX}px, ${offsetY}px)`
       : `scale(0.1) rotate(${card.angle}deg)`,
     transition: card.visible ? 'transform 0.5s ease-out, opacity 0.5s ease-out' : 'none',

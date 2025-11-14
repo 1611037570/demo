@@ -9,7 +9,7 @@
       <div class="right-3 flex-c absolute top-1/2 -translate-y-1/2">
         <slot name="right"></slot>
         <SfTheme class="mx-3" />
-        <el-dropdown>
+        <ElDropdown>
           <ElButton> 更多工具 </ElButton>
           <template #dropdown>
             <el-dropdown-menu>
@@ -22,34 +22,32 @@
               >
             </el-dropdown-menu>
           </template>
-        </el-dropdown>
+        </ElDropdown>
       </div>
     </div>
     <div class="w-full flex-1">
       <slot />
     </div>
-    <div class="flex-c gap-2 my-1">
-      <div
-        class="py-1 px-3 text-xs backdrop-blur-sm shadow-sm flex-c flex-col rounded-full border bg-sf-transparent-2 text-sf-theme"
-      >
-        <div>© 2020-2025</div>
-        <div class="flex-c">
-          版权所有：
-          <span
-            @click="goMy"
-            class="font-medium cursor-pointer transition-colors duration-300 hover:text-sf-theme-hover"
-          >
-            XiaoYang</span
-          >
-        </div>
-        <div class="flex-c">
-          技术支持：
-          <span
-            @click="back"
-            class="font-medium cursor-pointer transition-colors duration-300 hover:text-sf-theme-hover"
-            >雪花起始页</span
-          >
-        </div>
+    <div
+      class="py-1 px-3 text-xs backdrop-blur-sm shadow-sm flex-c flex-col border bg-sf-transparent-2 text-sf-theme"
+    >
+      <div>© 2020-2025</div>
+      <div class="flex-c">
+        版权所有：
+        <span
+          @click="goMy"
+          class="font-medium cursor-pointer transition-colors duration-300 hover:text-sf-theme-hover"
+        >
+          XiaoYang</span
+        >
+      </div>
+      <div class="flex-c">
+        技术支持：
+        <span
+          @click="back"
+          class="font-medium cursor-pointer transition-colors duration-300 hover:text-sf-theme-hover"
+          >雪花起始页</span
+        >
       </div>
     </div>
   </div>
