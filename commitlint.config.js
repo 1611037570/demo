@@ -89,7 +89,7 @@ export default {
     allowBreakingChanges: ['feat', 'fix'],
     breaklineNumber: 100,
     breaklineChar: '|',
-    // 跳过的问题
+    // 跳过的步骤
     skipQuestions: [
       'scope',
       'customScope',
