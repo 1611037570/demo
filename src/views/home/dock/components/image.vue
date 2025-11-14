@@ -17,8 +17,9 @@ vue
 </template>
 
 <script setup>
+import { openUrl } from '@/utils'
 function goImage() {
-  window.open('/image', '_blank')
+  openUrl('image')
 }
 </script>
 

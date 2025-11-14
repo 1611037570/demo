@@ -32,6 +32,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { onKeyStroke } from '@vueuse/core'
 const props = defineProps({
   title: {
     type: String,
@@ -41,6 +42,12 @@ const props = defineProps({
 
 const mask = useTemplateRef('mask')
 const modeValue = defineModel()
+// 监听esc键关闭弹窗
+onKeyStroke('Escape', () => {
+  if (modeValue.value) {
+    modeValue.value = false
+  }
+})
 
 const { x, y, width, height } = useElementBounding(mask)
 const multiple = 55

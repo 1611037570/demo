@@ -9,14 +9,13 @@
 
 <script setup>
 import { useResumeStore } from '@/stores'
+import { openUrl } from '@/utils'
 import { storeToRefs } from 'pinia'
 const resumeStore = useResumeStore()
 const { indexVisible, list } = storeToRefs(resumeStore)
 
-const router = useRouter()
-
 const openResume = () => {
-  router.push('/resume')
+  openUrl('resume')
 }
 </script>
 
