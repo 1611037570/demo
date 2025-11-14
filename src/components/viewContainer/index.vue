@@ -8,6 +8,7 @@
       <div class="text-2xl font-bold">{{ title }}</div>
       <div class="right-3 flex-c absolute top-1/2 -translate-y-1/2">
         <slot name="right"></slot>
+        <SfTheme class="mx-3" />
         <el-dropdown>
           <ElButton> 更多工具 </ElButton>
           <template #dropdown>

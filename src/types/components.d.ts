@@ -10,6 +10,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
@@ -31,6 +34,8 @@ declare module 'vue' {
     SfSetItem: typeof import('@components/setItem/index.vue')['default']
     SfSetTitle: typeof import('@components/setTitle/index.vue')['default']
     SfTab: typeof import('@components/tab/index.vue')['default']
+    SfTheme: typeof import('@components/theme/index.vue')['default']
     SfTooltip: typeof import('@components/tooltip/index.vue')['default']
+    SfViewContainer: typeof import('@components/viewContainer/index.vue')['default']
   }
 }
