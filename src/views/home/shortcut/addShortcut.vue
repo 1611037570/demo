@@ -1,7 +1,7 @@
 <script setup>
-import { useHomeStore } from '@/stores'
+import { useShortcutStore } from '@/stores'
 
-const homeStore = useHomeStore()
+const shortcutStore = useShortcutStore()
 
 const name = ref('')
 const url = ref('')
@@ -10,7 +10,8 @@ const add = () => {
     ElMessage.error('请输入应用名称和URL')
     return
   }
-  homeStore.addShortcut({
+  console.log('name', shortcutStore.addShortcut)
+  shortcutStore.addShortcut({
     name: name.value,
     url: url.value,
   })

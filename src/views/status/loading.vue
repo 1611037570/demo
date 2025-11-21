@@ -10,9 +10,9 @@
 <style scoped>
 .loading-spinner {
   border: 4px solid rgba(0, 0, 0, 0);
-  border-left-color: var(--sf-color-text);
-  border-top-color: var(--sf-color-text);
-  border-right-color: var(--sf-color-text);
+  border-left-color: var(--sf-text);
+  border-top-color: var(--sf-text);
+  border-right-color: var(--sf-text);
   animation: spin 1.2s linear infinite;
 }
 

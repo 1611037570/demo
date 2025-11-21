@@ -17,7 +17,7 @@
     "iconify.iconify-intellisense",
     // 代码拼写检查器
     "streetsidesoftware.code-spell-checker",
-    // i18n Ally 国际化插件 (最新官方ID)
+    // i18n Ally 国际化插件
     "lokalise.i18n-ally"
   ]
 }

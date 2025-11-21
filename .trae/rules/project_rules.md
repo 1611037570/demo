@@ -1,6 +1,6 @@
+0、推理和对话全程请保持语言为中文
 1、template开发时减少过多的div嵌套。
-0、使用自定义 Snowflake主题色类名，参考知识库开发文档中的主题色彩章节
-1、对话全程请保持语言为中文
+2、使用自定义 Snowflake主题色类名，参考知识库开发文档中的主题色彩章节
 3、vue文件使用setup语法糖，如果是./src/components/目录下的组件使用ts开发，其他组件使用js开发
 4、组件使用./src/components/目录下的，如果没有使用elementplus的组件，已全局挂载直接使用，无需导入
 4、样式使用 Tailwind CSS，在Tailwind实在不能实现的情况下，才使用style。

@@ -1,6 +1,6 @@
 <script setup>
 import { useSearchStore } from '@/stores'
-import { useEventListener } from '@vueuse/core'
+import { onKeyStroke } from '@vueuse/core'
 const searchStore = useSearchStore()
 const { searchValue, currentIndex } = storeToRefs(searchStore)
 
@@ -27,41 +27,39 @@ const setCurrentIndex = (index) => {
   }
 }
 
-// 处理键盘事件
-const handleKeydown = (event) => {
+// 监听上箭头键
+onKeyStroke('ArrowUp', (event) => {
   console.log('event.key', event.key)
+  event.preventDefault()
+  const newIndex = currentIndex.value <= 0 ? listLength.value - 1 : currentIndex.value - 1
+  setCurrentIndex(newIndex)
+})
 
-  let newIndex = currentIndex.value
-  if (event.key === 'ArrowUp') {
-    event.preventDefault()
-    newIndex = currentIndex.value <= 0 ? listLength.value - 1 : currentIndex.value - 1
-    setCurrentIndex(newIndex)
-  } else if (event.key === 'ArrowDown') {
-    event.preventDefault()
-    let index = currentIndex.value + 1
-    if (index >= listLength.value) {
-      index = 0
-    }
-    newIndex = index
-    console.log('newIndex', newIndex)
-    setCurrentIndex(newIndex)
+// 监听下箭头键
+onKeyStroke('ArrowDown', (event) => {
+  console.log('event.key', event.key)
+  event.preventDefault()
+  let index = currentIndex.value + 1
+  if (index >= listLength.value) {
+    index = 0
   }
-}
-
-useEventListener(document, 'keydown', handleKeydown)
+  const newIndex = index
+  console.log('newIndex', newIndex)
+  setCurrentIndex(newIndex)
+})
 </script>
 
 <template>
   <div
     v-for="(item, index) in list"
     :key="item"
-    class="rounded-lg px-2 py-1.5 text-sm hover:bg-blue-100 hover:text-blue-700 flex cursor-pointer items-center whitespace-nowrap text-sf-text transition-all duration-200"
+    class="flex cursor-pointer items-center rounded-lg px-2 py-1.5 text-sm whitespace-nowrap text-sf-text transition-all duration-200 hover:bg-blue-100 hover:text-blue-700"
     :class="{ 'bg-blue-100 text-sf-theme': currentIndex === index }"
     @click="setCurrentIndex(index)"
   >
     <div class="flex flex-1 items-center overflow-hidden">
       <div
-        class="w-6 h-6 mr-3 text-xs text-white font-bold shadow-xl inline-flex items-center justify-center rounded-[6px] transition-colors duration-200"
+        class="mr-3 inline-flex h-6 w-6 items-center justify-center rounded-[6px] text-xs font-bold text-white shadow-xl transition-colors duration-200"
         :style="{
           background: index < style.length ? style[index] : ' var(--color-sf-theme-hover) ',
         }"

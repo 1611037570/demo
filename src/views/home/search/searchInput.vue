@@ -1,13 +1,13 @@
 <template>
   <div
-    class="translate translate h-10 rounded-3xl shadow-3xl relative flex items-center transition-all duration-300"
+    class="translate translate shadow-3xl relative flex h-10 items-center rounded-3xl transition-all duration-300"
     :class="[
       searchFocus ? 'bg-sf-primary' : 'bg-sf-transparent-2 hover:bg-sf-transparent',
       searchFocus ? 'w-[590px]' : 'w-[230px] hover:w-[590px]',
     ]"
     style="backdrop-filter: blur(10px) saturate(1.5)"
   >
-    <div v-if="searchFocus" class="left-2 absolute top-1/2 z-10 -translate-y-1/2">
+    <div v-if="searchFocus" class="absolute top-1/2 left-2 z-10 -translate-y-1/2">
       <SfTooltip
         v-if="expressionsVisible"
         :info="
@@ -24,7 +24,7 @@
       </SfTooltip>
       <SfTooltip v-else :info="currentSource.type">
         <div
-          class="flex-c sf-theme-element h-7 rounded-xl px-2 text-xs font-medium hover:shadow-md overflow-hidden transition-all duration-300"
+          class="flex-c sf-theme-element h-7 overflow-hidden rounded-xl px-2 text-xs font-medium transition-all duration-300 hover:shadow-md"
           @click.stop="toggleSourceMenu"
         >
           <div class="flex items-center justify-center">
@@ -49,7 +49,7 @@
     </div>
     <div
       v-if="searchFocus"
-      class="right-3 absolute top-1/2 z-10 flex -translate-y-1/2 items-center"
+      class="absolute top-1/2 right-3 z-10 flex -translate-y-1/2 items-center"
     >
       <SfTooltip info="按del或点击删除内容" v-if="handleValue" class="mr-1">
         <SfIcon icon="carbon:close-outline" size="6" @click.stop="clearSearch" />
@@ -77,7 +77,7 @@
       :clearable="false"
       @keyup.enter="getResult"
       @focus="handleFocus"
-      class="translate h-10 rounded-lg text-white relative bg-transparent"
+      class="translate relative h-10 rounded-lg bg-transparent text-white"
       :class="searchFocus ? 'px-22' : ''"
     >
     </SfInput>
@@ -87,7 +87,7 @@
 <script setup>
 import { webSource } from '@/datas/search.data'
 import { useSearchStore } from '@/stores'
-import { useEventListener } from '@vueuse/core'
+import { onKeyStroke } from '@vueuse/core'
 
 import { evaluate, parse } from 'mathjs'
 
@@ -184,22 +184,19 @@ const { pause } = useIntervalFn(
 )
 
 // 监听tab切换
-useEventListener(document, 'keydown', (e) => {
-  // tab事件
-  if (e.key === 'Tab') {
-    if (searchFocus.value && expressionsFlag.value) {
-      e.preventDefault()
-      expressionsLock.value = !expressionsLock.value
-      return
-    }
+onKeyStroke('Tab', (e) => {
+  if (searchFocus.value && expressionsFlag.value) {
+    e.preventDefault()
+    expressionsLock.value = !expressionsLock.value
+    return
+  }
 
-    if (searchFocus.value) {
-      e.preventDefault()
+  if (searchFocus.value) {
+    e.preventDefault()
 
-      // 切换到下一个搜索源下标
-      const nextIndex = (currentWebIndex.value + 1) % webSource.value.length
-      currentWebIndex.value = nextIndex
-    }
+    // 切换到下一个搜索源下标
+    const nextIndex = (currentWebIndex.value + 1) % webSource.value.length
+    currentWebIndex.value = nextIndex
   }
 })
 </script>

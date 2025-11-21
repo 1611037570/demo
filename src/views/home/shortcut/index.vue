@@ -4,7 +4,7 @@ import { useShortcutStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { VueDraggable } from 'vue-draggable-plus'
 import AddShortcut from './addShortcut.vue'
-const { click, fileList } = useFileDialog()
+const { click } = useFileDialog()
 const shortcutStore = useShortcutStore()
 const { shortcutList } = storeToRefs(shortcutStore)
 
@@ -25,10 +25,6 @@ const onEnd = (e) => {
 const onUpdate = () => {
   console.log('update')
 }
-const isInit = ref(false)
-onMounted(async () => {
-  isInit.value = true
-})
 
 const handleAdd = () => {
   addVisible.value = true
@@ -66,8 +62,7 @@ const menuList = computed(() => [
       :style="{
         zoom: zoom,
       }"
-      class="top-41 gap-5 fixed left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5"
-      v-if="isInit"
+      class="fixed top-41 left-1/2 z-10 mx-auto grid w-[680px] -translate-x-1/2 transform grid-cols-5 gap-5"
       v-model="shortcutList"
       ghostClass="bg-amber-500"
       @start="onStart"

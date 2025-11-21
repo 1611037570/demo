@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/stores'
+import { loadElLocale, loadTheme } from '@/utils'
 import LoadingComponent from '@views/status/loading.vue'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-
-const themeStore = useThemeStore()
-const { initTheme } = themeStore
-initTheme()
+// 加载主题
+loadTheme()
+// 加载element-plus的locale
+const currentElLocale: any = loadElLocale()
 
 // https://cdn.jsdelivr.net/npm/pinyin@4.0.0/lib/umd/pinyin.min.js
 // https://www.bootcdn.cn/
 // https://www.jsdelivr.com/?query=vue
 </script>
 <template>
-  <ElConfigProvider :locale="zhCn">
+  <ElConfigProvider :locale="currentElLocale">
     <Suspense>
       <!-- 默认插槽 -->
       <template #default>
@@ -28,4 +27,4 @@ initTheme()
   </ElConfigProvider>
 </template>
 
-<style scoped></style>
+<style></style>

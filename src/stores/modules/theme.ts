@@ -9,7 +9,8 @@ export const useThemeStore = defineStore(
     // 切换主题模式
     function setTheme(mode: 'light' | 'dark') {
       themeMode.value = mode
-      document.documentElement.setAttribute('data-theme', themeMode.value)
+      document.documentElement.classList.remove('light', 'dark')
+      document.documentElement.classList.add(themeMode.value)
     }
     function initTheme() {
       setTheme(themeMode.value)

@@ -36,7 +36,7 @@ export default ({ mode }: { mode: string }) => {
   // 从环境文件加载环境变量
   const env = loadEnv(mode, process.cwd())
   // 从环境变量中提取配置项
-  const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_APP_TITLE } = env
+  const { VITE_PORT, VITE_BASE_URL, VITE_APP_TITLE, VITE_DEFAULT_LANG } = env
   return defineConfig({
     // 基础路径配置
     base: VITE_BASE_URL,
@@ -59,13 +59,22 @@ export default ({ mode }: { mode: string }) => {
         inject: {
           data: {
             title: VITE_APP_TITLE, // 静态变量
+            defaultLang: VITE_DEFAULT_LANG, // 默认语言
           },
         },
       }),
       // 自动导入配置
       AutoImport({
         resolvers: [ElementPlusResolver()], // Element Plus解析器
-        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'], // 自动导入模块
+        imports: [
+          'vue',
+          'vue-router',
+          '@vueuse/core',
+          'pinia',
+          {
+            '@/locales': ['$t'],
+          },
+        ], // 自动导入模块
         dts: 'src/types/autoImports.d.ts', // 类型声明文件路径
       }),
       // 组件自动注册配置
@@ -135,33 +144,8 @@ export default ({ mode }: { mode: string }) => {
             deleteOriginFile: false, // 是否删除源文件
           }),
         ],
-        // 输出配置
         output: {
-          experimentalMinChunkSize: 10 * 1024, // 实验性最小 chunk 大小
-          // 优化打包分割策略
-          manualChunks: (id: string) => {
-            if (id.includes('node_modules')) {
-              // 基础库单独打包
-              if (
-                id.includes('vue') ||
-                id.includes('@vue') ||
-                id.includes('pinia') ||
-                id.includes('vue-router')
-              ) {
-                return 'vendor.vue'
-              } else if (id.includes('element-plus')) {
-                // Element Plus 组件库单独打包
-                return 'vendor.element-plus'
-              } else if (id.includes('@vueuse')) {
-                // VueUse 工具库单独打包
-                return 'vendor.vueuse'
-              } else if (id.includes('@iconify')) {
-                // 图标相关库单独打包
-                return 'vendor.iconify'
-              }
-              return id.toString().split('node_modules/')[1].split('/')[0].toString()
-            }
-          },
+          manualChunks: () => {},
         },
       },
     },

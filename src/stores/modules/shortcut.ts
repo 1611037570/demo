@@ -1,13 +1,14 @@
 import { default_data, default_list } from '@/datas/home.data'
 import { getUUID } from '@/utils'
 import { defineStore } from 'pinia'
-import pinyin from 'pinyin'
 
 export const useShortcutStore = defineStore(
   'shortcut',
   () => {
     // 数据列表
     function getPinyin(str: string) {
+      const pinyin = import('pinyin')
+      console.log('pinyin', pinyin)
       const pinyinStr: any = pinyin(str, {
         // 紧凑风格
         compact: true,
@@ -25,14 +26,14 @@ export const useShortcutStore = defineStore(
         ...default_data,
         ...item,
         id: item?.id || getUUID(),
-        pinyin: item?.pinyin || getPinyin(item.name),
+        // pinyin: item?.pinyin || getPinyin(item.name),
       }))
     }
 
     const fixedList = computed(() => {
       return shortcutList.value.filter((item: any) => item.top)
     })
-    const addShortcut = (item: any) => {
+    function addShortcut(item: any) {
       shortcutList.value.push({
         ...default_data,
         ...item,

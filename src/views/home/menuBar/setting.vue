@@ -1,8 +1,8 @@
 <template>
   <sf-icon
-    icon="fluent:settings-24-regular"
-    size="6"
-    class="transition-all duration-200 hover:rotate-180"
+    icon="iconamoon:settings-fill"
+    size="8"
+    class="text-sf-base transition-all duration-200 hover:rotate-180"
     @click="openSet"
   />
 </template>

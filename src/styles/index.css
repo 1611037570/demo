@@ -1,5 +1,6 @@
-@import 'tailwindcss';
 /* @import './fonts.css'; */
 @import './base.css';
 
 @import './tailwind.css';
+
+@import './el.scss';

@@ -1,18 +1,21 @@
 <template>
-  <el-input v-model="modelValue" v-bind="$attrs" class="text-sf-text" spellcheck="false">
-    <template #prefix>
-      <slot name="prefix"></slot>
-    </template>
-    <template #suffix>
-      <slot name="suffix"></slot>
-    </template>
-  </el-input>
+  <Component
+    class="text-sf-text"
+    spellcheck="false"
+    :is="h(ElInput, { ...$attrs, ref: changeRef }, $slots)"
+  />
 </template>
 
-<script setup>
-const modelValue = defineModel({
-  default: '',
-})
+<script setup lang="ts">
+import { ElInput } from 'element-plus'
+import type { ComponentInstance } from 'vue'
+import { getCurrentInstance, h } from 'vue'
+const vm = getCurrentInstance()
+
+function changeRef(exports) {
+  vm.exposed = exports
+}
+defineExpose({} as ComponentInstance<typeof ElInput>)
 </script>
 
 <style scoped>

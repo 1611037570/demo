@@ -1,10 +1,10 @@
 <template>
   <div
-    class="bottom-0 fixed left-1/2 z-20 flex -translate-x-1/2 flex-col items-center transition-all duration-300"
+    class="fixed bottom-0 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center transition-all duration-300"
     :class="dockClass"
   >
     <div
-      class="translate rounded-xl p-2.5 flex max-h-[60px] min-h-[60px] w-auto items-end bg-sf-transparent-2 transition-all duration-300"
+      class="translate flex max-h-[60px] min-h-[60px] w-auto items-end rounded-xl bg-sf-transparent-2 p-2.5 transition-all duration-300"
       ref="menuRef"
       style="-webkit-backdrop-blur: 10px; backdrop-filter: blur(10px)"
       @mousemove="handleMouseMove"
@@ -83,7 +83,6 @@ const throttledWindowMouseMove = useThrottleFn((e) => {
   dockVisible.value = windowHeight.value - e.clientY < 300
 }, 30) // 30ms节流间隔
 
-// 使用useEventListener自动管理事件监听器的生命周期
 useEventListener(window, 'mousemove', throttledWindowMouseMove, { passive: true })
 // 缩放计算
 const getScale = (mouseX, element) => {

@@ -1,16 +1,14 @@
 <script setup>
-import I18n from './i18n.vue'
 import Setting from './setting.vue'
-import Theme from './theme.vue'
 import Tip from './tip.vue'
 </script>
 
 <template>
-  <div class="top-12 right-12 gap-3 fixed z-20 flex items-center">
+  <div class="fixed top-12 right-12 z-20 flex items-center gap-3">
     <Tip />
-    <div class="gap-3 flex items-center">
-      <I18n />
-      <Theme />
+    <div class="flex items-center gap-3">
+      <SfTheme />
+      <SfLocale />
       <Setting />
     </div>
   </div>

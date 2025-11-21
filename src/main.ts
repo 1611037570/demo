@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 // 导入 Vue 应用创建函数
 import { createApp } from 'vue'
+// 导入 i18n 配置
+import i18n from './locales'
 
 // 导入根组件
 import App from './App.vue'
@@ -14,6 +16,8 @@ import './styles/index.css'
 
 // 创建 Vue 应用实例
 const app = createApp(App)
+// 注册 i18n 插件
+app.use(i18n)
 // 创建 Pinia 实例
 const pinia = createPinia()
 

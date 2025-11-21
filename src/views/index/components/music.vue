@@ -38,7 +38,7 @@ const togglePlay = () => {
 </script>
 <!-- https://kaifa.baidu.com/ -->
 <template>
-  <div class="top-12 right-12 fixed z-99" v-if="audioUrl">
+  <div class="fixed top-12 right-12 z-99" v-if="audioUrl">
     <audio
       ref="audioPlayer"
       :src="audioUrl"
@@ -47,19 +47,21 @@ const togglePlay = () => {
       autoplay
       @loadeddata="onAudioLoaded"
     ></audio>
-    <div class="relative group">
+    <div class="group relative">
       <!-- 左侧信息div，默认隐藏，鼠标悬停时展开 -->
-      <div class="absolute right-full mr-3 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 text-sm text-sf-text opacity-0 transform translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+      <div
+        class="absolute right-full mr-3 translate-x-4 transform rounded-lg bg-white/90 px-4 py-2 text-sm text-sf-text opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+      >
         音乐播放器
       </div>
       <!-- 播放按钮 -->
       <div
         @click="togglePlay"
-        class="bg-white/80 backdrop-blur-sm flex cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-white"
+        class="flex cursor-pointer items-center justify-center rounded-full bg-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white"
       >
         <SfIcon
           :icon="isPlaying ? 'lucide:pause' : 'lucide:play'"
-          class="w-5 h-5 text-sf-primary transition-colors duration-300 hover:text-sf-theme"
+          class="h-5 w-5 text-sf-primary transition-colors duration-300 hover:text-sf-theme"
           :class="isPlaying ? 'animate-spin' : ''"
         />
       </div>
